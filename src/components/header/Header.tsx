@@ -1,6 +1,7 @@
 import Logo from "./logo/Logo";
 import NavBar from "./navBar/NavBar";
 import UserIcon from "./userIcon/UserIcon";
+import Hamburger from "./hamburger/Hamburger";
 
 const Header: React.FC = (): React.ReactElement => {
   return (
@@ -8,6 +9,7 @@ const Header: React.FC = (): React.ReactElement => {
       <Logo />
       <NavBar />
       <UserIcon />
+      <Hamburger />
     </header>
   );
 };
