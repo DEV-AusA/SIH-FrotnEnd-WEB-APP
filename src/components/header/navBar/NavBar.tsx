@@ -6,7 +6,7 @@ import links from "@/helpers/links";
 const NavBar: React.FC = (): React.ReactElement => {
   const pathname = usePathname();
   return (
-    <ul className="w-full max-lg:hidden flex items-center justify-between px-16">
+    <ul className="w-full max-xl:hidden flex items-center justify-between px-16">
       {links.map((link) => {
         return (
           <Link

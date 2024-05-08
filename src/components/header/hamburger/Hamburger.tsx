@@ -18,45 +18,50 @@ const Hamburger: React.FC = (): React.ReactElement => {
   };
 
   return (
-    <div className="lg:hidden">
-      <Image
-        onClick={HamburgerClick}
-        width={50}
-        height={50}
-        src="/icons/hamburger.png"
-        alt="Secure Ingress Home"
-      />
-      <div
-        className={`${open ? "h-full bg-[#384B59] fixed right-0 top-0 w-60 z-10 border-l-2 border-slate-500" : "hidden"}`}
-      >
-        <button
-          className="block p-6 text-[#FFBD5C] text-3xl font-bold"
-          onClick={HamburgerClick}
-        >
-          X
-        </button>
+    <div>
+      <div className={`${open ? "hidden" : "xl:hidden cursor-pointer"}`}>
         <Image
-          className="grid grid-cols-1 place-self-center"
+          onClick={HamburgerClick}
           width={50}
           height={50}
-          src="/icons/UserIcon.png"
+          src="/icons/hamburger.png"
           alt="Secure Ingress Home"
         />
-        <ul className="grid grid-cols-1 place-content-center">
-          {links.map((link) => {
-            return (
-              <Link
-                href={link.href}
-                key={link.name}
-                className={`text-xl hover:text-[#FFBD5C]
+      </div>
+      <div
+        className={`${open ? "h-full bg-[#384B59] fixed right-0 top-0 w-60 z-10 border-l-2 border-slate-500 flex flex-col text-center xl:hidden" : "hidden"}`}
+      >
+        <div>
+          <button
+            className="block p-6 text-[#FFBD5C] text-3xl font-bold"
+            onClick={HamburgerClick}
+          >
+            X
+          </button>
+        </div>
+        <div className="flex flex-col items-center">
+          <Image
+            width={50}
+            height={50}
+            src="/icons/UserIcon.png"
+            alt="Secure Ingress Home"
+          />
+          <ul className="flex flex-col my-5">
+            {links.map((link) => {
+              return (
+                <Link
+                  href={link.href}
+                  key={link.name}
+                  className={`text-xl my-2 hover:text-[#FFBD5C]
 
                         ${pathname === link.href ? "cursor-default text-[#FFBD5C] disabled" : ""}`}
-              >
-                {link.text}
-              </Link>
-            );
-          })}
-        </ul>
+                >
+                  {link.text}
+                </Link>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </div>
   );
