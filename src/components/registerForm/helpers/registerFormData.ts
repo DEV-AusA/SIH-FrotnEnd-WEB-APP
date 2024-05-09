@@ -15,18 +15,18 @@ export const formData = [
     placeholder: "Correo electrónico",
   },
   {
-    name: "username",
+    name: "user",
     type: "text",
     placeholder: "Nombre de usuario",
   },
   {
-    name: "dni",
-    type: "text",
+    name: "document",
+    type: "number",
     placeholder: "Documento",
   },
   {
-    name: "phone",
-    type: "phone",
+    name: "cellphone",
+    type: "number",
     placeholder: "Teléfono",
   },
   {
@@ -40,7 +40,12 @@ export const formData = [
     placeholder: "Confirmar contraseña",
   },
   {
-    name: "houseCode",
+    name: "phone",
+    type: "number",
+    placeholder: "Teléfono fijo",
+  },
+  {
+    name: "code",
     type: "text",
     placeholder: "Código de vivienda",
   },
