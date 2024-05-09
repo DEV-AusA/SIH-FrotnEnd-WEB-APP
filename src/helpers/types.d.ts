@@ -1,15 +1,16 @@
 export interface ILogin {
-  email: string;
+  user: string;
   password: string;
 }
 export interface IRegister {
   name: string;
   lastName: string;
   email: string;
-  username: string;
-  dni: string;
+  user: string;
+  document: string;
   phone: string;
-  houseCode: string;
+  cellphone: string;
+  code: string;
   password: string;
   confirmpassword?: string;
 }
