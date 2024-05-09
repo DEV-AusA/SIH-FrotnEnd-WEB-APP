@@ -9,6 +9,12 @@
     "sourceType": "module"
   },
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "eqeqeq": ["error", "always"],
     "no-empty-function": [
       "error",
