@@ -20,6 +20,9 @@ const config: Config = {
         "sih-blue": "#384B59",
         "sih-orange": "#FFBD5C",
       },
+      boxShadow: {
+        button: "-8px 9px 14px 0px rgba(0,0,0,0.49);",
+      },
     },
   },
   plugins: [],
