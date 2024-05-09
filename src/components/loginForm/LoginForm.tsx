@@ -27,12 +27,12 @@ const LoginForm: React.FC = (): React.ReactElement => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
         {formData.map(({ name, type, placeholder }) => {
           return (
             <div key={name}>
               <input
-                className="text-black"
+                className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 mb-[10px]"
                 type={type}
                 id={name}
                 name={name}
@@ -54,9 +54,9 @@ const LoginForm: React.FC = (): React.ReactElement => {
             data.email.length === 0 ||
             Object.keys(errors).some((e) => errors[e as keyof ILogin])
           }
-          className=" bg-black"
+          className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
         >
-          Submit
+          Iniciar sesión
         </button>
       </form>
     </div>
