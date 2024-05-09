@@ -1,5 +1,19 @@
 import LandingBanner from "@/components/landingBanner";
 
 export default function Home() {
-  return <LandingBanner />;
+  return (
+    <main>
+      <LandingBanner />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+    </main>
+  );
 }
