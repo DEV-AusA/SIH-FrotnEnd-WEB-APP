@@ -34,36 +34,38 @@ const RegisterForm: React.FC = (): React.ReactElement => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        {formData.map(({ name, type, placeholder }) => {
-          return (
-            <div key={name}>
-              <input
-                className="text-black"
-                type={type}
-                id={name}
-                name={name}
-                value={data[name as keyof IRegister]}
-                placeholder={placeholder}
-                onChange={handleChange}
-              />
-              {errors[name as keyof IRegister] ? (
-                <span className="text-black">
-                  {errors[name as keyof IRegister]}
-                </span>
-              ) : null}
-            </div>
-          );
-        })}
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
+        <div className="flex flex-wrap justify-center">
+          {formData.map(({ name, type, placeholder }) => {
+            return (
+              <div key={name}>
+                <input
+                  className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 m-[10px]"
+                  type={type}
+                  id={name}
+                  name={name}
+                  value={data[name as keyof IRegister]}
+                  placeholder={placeholder}
+                  onChange={handleChange}
+                />
+                {errors[name as keyof IRegister] ? (
+                  <span className="text-black">
+                    {errors[name as keyof IRegister]}
+                  </span>
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
         <button
           type="submit"
           disabled={
             data.email.length === 0 ||
             Object.keys(errors).some((e) => errors[e as keyof IRegister])
           }
-          className=" bg-black"
+          className="bg-sih-blue h-[37px] w-[176px] rounded-[15px] text-base p-1 mt-[20px]"
         >
-          Submit
+          Regístrate
         </button>
       </form>
     </div>

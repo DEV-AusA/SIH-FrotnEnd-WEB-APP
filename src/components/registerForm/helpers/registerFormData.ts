@@ -30,11 +30,6 @@ export const formData = [
     placeholder: "Teléfono",
   },
   {
-    name: "houseCode",
-    type: "text",
-    placeholder: "Código de vivienda",
-  },
-  {
     name: "password",
     type: "password",
     placeholder: "Contraseña",
@@ -43,5 +38,10 @@ export const formData = [
     name: "confirmpassword",
     type: "password",
     placeholder: "Confirmar contraseña",
+  },
+  {
+    name: "houseCode",
+    type: "text",
+    placeholder: "Código de vivienda",
   },
 ];
