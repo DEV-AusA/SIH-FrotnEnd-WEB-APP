@@ -5,13 +5,16 @@ import { IRegister } from "@/helpers/types";
 import validateRegister from "@/components/registerForm/helpers/validateRegister";
 import { formData } from "./helpers/registerFormData";
 import axios from "axios";
+import registerDto from "./helpers/registerDto";
+
+const REGISTERUSER_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const RegisterForm: React.FC = (): React.ReactElement => {
   const initialState: IRegister = {
     name: "",
     lastName: "",
     email: "",
-    user: "",
+    username: "",
     document: "",
     phone: "",
     cellphone: "",
@@ -31,12 +34,12 @@ const RegisterForm: React.FC = (): React.ReactElement => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    const userdata = registerDto(data);
     axios
-      .post("https://sih-back.onrender.com/auth/signup", data)
+      .post(`${REGISTERUSER_URL}/auth/signup`, userdata)
       .then(({ data }) => data)
       .then((data) => console.log(data))
-      .catch((error) => alert(error.message));
+      .catch((error) => console.log(error.response.data));
   };
 
   return (

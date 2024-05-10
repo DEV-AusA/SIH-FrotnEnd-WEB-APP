@@ -15,7 +15,7 @@ export const formData = [
     placeholder: "Correo electrónico",
   },
   {
-    name: "user",
+    name: "username",
     type: "text",
     placeholder: "Nombre de usuario",
   },

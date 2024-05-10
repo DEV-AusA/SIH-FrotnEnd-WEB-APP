@@ -6,7 +6,7 @@ export interface IRegister {
   name: string;
   lastName: string;
   email: string;
-  user: string;
+  username: string;
   document: string;
   phone: string;
   cellphone: string;
