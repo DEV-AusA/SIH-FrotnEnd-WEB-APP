@@ -9,7 +9,7 @@ const validateRegister = ({
   name,
   lastName,
   email,
-  user,
+  username,
   document,
   /* phone, */
   cellphone,
@@ -21,7 +21,7 @@ const validateRegister = ({
     name: "",
     lastName: "",
     email: "",
-    user: "",
+    username: "",
     document: "",
     phone: "",
     cellphone: "",
@@ -39,10 +39,10 @@ const validateRegister = ({
   } else if (!email) errors.email = "Ingresa tu correo electrónico.";
   else if (!emailRegExp.test(email)) {
     errors.email = "Correo electrónico invalido";
-  } else if (!user) {
-    errors.user = "Ingresa un usuario.";
-  } else if (!userRegExp.test(user) || user.trim().length < 3) {
-    errors.user = "Usuario invalido.";
+  } else if (!username) {
+    errors.username = "Ingresa un usuario.";
+  } else if (!userRegExp.test(username) || username.trim().length < 3) {
+    errors.username = "Usuario invalido.";
   } else if (!document) {
     errors.document = "Ingresa tu documento.";
   } else if (document.trim().length !== 8) {

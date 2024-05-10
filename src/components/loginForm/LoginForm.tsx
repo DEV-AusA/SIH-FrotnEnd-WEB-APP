@@ -6,6 +6,8 @@ import validateLogin from "@/components/loginForm/helpers/validateLogin";
 import { formData } from "./helpers/loginFormData";
 import axios from "axios";
 
+const LOGINUSER_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const LoginForm: React.FC = (): React.ReactElement => {
   const initialState: ILogin = {
     user: "",
@@ -25,7 +27,7 @@ const LoginForm: React.FC = (): React.ReactElement => {
     event.preventDefault();
     console.log(data);
     axios
-      .post("https://sih-back.onrender.com/auth/signin", data)
+      .post(`${LOGINUSER_URL}/auth/signin`, data)
       .then(({ data }) => data)
       .then((data) => console.log(data))
       .catch((error) => alert(error.message));
