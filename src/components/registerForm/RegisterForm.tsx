@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { IRegister } from "@/helpers/types";
 import validateRegister from "@/components/registerForm/helpers/validateRegister";
 import { formData } from "./helpers/registerFormData";
+import ErrorHint from "../errorHint";
 
 const RegisterForm: React.FC = (): React.ReactElement => {
   const initialState: IRegister = {
@@ -50,9 +51,7 @@ const RegisterForm: React.FC = (): React.ReactElement => {
                   onChange={handleChange}
                 />
                 {errors[name as keyof IRegister] ? (
-                  <span className="text-black">
-                    {errors[name as keyof IRegister]}
-                  </span>
+                  <ErrorHint text={errors[name as keyof IRegister]} />
                 ) : null}
               </div>
             );
