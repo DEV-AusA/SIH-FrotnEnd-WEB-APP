@@ -49,7 +49,7 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
         </h3>
         <h4 className="text-[25px] text-sih-orange mt-[10px] ">{data.phone}</h4>
         <Link
-          className="h-[60px] w-[280px] bg-white mt-[100px] rounded-[15px] text-sih-blue text-[32px] flex justify-center items-center font-bold shadow-button"
+          className="h-[60px] w-[280px] bg-white mt-[100px] duration-150 rounded-[15px] text-sih-blue text-[32px] flex justify-center items-center font-bold hover:bg-sih-orange shadow-button"
           href="/perfil"
         >
           Actualizar datos
@@ -66,7 +66,7 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
               <Link
                 href={button.href}
                 key={button.title}
-                className="h-[180px] w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button"
+                className="h-[180px] w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button hover:bg-sih-orange  duration-150  hover:scale-105 "
               >
                 <Image
                   src={button.image}
