@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { IRegister } from "@/helpers/types";
 import validateRegister from "@/components/registerForm/helpers/validateRegister";
 import { formData } from "./helpers/registerFormData";
+import axios from "axios";
 
 const RegisterForm: React.FC = (): React.ReactElement => {
   const initialState: IRegister = {
@@ -30,7 +31,12 @@ const RegisterForm: React.FC = (): React.ReactElement => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    alert("Estamos trabajando para que ingreses correctamente");
+
+    axios
+      .post("https://sih-back.onrender.com/auth/signup", data)
+      .then(({ data }) => data)
+      .then((data) => console.log(data))
+      .catch((error) => alert(error.message));
   };
 
   return (
