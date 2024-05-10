@@ -48,18 +48,16 @@ const LoginForm: React.FC = (): React.ReactElement => {
             </div>
           );
         })}
-        <Link href="/acciones">
-          <button
-            type="submit"
-            disabled={
-              data.user.length === 0 ||
-              Object.keys(errors).some((e) => errors[e as keyof ILogin])
-            }
-            className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
-          >
-            Iniciar sesión
-          </button>
-        </Link>
+        <button
+          type="submit"
+          disabled={
+            data.user.length === 0 ||
+            Object.keys(errors).some((e) => errors[e as keyof ILogin])
+          }
+          className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
+        >
+          Iniciar sesión
+        </button>
       </form>
     </div>
   );
