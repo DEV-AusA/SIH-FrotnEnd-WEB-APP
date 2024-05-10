@@ -4,7 +4,6 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { ILogin } from "@/helpers/types";
 import validateLogin from "@/components/loginForm/helpers/validateLogin";
 import { formData } from "./helpers/loginFormData";
-import ErrorHint from "../errorHint";
 
 const LoginForm: React.FC = (): React.ReactElement => {
   const initialState: ILogin = {
@@ -31,7 +30,7 @@ const LoginForm: React.FC = (): React.ReactElement => {
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         {formData.map(({ name, type, placeholder }) => {
           return (
-            <div key={name}>
+            <div className="flex flex-col items-center" key={name}>
               <input
                 className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 m-[10px]"
                 type={type}
@@ -42,7 +41,9 @@ const LoginForm: React.FC = (): React.ReactElement => {
                 onChange={handleChange}
               />
               {errors[name as keyof ILogin] ? (
-                <ErrorHint text={errors[name as keyof ILogin]} />
+                <span className="text-red-500 block w-[256px] text-sm">
+                  {errors[name as keyof ILogin]}
+                </span>
               ) : null}
             </div>
           );
