@@ -4,6 +4,7 @@ import "./globals.css";
 import { UserProvider } from "@/components/UserProvider";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
+import CompaniesBanner from "@/components/companiesBanner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <UserProvider>
           <Header />
           {children}
+          <CompaniesBanner />
           <Footer />
         </UserProvider>
       </body>

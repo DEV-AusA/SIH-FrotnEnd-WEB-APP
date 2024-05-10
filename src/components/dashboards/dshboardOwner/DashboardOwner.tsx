@@ -2,15 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
-export interface IUser {
-  name: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  rol: "admin" | "owner" | "security";
-  image: string;
-}
+import { IUser } from "@/helpers/types";
 
 const data: IUser = {
   name: "Manuel",
