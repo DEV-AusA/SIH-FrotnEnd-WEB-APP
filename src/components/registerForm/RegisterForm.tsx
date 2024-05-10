@@ -63,7 +63,7 @@ const RegisterForm: React.FC = (): React.ReactElement => {
             data.email.length === 0 ||
             Object.keys(errors).some((e) => errors[e as keyof IRegister])
           }
-          className="bg-sih-blue h-[37px] w-[176px] rounded-[15px] text-base p-1 mt-[20px]"
+          className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
         >
           Regístrate
         </button>
