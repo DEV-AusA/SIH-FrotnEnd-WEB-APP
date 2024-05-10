@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { ILogin } from "@/helpers/types";
 import validateLogin from "@/components/loginForm/helpers/validateLogin";
 import { formData } from "./helpers/loginFormData";
+import ErrorHint from "../errorHint";
 
 const LoginForm: React.FC = (): React.ReactElement => {
   const initialState: ILogin = {
@@ -41,9 +42,7 @@ const LoginForm: React.FC = (): React.ReactElement => {
                 onChange={handleChange}
               />
               {errors[name as keyof ILogin] ? (
-                <span className="text-black">
-                  {errors[name as keyof ILogin]}
-                </span>
+                <ErrorHint text={errors[name as keyof ILogin]} />
               ) : null}
             </div>
           );

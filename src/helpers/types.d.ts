@@ -14,3 +14,11 @@ export interface IRegister {
   password: string;
   confirmpassword?: string;
 }
+export interface IUser {
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  rol: "admin" | "owner" | "security";
+  image: string;
+}
