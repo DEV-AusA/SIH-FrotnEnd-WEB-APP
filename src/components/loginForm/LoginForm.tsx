@@ -7,7 +7,7 @@ import { formData } from "./helpers/loginFormData";
 
 const LoginForm: React.FC = (): React.ReactElement => {
   const initialState: ILogin = {
-    email: "",
+    user: "",
     password: "",
   };
   const [data, setData] = useState(initialState);
@@ -51,7 +51,7 @@ const LoginForm: React.FC = (): React.ReactElement => {
         <button
           type="submit"
           disabled={
-            data.email.length === 0 ||
+            data.user.length === 0 ||
             Object.keys(errors).some((e) => errors[e as keyof ILogin])
           }
           className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"

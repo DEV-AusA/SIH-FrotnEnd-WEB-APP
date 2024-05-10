@@ -1,8 +1,8 @@
 export const formData = [
   {
-    name: "email",
-    type: "email",
-    placeholder: "Correo electrónico",
+    name: "user",
+    type: "text",
+    placeholder: "Nombre de usuario",
   },
   {
     name: "password",
