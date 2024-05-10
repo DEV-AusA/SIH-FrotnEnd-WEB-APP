@@ -32,7 +32,7 @@ const LoginForm: React.FC = (): React.ReactElement => {
           return (
             <div key={name}>
               <input
-                className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 mb-[10px]"
+                className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 m-[10px]"
                 type={type}
                 id={name}
                 name={name}
