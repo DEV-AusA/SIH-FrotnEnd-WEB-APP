@@ -4,7 +4,6 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { IRegister } from "@/helpers/types";
 import validateRegister from "@/components/registerForm/helpers/validateRegister";
 import { formData } from "./helpers/registerFormData";
-import ErrorHint from "../errorHint";
 
 const RegisterForm: React.FC = (): React.ReactElement => {
   const initialState: IRegister = {
@@ -40,7 +39,7 @@ const RegisterForm: React.FC = (): React.ReactElement => {
         <div className="flex flex-wrap justify-center">
           {formData.map(({ name, type, placeholder }) => {
             return (
-              <div key={name}>
+              <div className="flex flex-col items-center" key={name}>
                 <input
                   className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 m-[10px]"
                   type={type}
@@ -51,7 +50,9 @@ const RegisterForm: React.FC = (): React.ReactElement => {
                   onChange={handleChange}
                 />
                 {errors[name as keyof IRegister] ? (
-                  <ErrorHint text={errors[name as keyof IRegister]} />
+                  <span className="text-red-500 block w-[256px] text-sm">
+                    {errors[name as keyof IRegister]}
+                  </span>
                 ) : null}
               </div>
             );
