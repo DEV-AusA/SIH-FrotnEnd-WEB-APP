@@ -5,6 +5,7 @@ import { ILogin } from "@/helpers/types";
 import validateLogin from "@/components/loginForm/helpers/validateLogin";
 import { formData } from "./helpers/loginFormData";
 import ErrorHint from "../errorHint";
+import Link from "next/link";
 
 const LoginForm: React.FC = (): React.ReactElement => {
   const initialState: ILogin = {
@@ -47,16 +48,18 @@ const LoginForm: React.FC = (): React.ReactElement => {
             </div>
           );
         })}
-        <button
-          type="submit"
-          disabled={
-            data.user.length === 0 ||
-            Object.keys(errors).some((e) => errors[e as keyof ILogin])
-          }
-          className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
-        >
-          Iniciar sesión
-        </button>
+        <Link href="/acciones">
+          <button
+            type="submit"
+            disabled={
+              data.user.length === 0 ||
+              Object.keys(errors).some((e) => errors[e as keyof ILogin])
+            }
+            className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
+          >
+            Iniciar sesión
+          </button>
+        </Link>
       </form>
     </div>
   );
