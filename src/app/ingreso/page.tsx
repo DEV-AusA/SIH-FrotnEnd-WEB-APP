@@ -1,6 +1,7 @@
 import GoogleButton from "@/components/googleButton/GoogleButton";
 import LoginForm from "@/components/loginForm/LoginForm";
 import LoginImage from "@/components/loginForm/loginImage/LoginImage";
+import ServicesCards from "@/components/services/ServicesCards";
 import Link from "next/link";
 export default function Login() {
   return (
@@ -22,6 +23,7 @@ export default function Login() {
         </div>
         <LoginImage />
       </main>
+      <ServicesCards />
     </>
   );
 }
