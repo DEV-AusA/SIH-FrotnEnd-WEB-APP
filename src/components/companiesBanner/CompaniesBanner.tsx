@@ -3,10 +3,10 @@ import Image from "next/image";
 const CompaniesBanner: React.FC = (): React.ReactElement => {
   const Companies = [
     { image: "/icons/seguridad1.jpeg" },
-    { image: "/icons/seguridad2.jpeg" },
-    { image: "/icons/seguridad3.jpeg" },
+    { image: "/icons/seguridad2.png" },
+    { image: "/icons/seguridad3.png" },
     { image: "/icons/seguridad4.jpeg" },
-    { image: "/icons/seguridad5.jpeg" },
+    { image: "/icons/seguridad5.png" },
     { image: "/icons/seguridad6.jpeg" },
   ];
   return (
