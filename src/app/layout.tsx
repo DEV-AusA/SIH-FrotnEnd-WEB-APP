@@ -5,6 +5,7 @@ import { UserProvider } from "@/components/UserProvider";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import CompaniesBanner from "@/components/companiesBanner";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,15 +20,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <UserProvider>
-          <Header />
-          {children}
-          <CompaniesBanner />
-          <Footer />
-        </UserProvider>
-      </body>
-    </html>
+    <GoogleOAuthProvider clientId="651220245380-9ka4dug85joldqc4r26turbqm1dvmpkg.apps.googleusercontent.com">
+      <html lang="en">
+        <body className={inter.className}>
+          <UserProvider>
+            <Header />
+            {children}
+            <CompaniesBanner />
+            <Footer />
+          </UserProvider>
+        </body>
+      </html>
+    </GoogleOAuthProvider>
   );
 }
