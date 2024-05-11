@@ -1,6 +1,7 @@
 import GoogleButton from "@/components/googleButton/GoogleButton";
 import RegisterForm from "@/components/registerForm/RegisterForm";
 import RegisterImage from "@/components/registerForm/registerImage/RegisterImage";
+import ServicesCards from "@/components/services/ServicesCards";
 import Link from "next/link";
 export default function Register() {
   return (
@@ -22,6 +23,7 @@ export default function Register() {
         </div>
         <RegisterImage />
       </main>
+      <ServicesCards />
     </>
   );
 }

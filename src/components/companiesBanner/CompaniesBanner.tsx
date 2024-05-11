@@ -10,7 +10,7 @@ const CompaniesBanner: React.FC = (): React.ReactElement => {
     { image: "/icons/seguridad6.jpeg" },
   ];
   return (
-    <div className="w-full flex flex-col bg-white  items-center px-[200px] py-24 ">
+    <div className="w-full flex flex-col bg-white  items-center px-[200px] py-[80px] ">
       <h2 className="text-[#384B59] text-4xl font-bold text-center px-[160px]">
         Cada vez son más compañias que confian en nuestro sistema para mejorar
         su seguridad y la experiencia de sus residentes.
