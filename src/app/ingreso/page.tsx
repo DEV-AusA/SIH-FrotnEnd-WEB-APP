@@ -22,14 +22,6 @@ export default function Login() {
         </div>
         <LoginImage />
       </main>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </>
   );
 }

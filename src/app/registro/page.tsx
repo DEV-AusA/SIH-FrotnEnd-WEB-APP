@@ -22,7 +22,6 @@ export default function Register() {
         </div>
         <RegisterImage />
       </main>
-      <br />
     </>
   );
 }
