@@ -7,6 +7,7 @@ import { formData } from "./helpers/registerFormData";
 import axios from "axios";
 import registerDto from "./helpers/registerDto";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const REGISTERUSER_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -25,6 +26,7 @@ const RegisterForm: React.FC = (): React.ReactElement => {
   };
   const [data, setData] = useState(initialState);
   const [errors, setErrors] = useState(initialState);
+  const router = useRouter();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -41,17 +43,25 @@ const RegisterForm: React.FC = (): React.ReactElement => {
       .then(({ data }) => data)
       .then((data) => {
         console.log(data);
-        window.location.replace("/acciones");
+        router.push("/ingreso");
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Gracias por registrarte!\n Recuerda confirmar tu correo!",
+          showConfirmButton: true,
+          timer: 1500,
+        });
       })
-      .catch((error) =>
+      .catch((error) => {
+        console.log(error);
         Swal.fire({
           position: "top-end",
           icon: "error",
           title: error.response.data.message,
           showConfirmButton: false,
-          timer: 1500,
-        }),
-      );
+          timer: 2500,
+        });
+      });
   };
 
   return (
