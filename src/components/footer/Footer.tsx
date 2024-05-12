@@ -4,7 +4,7 @@ import FooterName from "./footerName/FooterName";
 
 const Footer: React.FC = (): React.ReactElement => {
   return (
-    <footer className=" h-14 px-[200px] bg-[#384B59] flex items-center justify-between ">
+    <footer className=" h-14 px-[200px] bg-[#384B59] flex items-center justify-between max-2xl:px-[50px]">
       <FooterName />
       <FooterList />
       <FooterLogo />

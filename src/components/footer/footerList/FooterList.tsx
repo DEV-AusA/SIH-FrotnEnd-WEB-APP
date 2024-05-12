@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const FooterList: React.FC = (): React.ReactElement => {
   return (
-    <ul className="flex items-center justify-center px-16">
+    <ul className="flex items-center justify-center px-16 max-xl:hidden">
       {links.map((link) => {
         return (
           <>
