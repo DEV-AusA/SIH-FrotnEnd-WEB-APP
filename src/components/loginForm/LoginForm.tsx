@@ -5,6 +5,8 @@ import { ILogin } from "@/helpers/types";
 import validateLogin from "@/components/loginForm/helpers/validateLogin";
 import { formData } from "./helpers/loginFormData";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { useUserContext } from "../UserProvider";
 
 const LOGINUSER_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -15,6 +17,7 @@ const LoginForm: React.FC = (): React.ReactElement => {
   };
   const [data, setData] = useState(initialState);
   const [errors, setErrors] = useState(initialState);
+  const { setUser, setToken } = useUserContext();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -29,8 +32,22 @@ const LoginForm: React.FC = (): React.ReactElement => {
     axios
       .post(`${LOGINUSER_URL}/auth/signin`, data)
       .then(({ data }) => data)
-      .then((data) => console.log(data))
-      .catch((error) => alert(error.message));
+      .then((data) => {
+        setUser(data.user);
+        localStorage.setItem("user", data.user);
+        setToken(data.token);
+        localStorage.setItem("token", data.token);
+        window.location.replace("/acciones");
+      })
+      .catch((error) =>
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: error.response.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        }),
+      );
   };
 
   return (

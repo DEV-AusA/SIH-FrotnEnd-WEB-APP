@@ -6,6 +6,7 @@ import validateRegister from "@/components/registerForm/helpers/validateRegister
 import { formData } from "./helpers/registerFormData";
 import axios from "axios";
 import registerDto from "./helpers/registerDto";
+import Swal from "sweetalert2";
 
 const REGISTERUSER_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -38,8 +39,19 @@ const RegisterForm: React.FC = (): React.ReactElement => {
     axios
       .post(`${REGISTERUSER_URL}/auth/signup`, userdata)
       .then(({ data }) => data)
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error.response.data));
+      .then((data) => {
+        console.log(data);
+        window.location.replace("/acciones");
+      })
+      .catch((error) =>
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: error.response.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        }),
+      );
   };
 
   return (

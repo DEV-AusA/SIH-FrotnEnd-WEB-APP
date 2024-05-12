@@ -6,11 +6,14 @@ import { IUser } from "@/helpers/types";
 
 const data: IUser = {
   name: "Manuel",
+  document: 12345787,
   lastName: "Guaicara",
   email: "manu@gmail.com",
-  phone: "3517899626",
-  rol: "owner",
+  phone: 3517899626,
+  cellphone: 1231564,
+  rol: "user",
   image: "https://i.ibb.co/8rc9VCF/Profile-3-2.png",
+  lastLogin: "ayer",
 };
 
 const buttonsOwner = [
@@ -33,7 +36,7 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
         ></Image>
         <h2 className="text-[35px] text-white mt-[30px] ">{`${data.name} ${data.lastName}`}</h2>
         <h3 className="text-[30px] text-sih-orange mt-[10px]">
-          {data.rol === "owner"
+          {data.rol === "user"
             ? "Propietario"
             : data.rol === "admin"
               ? "Administrador"

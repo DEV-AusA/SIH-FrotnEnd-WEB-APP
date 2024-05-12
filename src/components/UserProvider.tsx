@@ -1,22 +1,23 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
+import { IUser } from "@/helpers/types";
 
 interface UserContextProps {
   token: string | null;
-  role: "user" | "admin" | "security" | null;
+  user: IUser | null;
   setToken: (token: string | null) => void;
-  setRole: (role: "user" | "admin" | "security" | null) => void;
+  setUser: (user: IUser | null) => void;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
-  const [role, setRole] = useState<"user" | "admin" | "security" | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
 
   return (
-    <UserContext.Provider value={{ token, role, setToken, setRole }}>
+    <UserContext.Provider value={{ token, user, setToken, setUser }}>
       {children}
     </UserContext.Provider>
   );
