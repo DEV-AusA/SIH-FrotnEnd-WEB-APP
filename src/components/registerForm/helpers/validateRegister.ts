@@ -13,7 +13,7 @@ const validateRegister = ({
   document,
   /* phone, */
   cellphone,
-  /* code, */
+  code,
   password,
   confirmpassword,
 }: IRegister) => {
@@ -52,16 +52,17 @@ const validateRegister = ({
     errors.cellphone = "Numero de telefono invalido";
   } else if (!password) errors.password = "Debes ingresar una contraseña.";
   else if (!passwordRegExp.test(password))
-    errors.password = "Contraseña invalida.";
+    errors.password =
+      "Almenos: una mayúscula, una minúscula, un carácter especial y un número.";
   else if (confirmpassword !== password)
     errors.confirmpassword = "La contraseña no coincide.";
   /* else if (!phone) errors.phone = "Ingresa tu telefono.";
   else if (phone.trim().length < 10) {
     errors.phone = "Numero de telefono invalido";
-  } else if (!code) errors.code = "Ingresa el codigo de vivienda.";
+  } */ else if (!code) errors.code = "Ingresa el codigo de vivienda.";
   else if (code.trim().length < 6) {
     errors.code = "Codigo de vivienda invalido";
-  } */
+  }
 
   return errors;
 };

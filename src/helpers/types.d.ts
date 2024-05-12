@@ -17,8 +17,11 @@ export interface IRegister {
 export interface IUser {
   name: string;
   lastName: string;
+  document: number;
   email: string;
-  phone: string;
-  rol: "admin" | "owner" | "security";
+  cellphone: number;
+  phone: number;
+  rol: "user" | "admin" | "security";
   image: string;
+  lastLogin: string;
 }
