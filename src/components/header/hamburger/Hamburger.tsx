@@ -60,6 +60,18 @@ const Hamburger: React.FC = (): React.ReactElement => {
                 </Link>
               );
             })}
+            <Link
+              href="/ingreso"
+              className={`${pathname === "/ingreso" ? "cursor-default my-2 text-[#FFBD5C] text-xl disabled" : "hover:text-[#FFBD5C] my-2 text-xl"}`}
+            >
+              Ingresa
+            </Link>
+            <Link
+              href="/registro"
+              className={`${pathname === "/registro" ? "cursor-default text-xl my-2 text-[#FFBD5C] disabled" : "hover:text-[#FFBD5C] my-2 text-xl"}`}
+            >
+              Regístrate
+            </Link>
           </ul>
         </div>
       </div>

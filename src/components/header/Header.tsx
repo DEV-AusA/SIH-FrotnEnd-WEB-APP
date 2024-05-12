@@ -28,8 +28,8 @@ const Header: React.FC = (): React.ReactElement => {
     setOpen(!open);
   };
   return (
-    <header className=" min-h-28 px-[200px] bg-[#384B59] flex flex-col items-center max-2xl:px-[50px]">
-      <div className="w-full flex items-center justify-between mt-6">
+    <header className=" min-h-28 px-[200px] bg-[#384B59] flex flex-col items-center max-2xl:px-[50px] justify-center">
+      <div className="w-full flex items-center justify-between">
         <Logo />
         <NavBar />
         <button onClick={iconClick} ref={refOne}>

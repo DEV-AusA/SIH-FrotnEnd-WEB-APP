@@ -23,6 +23,9 @@ const config: Config = {
       boxShadow: {
         button: "-8px 9px 14px 0px rgba(0,0,0,0.49);",
       },
+      screens: {
+        cellphone: "560px",
+      },
     },
   },
   plugins: [],
