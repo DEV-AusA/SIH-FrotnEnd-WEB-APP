@@ -7,6 +7,8 @@ import { formData } from "./helpers/loginFormData";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useUserContext } from "../UserProvider";
+import userDto from "./helpers/userDto";
+import { useRouter } from "next/navigation";
 
 const LOGINUSER_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -18,6 +20,7 @@ const LoginForm: React.FC = (): React.ReactElement => {
   const [data, setData] = useState(initialState);
   const [errors, setErrors] = useState(initialState);
   const { setUser, setToken } = useUserContext();
+  const router = useRouter();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -33,11 +36,21 @@ const LoginForm: React.FC = (): React.ReactElement => {
       .post(`${LOGINUSER_URL}/auth/signin`, data)
       .then(({ data }) => data)
       .then((data) => {
-        setUser(data.user);
-        localStorage.setItem("user", data.user);
+        const userInfo = userDto(data.user);
+        setUser(userInfo);
+        localStorage.setItem("user", JSON.stringify(userInfo));
         setToken(data.token);
         localStorage.setItem("token", data.token);
-        window.location.replace("/acciones");
+      })
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Ingreso exitoso!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        router.push("/acciones");
       })
       .catch((error) =>
         Swal.fire({
