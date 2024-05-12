@@ -3,8 +3,9 @@ import Image from "next/image";
 const UserIcon: React.FC = (): React.ReactElement => {
   return (
     <Image
-      width={50}
-      height={50}
+      className="max-xl:hidden "
+      width={60}
+      height={60}
       src="/icons/UserIcon.png"
       alt="Secure Ingress Home"
     />

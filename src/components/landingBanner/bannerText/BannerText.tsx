@@ -3,7 +3,7 @@ const BannerText: React.FC = (): React.ReactElement => {
     <div className="w-full flex flex-col  items-center px-[200px] py-24 ">
       <h2 className="text-[#384B59] text-4xl font-bold text-center">
         Con <span className="text-[#FFBD5C] text-[40px] text-left">SIH</span>{" "}
-        disfruta de tu hogar de la forma más segura posible
+        disfruta de tu hogar de la forma más segura posible!
       </h2>
       <h3 className="text-[#384B59] text-2xl my-10 text-left">
         -Control de ingreso
