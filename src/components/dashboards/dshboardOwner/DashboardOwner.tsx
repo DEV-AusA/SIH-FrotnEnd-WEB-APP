@@ -69,7 +69,7 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
             </div>
           </div>
           <div className="">
-            <h2 className="text-center items-center text-[48px] text-sih-blue font-bold max-[1330px]:mt-[30px] max-md:text-[32px] max-cellphone:text-[20px]">{`¡Bienvenido ${data.name}!`}</h2>
+            <h2 className="text-center items-center text-[48px] text-sih-blue font-bold max-[1330px]:mt-[30px] max-md:text-[32px] max-cellphone:text-[20px]">{`¡Hola de nuevo, ${data.name}!`}</h2>
             <h3 className="text-center items-center text-[32px] text-sih-blue mb-[10px] max-md:text-[22px] max-cellphone:text-[20px]">
               ¿Qué deseas hacer hoy?
             </h3>
