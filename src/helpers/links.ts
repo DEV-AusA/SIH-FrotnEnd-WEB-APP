@@ -6,7 +6,12 @@ const links = [
     text: "Administrador",
     href: "/administrador",
   },
-  { name: "owner", key: "owner", text: "Propietarios", href: "/propietario" },
+  {
+    name: "resident",
+    key: "resident",
+    text: "Residente",
+    href: "/residente",
+  },
   {
     name: "about",
     key: "about",
