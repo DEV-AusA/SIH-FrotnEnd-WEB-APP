@@ -51,11 +51,11 @@ const LoginForm: React.FC = (): React.ReactElement => {
         });
         router.push("/acciones");
       })
-      .catch((error) =>
+      .catch(() =>
         Swal.fire({
           position: "top-end",
           icon: "error",
-          title: error.response.data.message,
+          title: "Usuario o contraseña incorrecta",
           showConfirmButton: false,
           timer: 1500,
         }),
