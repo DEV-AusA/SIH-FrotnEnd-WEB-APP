@@ -11,7 +11,7 @@ const CompaniesBanner: React.FC = (): React.ReactElement => {
   ];
   return (
     <div className="w-full flex flex-col bg-white  items-center px-[200px] py-[80px] max-[1330px]:px-[50px]">
-      <h2 className="text-[#384B59] text-4xl font-bold text-center px-[160px] max-[1330px]:px-0">
+      <h2 className="text-[#384B59] text-4xl font-bold text-center px-[160px] max-[1330px]:px-0 max-md:text-[20px]">
         Cada vez son más compañias que confian en nuestro sistema para mejorar
         su seguridad y la experiencia de sus residentes.
       </h2>
@@ -20,7 +20,7 @@ const CompaniesBanner: React.FC = (): React.ReactElement => {
           return (
             <div
               key={i}
-              className="h-[150px] w-[150px] m-3 flex justify-center flex-col items-center mx-[50px] mt-[50px]"
+              className="h-[150px] w-[150px] m-3 flex justify-center flex-col items-center mx-[50px] mt-[50px] max-md:h-[100px] max-md:w-[100px]"
             >
               <Image
                 src={company.image}
