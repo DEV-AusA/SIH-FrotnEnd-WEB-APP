@@ -31,7 +31,6 @@ const LoginForm: React.FC = (): React.ReactElement => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(data);
     axios
       .post(`${LOGINUSER_URL}/auth/signin`, data)
       .then(({ data }) => data)
