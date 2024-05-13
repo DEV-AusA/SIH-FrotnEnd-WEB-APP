@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Login() {
   return (
     <>
-      <main className="flex justify-between px-200 bg-white min-h-[600px]">
+      <main className="flex justify-between px-200 bg-white max-h-[700px]">
         <div className="w-full flex flex-col  items-center px-[200px] py-24 ">
           <h1 className=" text-[#384B59] text-4xl font-bold pb-[60px]">
             ¡Nos alegra tenerte de vuelta!
