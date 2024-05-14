@@ -2,6 +2,7 @@ import { IUser } from "@/helpers/types";
 
 const userDto = (data: IUser) => {
   const Dto = {
+    id: data.id,
     name: data.name,
     lastName: data.lastName,
     email: data.email,
