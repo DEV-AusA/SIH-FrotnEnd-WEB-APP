@@ -2,30 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-/* import { IUser } from "@/helpers/types"; */
 import { useUserContext } from "@/components/UserProvider";
 import { useEffect } from "react";
 
-/* const data: IUser = {
-  name: "Manuel",
-  document: 12345787,
-  lastName: "Guaicara",
-  email: "manu@gmail.com",
-  phone: 3517899626,
-  cellphone: 1231564,
-  rol: "user",
-  image: "https://i.ibb.co/8rc9VCF/Profile-3-2.png",
-  lastLogin: "ayer",
-}; */
-
 const buttonsOwner = [
-  { image: "/icons/pay.png", title: "Realizar pago", href: "/" },
-  { image: "/icons/check.png", title: "Autorizaciones", href: "/" },
-  { image: "/icons/bill.png", title: "Mis facturas", href: "/" },
-  { image: "/icons/chat.png", title: "Chat", href: "/" },
+  { image: "/icons/genpay.png", title: "Generar cupón", href: "/" },
+  { image: "/icons/house.png", title: "Propiedades", href: "/" },
+  { image: "/icons/owner.png", title: "Residentes", href: "/" },
+  { image: "/icons/security.png", title: "Guardias", href: "/" },
 ];
 
-const DashboardOwner: React.FC = (): React.ReactElement => {
+const DashboardAdmin: React.FC = (): React.ReactElement => {
   const { user, setUser } = useUserContext();
   useEffect(() => {
     const checkToken = async () => {
@@ -51,7 +38,7 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
             <div className="text-center">
               <h2 className="text-[35px] text-white mt-[30px] max-[1330px]:mt-0 max-md:text-[22px] max-cellphone:text-[16px]">{`${data.name} ${data.lastName}`}</h2>
               <h3 className="text-[30px] text-sih-orange mt-[10px] max-[1330px]:mt-0 max-md:text-[20px] max-cellphone:text-[12px]">
-                {data.rol === "owner"
+                {data.rol === "user"
                   ? "Propietario"
                   : data.rol === "admin"
                     ? "Administrador"
@@ -105,4 +92,4 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
     </div>
   );
 };
-export default DashboardOwner;
+export default DashboardAdmin;
