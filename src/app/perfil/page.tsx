@@ -1,3 +1,9 @@
+import UpdateForm from "@/components/updateForm/UpdateForm";
+
 export default function Profile() {
-  return <main></main>;
+  return (
+    <main>
+      <UpdateForm />
+    </main>
+  );
 }
