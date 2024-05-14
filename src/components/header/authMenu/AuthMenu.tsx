@@ -2,11 +2,22 @@ import { useUserContext } from "@/components/UserProvider";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
 
 const AuthMenu: React.FC = (): React.ReactElement => {
   const router = useRouter();
   const { token, setToken, setUser } = useUserContext();
   const pathname = usePathname();
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const currentToken = await localStorage.getItem("token");
+      setToken(currentToken);
+    };
+
+    checkToken();
+  }, []);
+
   const handleLogOut = () => {
     localStorage.clear();
     setToken(null);
@@ -24,8 +35,8 @@ const AuthMenu: React.FC = (): React.ReactElement => {
     return (
       <div className="flex flex-col text-end text-xl ">
         <Link
-          href="/registro"
-          className={`${pathname === "/perfil" ? "cursor-default mb-1 text-[#FFBD5C] disabled" : "hover:text-[#FFBD5C] mb-1"}`}
+          href="/acciones"
+          className={`${pathname === "/acciones" ? "cursor-default mb-1 text-[#FFBD5C] disabled" : "hover:text-[#FFBD5C] mb-1"}`}
         >
           Perfil
         </Link>
