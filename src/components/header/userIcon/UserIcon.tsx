@@ -6,7 +6,7 @@ const UserIcon: React.FC = (): React.ReactElement => {
       className="max-xl:hidden "
       width={60}
       height={60}
-      src="/icons/UserIcon.png"
+      src="/icons/UserIcon2.png"
       alt="Secure Ingress Home"
     />
   );

@@ -2,30 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-/* import { IUser } from "@/helpers/types"; */
 import { useUserContext } from "@/components/UserProvider";
 import { useEffect } from "react";
 
-/* const data: IUser = {
-  name: "Manuel",
-  document: 12345787,
-  lastName: "Guaicara",
-  email: "manu@gmail.com",
-  phone: 3517899626,
-  cellphone: 1231564,
-  rol: "user",
-  image: "https://i.ibb.co/8rc9VCF/Profile-3-2.png",
-  lastLogin: "ayer",
-}; */
-
 const buttonsOwner = [
-  { image: "/icons/pay.png", title: "Realizar pago", href: "/" },
-  { image: "/icons/check.png", title: "Autorizaciones", href: "/" },
-  { image: "/icons/bill.png", title: "Mis facturas", href: "/" },
-  { image: "/icons/chat.png", title: "Chat", href: "/" },
+  { image: "/icons/pay.png", title: "Generar cupón", href: "/" },
+  { image: "/icons/check.png", title: "Propiedades", href: "/" },
+  { image: "/icons/bill.png", title: "Residentes", href: "/" },
+  { image: "/icons/chat.png", title: "Guardias", href: "/" },
 ];
 
-const DashboardOwner: React.FC = (): React.ReactElement => {
+const DashboardSecurity: React.FC = (): React.ReactElement => {
   const { user, setUser } = useUserContext();
   useEffect(() => {
     const checkToken = async () => {
@@ -55,7 +42,7 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
                   ? "Propietario"
                   : data.rol === "admin"
                     ? "Administrador"
-                    : "Security"}
+                    : "Seguridad"}
               </h3>
               <h4 className="text-[25px] text-sih-orange mt-[10px] max-[1330px]:mt-0 max-md:text-[16px] max-cellphone:text-[10px]">
                 {data.cellphone}
@@ -82,7 +69,7 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
                     className="h-[180px] w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button hover:bg-sih-orange  duration-150  hover:scale-105 max-[900px]:mx-[10px] max-md:h-[120px] max-md:w-[200px] max-cellphone:w-[300px] max-cellphone:h-[70px] max-cellphone:flex-row max-cellphone:justify-between max-cellphone:my-[20px] max-[400px]:w-[240px]"
                   >
                     <Image
-                      className="h-[90px] w-auto max-md:w-[80px] max-md:h-[66px] max-cellphone:m-[5px] max-cellphone:m-[10px] max-cellphone:w-[66px] max-cellphone:h-[55px]"
+                      className="h-[90px] w-auto max-md:w-[70px] max-md:h-[66px] max-cellphone:m-[10px] max-cellphone:w-[66px] max-cellphone:h-[55px]"
                       src={button.image}
                       height={100}
                       width={110}
@@ -105,4 +92,4 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
     </div>
   );
 };
-export default DashboardOwner;
+export default DashboardSecurity;
