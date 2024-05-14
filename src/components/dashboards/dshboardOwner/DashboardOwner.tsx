@@ -82,7 +82,7 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
                     className="h-[180px] w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button hover:bg-sih-orange  duration-150  hover:scale-105 max-[900px]:mx-[10px] max-md:h-[120px] max-md:w-[200px] max-cellphone:w-[300px] max-cellphone:h-[70px] max-cellphone:flex-row max-cellphone:justify-between max-cellphone:my-[20px] max-[400px]:w-[240px]"
                   >
                     <Image
-                      className="h-[90px] w-auto max-md:w-[80px] max-md:h-[66px] max-cellphone:m-[5px] max-cellphone:m-[10px] max-cellphone:w-[66px] max-cellphone:h-[55px]"
+                      className="h-[90px] w-auto max-md:w-[80px] max-md:h-[66px] max-cellphone:m-[10px] max-cellphone:w-[66px] max-cellphone:h-[55px]"
                       src={button.image}
                       height={100}
                       width={110}
