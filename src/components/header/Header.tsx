@@ -41,7 +41,7 @@ const Header: React.FC = (): React.ReactElement => {
           className="max-xl:hidden cursor-pointer"
           width={60}
           height={60}
-          src="/icons/UserIcon.svg"
+          src="https://i.ibb.co/xFwM7yh/user-Icon2.png"
           alt="Secure Ingress Home"
         />
         <Hamburger />
