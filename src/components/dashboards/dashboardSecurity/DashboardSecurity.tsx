@@ -38,7 +38,7 @@ const DashboardSecurity: React.FC = (): React.ReactElement => {
             <div className="text-center">
               <h2 className="text-[35px] text-white mt-[30px] max-[1330px]:mt-0 max-md:text-[22px] max-cellphone:text-[16px]">{`${data.name} ${data.lastName}`}</h2>
               <h3 className="text-[30px] text-sih-orange mt-[10px] max-[1330px]:mt-0 max-md:text-[20px] max-cellphone:text-[12px]">
-                {data.rol === "user"
+                {data.rol === "owner"
                   ? "Propietario"
                   : data.rol === "admin"
                     ? "Administrador"
