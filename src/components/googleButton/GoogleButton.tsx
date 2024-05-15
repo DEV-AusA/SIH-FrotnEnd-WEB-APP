@@ -1,27 +1,12 @@
 "use client";
-import { useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
+
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 
 const GoogleButton = () => {
-  const login = useGoogleLogin({
-    onSuccess: async (response) => {
-      try {
-        const res = await axios.get(
-          "https://www.googleapis.com/oauth2/v3/userinfo",
-          { headers: { Authorization: `Bearer ${response.access_token}` } },
-        );
-        console.log(res);
-        console.log(response);
-      } catch (error) {
-        error;
-      }
-    },
-  });
-
   return (
     <button
-      onClick={() => login()}
+      onClick={() => signIn()}
       className="bg-[#4385F5] h-[36px] w-[200px] rounded-[15px] text-base  flex items-center justify-between"
     >
       <Image
