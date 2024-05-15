@@ -29,6 +29,7 @@ export interface IUpdate {
   confirmpassword?: string;
 }
 export interface IUser {
+  username?: string;
   id: string;
   name: string;
   lastName: string;
