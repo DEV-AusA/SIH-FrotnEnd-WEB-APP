@@ -40,7 +40,13 @@ const ResidentServices: React.FC = (): React.ReactElement => {
               className="flex w-[480px] h-[150px] justify-between items-center my-[20px] mx-[50px] bg-white rounded-[15px] shadow-button"
               key={card.title}
             >
-              <Image src={card.image} height={100} width={120} alt={card.alt} />
+              <Image
+                className="mx-[10px]"
+                src={card.image}
+                height={80}
+                width={100}
+                alt={card.alt}
+              />
               <p className="text-sih-blue text-2xl pr-[15px]">{card.text}</p>
             </div>
           );

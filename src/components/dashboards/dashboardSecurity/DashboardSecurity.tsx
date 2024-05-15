@@ -6,10 +6,10 @@ import { useUserContext } from "@/components/UserProvider";
 import { useEffect } from "react";
 
 const buttonsOwner = [
-  { image: "/icons/pay.png", title: "Generar cupón", href: "/" },
-  { image: "/icons/check.png", title: "Propiedades", href: "/" },
-  { image: "/icons/bill.png", title: "Residentes", href: "/" },
-  { image: "/icons/chat.png", title: "Guardias", href: "/" },
+  { image: "/icons/owner.png", title: "Propietarios", href: "/" },
+  { image: "/icons/guest.png", title: "Invitados", href: "/" },
+  { image: "/icons/delivery.png", title: "Paquetería", href: "/" },
+  { image: "/icons/chat.png", title: "Chat", href: "/" },
 ];
 
 const DashboardSecurity: React.FC = (): React.ReactElement => {
