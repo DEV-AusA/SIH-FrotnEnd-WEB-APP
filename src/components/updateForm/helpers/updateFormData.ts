@@ -15,11 +15,6 @@ export const formData = [
     placeholder: "Correo electrónico",
   },
   {
-    name: "username",
-    type: "text",
-    placeholder: "Nombre de usuario",
-  },
-  {
     name: "document",
     type: "number",
     placeholder: "Documento",
@@ -30,18 +25,18 @@ export const formData = [
     placeholder: "Teléfono",
   },
   {
+    name: "phone",
+    type: "number",
+    placeholder: "Teléfono fijo",
+  },
+  {
     name: "password",
     type: "password",
-    placeholder: "Contraseña",
+    placeholder: "Nueva contraseña",
   },
   {
     name: "confirmpassword",
     type: "password",
     placeholder: "Confirmar contraseña",
-  },
-  {
-    name: "phone",
-    type: "number",
-    placeholder: "Teléfono fijo",
   },
 ];

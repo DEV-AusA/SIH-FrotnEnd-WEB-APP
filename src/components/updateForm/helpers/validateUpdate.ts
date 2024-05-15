@@ -51,7 +51,7 @@ const validateUpdate = ({
       "Almenos: una mayúscula, una minúscula, un carácter especial y un número.";
   else if (confirmpassword !== password)
     errors.confirmpassword = "La contraseña no coincide.";
-  else if (phone && phone.trim().length < 10)
+  else if (phone && phone.trim().length < 10 && phone !== "0")
     errors.phone = "Número de telefono invalido.";
 
   return errors;
