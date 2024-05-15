@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import links from "@/helpers/links";
+import AuthMenu from "../authMenu/AuthMenu";
 
 const Hamburger: React.FC = (): React.ReactElement => {
   const pathname = usePathname();
@@ -60,18 +61,9 @@ const Hamburger: React.FC = (): React.ReactElement => {
                 </Link>
               );
             })}
-            <Link
-              href="/ingreso"
-              className={`${pathname === "/ingreso" ? "cursor-default my-2 text-[#FFBD5C] text-xl disabled" : "hover:text-[#FFBD5C] my-2 text-xl"}`}
-            >
-              Ingresa
-            </Link>
-            <Link
-              href="/registro"
-              className={`${pathname === "/registro" ? "cursor-default text-xl my-2 text-[#FFBD5C] disabled" : "hover:text-[#FFBD5C] my-2 text-xl"}`}
-            >
-              Regístrate
-            </Link>
+            <div className="text-center justify-center items-center">
+              <AuthMenu />
+            </div>
           </ul>
         </div>
       </div>

@@ -3,12 +3,19 @@ import { useUserContext } from "@/components/UserProvider";
 import DashboardAdmin from "@/components/dashboards/dashboardAdmin/DashboardAdmin";
 import DashboardSecurity from "@/components/dashboards/dashboardSecurity/DashboardSecurity";
 import DashboardOwner from "@/components/dashboards/dshboardOwner/DashboardOwner";
-import { useRouter } from "next/navigation";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 
 const Dashboard: React.FC = (): React.ReactElement => {
-  const { user } = useUserContext();
-  const router = useRouter();
+  const { user, setUser } = useUserContext();
+  useEffect(() => {
+    const checkToken = async () => {
+      const currentUser = await JSON.parse(localStorage.user);
+      setUser(currentUser);
+    };
+
+    checkToken();
+  }, []);
+  console.log(user?.rol);
   let children: ReactElement | null = null;
   switch (user?.rol) {
     case "owner":
@@ -21,7 +28,6 @@ const Dashboard: React.FC = (): React.ReactElement => {
       children = <DashboardSecurity />;
       break;
     default:
-      router.push("/ingreso");
       break;
   }
   return <>{children}</>;
