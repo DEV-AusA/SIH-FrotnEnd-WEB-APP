@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useState, useEffect } from "react";
-import { IRegister, IUser } from "@/helpers/types";
+import { IRegister } from "@/helpers/types";
 import validateUpdate from "./helpers/validateUpdate";
 import { formData } from "./helpers/updateFormData";
 import { useUserContext } from "../UserProvider";
@@ -14,7 +14,31 @@ import userDto from "../loginForm/helpers/userDto";
 const REGISTERUSER_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const UpdateForm: React.FC = (): React.ReactElement => {
+  const { user, setUser } = useUserContext();
+  useEffect(() => {
+    const checkToken = async () => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        const currentUser = JSON.parse(storedUser);
+        setUser(currentUser);
+      }
+    };
+
+    checkToken();
+  }, []);
   const initialState: IRegister = {
+    name: user ? user.name : "",
+    lastName: user ? user.lastName : "",
+    email: user ? user.email : "",
+    username: "",
+    document: user ? String(user.document) : "",
+    phone: user ? String(user.phone) : "",
+    cellphone: user ? String(user.cellphone) : "",
+    code: "",
+    password: "",
+    confirmpassword: "",
+  };
+  const initialStateErrors: IRegister = {
     name: "",
     lastName: "",
     email: "",
@@ -27,16 +51,7 @@ const UpdateForm: React.FC = (): React.ReactElement => {
     confirmpassword: "",
   };
   const [data, setData] = useState(initialState);
-  const [errors, setErrors] = useState(initialState);
-  const { user, setUser } = useUserContext();
-  useEffect(() => {
-    const checkToken = async () => {
-      const currentUser = await JSON.parse(localStorage.user);
-      setUser(currentUser);
-    };
-
-    checkToken();
-  }, []);
+  const [errors, setErrors] = useState(initialStateErrors);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -98,41 +113,41 @@ const UpdateForm: React.FC = (): React.ReactElement => {
         showConfirmButton: true,
       });
       fileInput.value = "";
-    }
+      return;
+    } else {
+      const formData = new FormData();
+      formData.append("file", file);
 
-    const formData = new FormData();
-    formData.append("file", file);
-    console.log(formData);
-
-    axios
-      .put(`${REGISTERUSER_URL}/users/update/${user?.id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then(() => {
-        axios
-          .get(`${REGISTERUSER_URL}/users/${user?.id}`)
-          .then(({ data }) => data)
-          .then((data) => {
-            const userInfo = userDto(data);
-            setUser(userInfo);
-            localStorage.setItem("user", JSON.stringify(userInfo));
+      axios
+        .put(`${REGISTERUSER_URL}/users/update/${user?.id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(() => {
+          axios
+            .get(`${REGISTERUSER_URL}/users/${user?.id}`)
+            .then(({ data }) => data)
+            .then((data) => {
+              const userInfo = userDto(data);
+              setUser(userInfo);
+              localStorage.setItem("user", JSON.stringify(userInfo));
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+          Swal.fire({
+            icon: "error",
+            title: "Lo sentimos, algo ha salido mal.",
+            showConfirmButton: true,
           });
-      })
-      .catch((error) => {
-        console.log(error);
-        Swal.fire({
-          icon: "error",
-          title: "Lo sentimos, algo ha salido mal.",
-          showConfirmButton: true,
         });
-      });
+    }
   };
 
   return (
-    <div className="w-full flex flex-col  items-center px-[200px] py-10 ">
-      <h2 className="text-[#384B59] text-4xl font-bold text-center px-[160px] max-[1330px]:px-0 max-md:text-[20px]">
+    <div className="w-full flex flex-col items-center py-10 ">
+      <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px]">
         Tus datos
       </h2>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
@@ -155,9 +170,10 @@ const UpdateForm: React.FC = (): React.ReactElement => {
                 accept="image/*"
                 id="file"
                 name="file"
-                className="text-black flex flex-wrap flex-col max-md:w-[320px]"
+                className="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
               />
               <button
+                type="button"
                 onClick={uploadImage}
                 className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
               >
@@ -165,30 +181,34 @@ const UpdateForm: React.FC = (): React.ReactElement => {
               </button>
             </div>
           </div>
-          <h2 className="text-[#384B59] text-4xl font-bold text-center px-[160px] max-[1330px]:px-0 max-md:text-[20px] m-3">
+          <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] m-3">
             Llena los espacios de los datos que desees actualizar.
           </h2>
-          {formData.map(({ name, type, placeholder }) => {
-            return (
-              <div className="flex items-center" key={name}>
-                <label className="w-40 text-[#384B59] ">{placeholder}:</label>
-                <input
-                  className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 m-[10px] border-2 border-black"
-                  type={type}
-                  id={name}
-                  name={name}
-                  value={user ? user[name as keyof IUser] : ""}
-                  placeholder={placeholder}
-                  onChange={handleChange}
-                />
-                {errors[name as keyof IRegister] ? (
-                  <span className="text-red-500 block w-[256px] text-sm">
-                    {errors[name as keyof IRegister]}
-                  </span>
-                ) : null}
-              </div>
-            );
-          })}
+          <div className="grid grid-cols-2 max-md:grid-cols-1">
+            {formData.map(({ name, type, placeholder }) => {
+              return (
+                <div className="flex flex-col items-center mx-5" key={name}>
+                  <label className="w-[256px] text-[#384B59] ">
+                    {placeholder}:
+                  </label>
+                  <input
+                    className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 mx-5 border-2 border-black"
+                    type={type}
+                    id={name}
+                    name={name}
+                    value={data[name as keyof IRegister]}
+                    placeholder={placeholder}
+                    onChange={handleChange}
+                  />
+                  {errors[name as keyof IRegister] ? (
+                    <span className="text-red-500 block w-[256px] text-sm">
+                      {errors[name as keyof IRegister]}
+                    </span>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
         </div>
         <button
           type="submit"
