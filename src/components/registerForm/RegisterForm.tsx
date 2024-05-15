@@ -41,15 +41,13 @@ const RegisterForm: React.FC = (): React.ReactElement => {
     axios
       .post(`${REGISTERUSER_URL}/auth/signup`, userdata)
       .then(({ data }) => data)
-      .then((data) => {
-        console.log(data);
+      .then(() => {
         router.push("/ingreso");
         Swal.fire({
           position: "top-end",
           icon: "success",
           title: "Gracias por registrarte!\n Recuerda confirmar tu correo!",
           showConfirmButton: true,
-          timer: 1500,
         });
       })
       .catch((error) => {
