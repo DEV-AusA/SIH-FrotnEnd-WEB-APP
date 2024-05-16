@@ -14,9 +14,11 @@ import userDto from "../loginForm/helpers/userDto";
 const REGISTERUSER_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const UpdateForm: React.FC = (): React.ReactElement => {
-  const { user, setUser } = useUserContext();
+  const { user, setUser, token, setToken } = useUserContext();
   useEffect(() => {
     const checkToken = async () => {
+      const storedToken = await localStorage.getItem("token");
+      setToken(storedToken);
       const storedUser = localStorage.getItem("user");
       if (storedUser) {
         const currentUser = JSON.parse(storedUser);
@@ -64,10 +66,14 @@ const UpdateForm: React.FC = (): React.ReactElement => {
     event.preventDefault();
     const newdata = updateDto(data);
     axios
-      .put(`${REGISTERUSER_URL}/users/update/${user?.id}`, newdata)
+      .put(`${REGISTERUSER_URL}/users/update/${user?.id}`, newdata, {
+        headers: { Authorization: `Hola ${token}` },
+      })
       .then(() => {
         axios
-          .get(`${REGISTERUSER_URL}/users/${user?.id}`)
+          .get(`${REGISTERUSER_URL}/users/${user?.id}`, {
+            headers: { Authorization: `Hola ${token}` },
+          })
           .then(({ data }) => data)
           .then((data) => {
             const userInfo = userDto(data);
@@ -122,17 +128,28 @@ const UpdateForm: React.FC = (): React.ReactElement => {
         .put(`${REGISTERUSER_URL}/users/update/${user?.id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Hola ${token}`,
           },
         })
         .then(() => {
           axios
-            .get(`${REGISTERUSER_URL}/users/${user?.id}`)
+            .get(`${REGISTERUSER_URL}/users/${user?.id}`, {
+              headers: { Authorization: `Hola ${token}` },
+            })
             .then(({ data }) => data)
             .then((data) => {
               const userInfo = userDto(data);
               setUser(userInfo);
               localStorage.setItem("user", JSON.stringify(userInfo));
             });
+        })
+        .then(() => {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Imagen subida con exito.",
+            showConfirmButton: true,
+          });
         })
         .catch((error) => {
           console.log(error);
