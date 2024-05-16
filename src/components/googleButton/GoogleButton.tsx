@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { signIn } from "next-auth/react";
 
 const GoogleButton = () => {
   return (
-    <button
-      onClick={() => signIn()}
+    <a
+      href="https://sih-back.onrender.com/auth/google/login"
       className="bg-[#4385F5] h-[36px] w-[200px] rounded-[15px] text-base  flex items-center justify-between"
     >
       <Image
@@ -17,7 +16,7 @@ const GoogleButton = () => {
         alt="Secure Ingress Home"
       />
       <span className="pr-3">Ingresa con Google</span>
-    </button>
+    </a>
   );
 };
 
