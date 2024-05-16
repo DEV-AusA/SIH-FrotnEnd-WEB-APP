@@ -16,7 +16,6 @@ const Dashboard: React.FC = (): React.ReactElement => {
 
     checkToken();
   }, []);
-  console.log(user?.rol);
   let children: ReactElement | null = null;
   switch (user?.rol) {
     case "owner":
