@@ -1,3 +1,4 @@
+import AdminProperties from "@/components/adminProperties/AdminProperties";
 export default function Properties() {
-  return <main></main>;
+  return <AdminProperties />;
 }
