@@ -19,7 +19,11 @@ import { useEffect } from "react";
 }; */
 
 const buttonsOwner = [
-  { image: "/icons/pay.png", title: "Realizar pago", href: "/" },
+  {
+    image: "/icons/pay.png",
+    title: "Realizar pago",
+    href: "/acciones/expensas",
+  },
   { image: "/icons/check.png", title: "Autorizaciones", href: "/" },
   { image: "/icons/bill.png", title: "Mis facturas", href: "/" },
   { image: "/icons/chat.png", title: "Chat", href: "/" },

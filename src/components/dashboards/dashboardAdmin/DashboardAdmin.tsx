@@ -6,8 +6,16 @@ import { useUserContext } from "@/components/UserProvider";
 import { useEffect } from "react";
 
 const buttonsOwner = [
-  { image: "/icons/genpay.png", title: "Administrar pagos", href: "/" },
-  { image: "/icons/house.png", title: "Propiedades", href: "/propiedades" },
+  {
+    image: "/icons/genpay.png",
+    title: "Administrar pagos",
+    href: "/acciones/expensas",
+  },
+  {
+    image: "/icons/house.png",
+    title: "Propiedades",
+    href: "/acciones/propiedades",
+  },
   { image: "/icons/owner.png", title: "Residentes", href: "/" },
   { image: "/icons/security.png", title: "Guardias", href: "/" },
 ];
