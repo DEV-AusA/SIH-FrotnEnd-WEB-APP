@@ -55,3 +55,14 @@ export interface IProperty {
   number: number;
   ubication: string;
 }
+export interface IExpense {
+  amount: number;
+  dateGenerated: string;
+  datePaid?: string;
+  id: string;
+  numberOperation?: string;
+  state: boolean;
+}
+export interface IPropertyExpenses {
+  expences: IExpense[];
+}
