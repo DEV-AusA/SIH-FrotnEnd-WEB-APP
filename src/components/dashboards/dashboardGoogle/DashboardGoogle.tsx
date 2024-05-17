@@ -6,21 +6,13 @@ import { useUserContext } from "@/components/UserProvider";
 import { useEffect } from "react";
 
 const buttonsOwner = [
-  {
-    image: "/icons/genpay.png",
-    title: "Administrar pagos",
-    href: "/acciones/expensas",
-  },
-  {
-    image: "/icons/house.png",
-    title: "Propiedades",
-    href: "/acciones/propiedades",
-  },
-  { image: "/icons/owner.png", title: "Residentes", href: "/" },
-  { image: "/icons/security.png", title: "Guardias", href: "/" },
+  { image: "/icons/pay.png", title: "Realizar pago", href: "/" },
+  { image: "/icons/check.png", title: "Autorizaciones", href: "/" },
+  { image: "/icons/bill.png", title: "Mis facturas", href: "/" },
+  { image: "/icons/chat.png", title: "Chat", href: "/" },
 ];
 
-const DashboardAdmin: React.FC = (): React.ReactElement => {
+const DashboardGoogle: React.FC = (): React.ReactElement => {
   const { user, setUser } = useUserContext();
   useEffect(() => {
     const checkToken = async () => {
@@ -43,14 +35,16 @@ const DashboardAdmin: React.FC = (): React.ReactElement => {
               width={260}
               alt="Imagen del usuario"
             ></Image>
-            <div className="text-center">
-              <h2 className="text-[35px] text-white mt-[30px] max-[1330px]:mt-0 max-md:text-[22px] max-cellphone:text-[16px]">{`${data.name} ${data.lastName}`}</h2>
+            <div className="text-center flex flex-col justify-center items-center">
+              <h2 className="text-[35px] text-white mt-[30px] max-[1330px]:mt-0 max-md:text-[22px] max-cellphone:text-[16px]">{`${data.name}`}</h2>
               <h3 className="text-[30px] text-sih-orange mt-[10px] max-[1330px]:mt-0 max-md:text-[20px] max-cellphone:text-[12px]">
                 {data.rol === "owner"
                   ? "Propietario"
                   : data.rol === "admin"
                     ? "Administrador"
-                    : "Security"}
+                    : data.rol === "googletemp"
+                      ? "Propietario"
+                      : "Security"}
               </h3>
               <h4 className="text-[25px] text-sih-orange mt-[10px] max-[1330px]:mt-0 max-md:text-[16px] max-cellphone:text-[10px]">
                 {data.cellphone}
@@ -77,7 +71,7 @@ const DashboardAdmin: React.FC = (): React.ReactElement => {
                     className="h-[180px] w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button hover:bg-sih-orange  duration-150  hover:scale-105 max-[900px]:mx-[10px] max-md:h-[120px] max-md:w-[200px] max-cellphone:w-[300px] max-cellphone:h-[70px] max-cellphone:flex-row max-cellphone:justify-between max-cellphone:my-[20px] max-[400px]:w-[240px]"
                   >
                     <Image
-                      className="h-[90px] w-auto max-md:w-[80px] max-md:h-[66px] max-cellphone:m-[5px] max-cellphone:w-[66px] max-cellphone:h-[55px]"
+                      className="h-[90px] w-auto max-md:w-[80px] max-md:h-[66px] max-cellphone:m-[10px] max-cellphone:w-[66px] max-cellphone:h-[55px]"
                       src={button.image}
                       height={100}
                       width={110}
@@ -100,4 +94,4 @@ const DashboardAdmin: React.FC = (): React.ReactElement => {
     </div>
   );
 };
-export default DashboardAdmin;
+export default DashboardGoogle;

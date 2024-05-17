@@ -47,3 +47,22 @@ export interface IUser {
   image: string;
   lastLogin: string;
 }
+export interface IProperty {
+  address: string;
+  code: string;
+  id: string;
+  image: string;
+  number: number;
+  ubication: string;
+}
+export interface IExpense {
+  amount: number;
+  dateGenerated: string;
+  datePaid?: string;
+  id: string;
+  numberOperation?: string;
+  state: boolean;
+}
+export interface IPropertyExpenses {
+  expences: IExpense[];
+}
