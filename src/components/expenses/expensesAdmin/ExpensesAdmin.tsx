@@ -73,7 +73,7 @@ const ExpensesAdmin: React.FC = (): React.ReactElement => {
             return (
               <div
                 key={expense.id}
-                className="h-[180px] w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue"
+                className="w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue"
               >
                 <span className="m-2">
                   Generado en: {expense.dateGenerated}

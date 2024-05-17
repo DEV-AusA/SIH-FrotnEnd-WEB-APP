@@ -24,7 +24,7 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
         );
         const allExpenses: IExpense[] = [];
         response.data.map((property: IPropertyExpenses) =>
-          allExpenses.push(property.expences[0]),
+          property.expences ? allExpenses.push(property.expences[0]) : null,
         );
         setExpenses(allExpenses);
       } catch (error) {
@@ -69,11 +69,15 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
             return (
               <div
                 key={expense.id}
-                className="h-[180px] w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue"
+                className="w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue"
               >
-                <span className="m-2">
-                  Generado en: {expense.dateGenerated}
-                </span>
+                {expense.dateGenerated ? (
+                  <span className="m-2">
+                    Generado en: {expense.dateGenerated}
+                  </span>
+                ) : (
+                  ""
+                )}
                 <span className="m-2">Valor a pagar: {expense.amount}</span>
                 <span className="m-2">
                   {expense.state ? "Pagado" : "Pendiente"}
@@ -86,12 +90,16 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
                 {expense.datePaid && (
                   <span className="m-2">Pagado en: {expense.datePaid}</span>
                 )}
-                <button
-                  onClick={() => payExpense(expense.id, Number(expense.amount))}
-                  className="bg-sih-orange  rounded-md duration-150  hover:scale-105 p-2 px-5 my-2 shadow-sm shadow-black"
-                >
-                  Pagar
-                </button>
+                {!expense.state && (
+                  <button
+                    onClick={() =>
+                      payExpense(expense.id, Number(expense.amount))
+                    }
+                    className="bg-sih-orange  rounded-md duration-150  hover:scale-105 p-2 px-5 my-2 shadow-sm shadow-black"
+                  >
+                    Pagar
+                  </button>
+                )}
               </div>
             );
           })
