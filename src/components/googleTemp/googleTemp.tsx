@@ -1,10 +1,12 @@
 "use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useUserContext } from "@/components/UserProvider";
 import userDto from "@/components/loginForm/helpers/userDto";
-import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 
-export default function GoogleRedirectPage() {
+const CompleteAuth = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setUser, setToken } = useUserContext();
@@ -14,6 +16,7 @@ export default function GoogleRedirectPage() {
     if (state) {
       const user = JSON.parse(state);
       const userInfo = userDto(user.dataUser);
+
       setUser(userInfo);
       localStorage.setItem("user", JSON.stringify(userInfo));
       setToken(user.dataUser.token);
@@ -22,5 +25,7 @@ export default function GoogleRedirectPage() {
     }
   }, [searchParams, setUser, setToken, router]);
 
-  return null;
-}
+  return null; // O puedes mostrar algún mensaje de carga
+};
+
+export default CompleteAuth;
