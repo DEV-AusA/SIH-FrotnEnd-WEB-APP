@@ -1,29 +1,26 @@
 "use client";
-import { NextApiRequest } from "next";
 import { useUserContext } from "@/components/UserProvider";
 import userDto from "@/components/loginForm/helpers/userDto";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-interface CustomRequest extends NextApiRequest {
-  searchParams: {
-    state: string;
-  };
-}
-
-const handler = (req: CustomRequest) => {
+export default function GoogleRedirectPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { setUser, setToken } = useUserContext();
-  const user = JSON.parse(req.searchParams.state);
-  const userInfo = userDto(user.dataUser);
 
   useEffect(() => {
-    setUser(userInfo);
-    localStorage.setItem("user", JSON.stringify(userInfo));
-    setToken(user.dataUser.token);
-    localStorage.setItem("token", user.dataUser.token);
-    router.push("/acciones");
-  }, []);
-};
+    const state = searchParams.get("state");
+    if (state) {
+      const user = JSON.parse(state);
+      const userInfo = userDto(user.dataUser);
+      setUser(userInfo);
+      localStorage.setItem("user", JSON.stringify(userInfo));
+      setToken(user.dataUser.token);
+      localStorage.setItem("token", user.dataUser.token);
+      router.push("/acciones");
+    }
+  }, [searchParams, setUser, setToken, router]);
 
-export default handler;
+  return null;
+}
