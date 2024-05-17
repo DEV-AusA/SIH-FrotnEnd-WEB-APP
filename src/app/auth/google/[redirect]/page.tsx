@@ -11,7 +11,7 @@ interface CustomRequest extends NextApiRequest {
   };
 }
 
-export default function handler(req: CustomRequest) {
+const handler = (req: CustomRequest) => {
   const router = useRouter();
   const { setUser, setToken } = useUserContext();
   const user = JSON.parse(req.searchParams.state);
@@ -24,4 +24,6 @@ export default function handler(req: CustomRequest) {
     localStorage.setItem("token", user.dataUser.token);
     router.push("/acciones");
   }, []);
-}
+};
+
+export default handler;
