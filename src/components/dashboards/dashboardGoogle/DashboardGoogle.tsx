@@ -36,7 +36,7 @@ const DashboardGoogle: React.FC = (): React.ReactElement => {
               alt="Imagen del usuario"
             ></Image>
             <div className="text-center flex flex-col justify-center items-center">
-              <h2 className="text-[35px] text-white mt-[30px] max-[1330px]:mt-0 max-md:text-[22px] max-cellphone:text-[16px]">{`${data.name} ${data.lastName}`}</h2>
+              <h2 className="text-[35px] text-white mt-[30px] max-[1330px]:mt-0 max-md:text-[22px] max-cellphone:text-[16px]">{`${data.name}`}</h2>
               <h3 className="text-[30px] text-sih-orange mt-[10px] max-[1330px]:mt-0 max-md:text-[20px] max-cellphone:text-[12px]">
                 {data.rol === "owner"
                   ? "Propietario"

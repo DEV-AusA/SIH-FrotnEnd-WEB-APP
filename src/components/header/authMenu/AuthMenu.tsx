@@ -36,13 +36,13 @@ const AuthMenu: React.FC = (): React.ReactElement => {
       <div className="flex flex-col text-end text-xl ">
         <Link
           href="/acciones"
-          className={`${pathname === "/acciones" ? "cursor-default mb-1 text-[#FFBD5C] disabled" : "hover:text-[#FFBD5C] mb-1"}`}
+          className={`${pathname === "/acciones" ? "cursor-default my-1 m text-[#FFBD5C] disabled" : "hover:text-[#FFBD5C] my-1"}`}
         >
           Perfil
         </Link>
         <span
           onClick={handleLogOut}
-          className="hover:text-[#FFBD5C] my-1 cursor-pointer"
+          className="hover:text-[#FFBD5C] mb-1 cursor-pointer"
         >
           Cerrar sesión
         </span>
