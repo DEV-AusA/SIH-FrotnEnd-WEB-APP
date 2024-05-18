@@ -19,8 +19,8 @@ const CompleteAuth = () => {
 
       setUser(userInfo);
       localStorage.setItem("user", JSON.stringify(userInfo));
-      setToken(user.dataUser.token);
-      localStorage.setItem("token", user.dataUser.token);
+      setToken(user.token);
+      localStorage.setItem("token", user.token);
       router.push("/acciones");
     }
   }, [searchParams, setUser, setToken, router]);
