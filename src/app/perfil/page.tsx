@@ -2,18 +2,23 @@
 import { useUserContext } from "@/components/UserProvider";
 import UpdateForm from "@/components/updateForm/UpdateForm";
 import UpdateFormGoogle from "@/components/updateFormGoogle/UpdateFormGoogle";
+import { useRouter } from "next/navigation";
 import { ReactElement, useEffect } from "react";
 
-const Dashboard: React.FC = (): React.ReactElement => {
+const Dashboard: React.FC = (): React.ReactElement | null => {
+  const router = useRouter();
+  const isLogged = localStorage.getItem("token");
   const { user, setUser } = useUserContext();
   useEffect(() => {
     const checkToken = async () => {
-      const currentUser = await JSON.parse(localStorage.user);
-      setUser(currentUser);
+      if (localStorage.user) {
+        const currentUser = await JSON.parse(localStorage.user);
+        setUser(currentUser);
+      }
     };
 
     checkToken();
-  }, []);
+  }, [setUser]);
   let children: ReactElement | null = null;
   switch (user?.rol) {
     case "owner":
@@ -31,7 +36,12 @@ const Dashboard: React.FC = (): React.ReactElement => {
     default:
       break;
   }
-  return <main>{children}</main>;
+  if (isLogged) {
+    return <>{children}</>;
+  } else {
+    router.push("/ingreso");
+    return null;
+  }
 };
 
 export default Dashboard;

@@ -19,6 +19,8 @@ const config: Config = {
         "sih-grey": "#e8e8e8",
         "sih-blue": "#384B59",
         "sih-orange": "#FFBD5C",
+        "sih-red": "#AA4039",
+        "sih-green": "#39AA4A",
       },
       boxShadow: {
         button: "-8px 9px 14px 0px rgba(0,0,0,0.49);",
