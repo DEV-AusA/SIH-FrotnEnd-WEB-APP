@@ -37,7 +37,6 @@ const ExpensesAdmin: React.FC = (): React.ReactElement => {
   }, []);
   const createExpense = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(amount);
     axios
       .post(
         `${EXPENSES_URL}/expenses/createAllExpenses`,
@@ -51,7 +50,9 @@ const ExpensesAdmin: React.FC = (): React.ReactElement => {
           .get(`${EXPENSES_URL}/expenses`, {
             headers: { Authorization: `Hola ${token}` },
           })
-          .then(({ data }) => setExpenses(data)),
+          .then(({ data }) => {
+            setExpenses(data);
+          }),
       )
       .catch((error) => {
         Swal.fire({
