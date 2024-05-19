@@ -26,7 +26,11 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
         response.data.map((property: IPropertyExpenses) =>
           property.expences ? allExpenses.push(property.expences[0]) : null,
         );
-        setExpenses(allExpenses);
+        if (allExpenses.length === 0) {
+          setExpenses([]);
+        } else {
+          setExpenses(allExpenses);
+        }
       } catch (error) {
         console.log("Error al obtener las expensas:", error);
         setExpenses([]);
