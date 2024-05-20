@@ -4,19 +4,27 @@ import DashboardAdmin from "@/components/dashboards/dashboardAdmin/DashboardAdmi
 import DashboardGoogle from "@/components/dashboards/dashboardGoogle/DashboardGoogle";
 import DashboardSecurity from "@/components/dashboards/dashboardSecurity/DashboardSecurity";
 import DashboardOwner from "@/components/dashboards/dshboardOwner/DashboardOwner";
+import { useRouter } from "next/navigation";
 import { ReactElement, useEffect } from "react";
 
-const Dashboard: React.FC = (): React.ReactElement => {
+const Dashboard: React.FC = (): React.ReactElement | null => {
+  const isLogged = localStorage.getItem("token");
+  const router = useRouter();
   const { user, setUser } = useUserContext();
+
   useEffect(() => {
     const checkToken = async () => {
-      const currentUser = await JSON.parse(localStorage.user);
-      setUser(currentUser);
+      if (localStorage.user) {
+        const currentUser = await JSON.parse(localStorage.user);
+        setUser(currentUser);
+      }
     };
 
     checkToken();
-  }, []);
+  }, [setUser]);
+
   let children: ReactElement | null = null;
+
   switch (user?.rol) {
     case "owner":
       children = <DashboardOwner />;
@@ -31,9 +39,15 @@ const Dashboard: React.FC = (): React.ReactElement => {
       children = <DashboardGoogle />;
       break;
     default:
-      break;
+      children = null;
   }
-  return <>{children}</>;
+
+  if (isLogged) {
+    return <>{children}</>;
+  } else {
+    router.push("/ingreso");
+    return null;
+  }
 };
 
 export default Dashboard;

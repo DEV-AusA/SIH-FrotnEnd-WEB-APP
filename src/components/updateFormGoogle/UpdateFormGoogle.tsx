@@ -114,7 +114,7 @@ const UpdateFormGoogle: React.FC = (): React.ReactElement => {
               Al ingresar tu código de vivienda tendras acceso a todas las
               funciones del sitio!
             </h3>
-            <h3 className="text-[#384B59] text-left">
+            <h3 className="text-[#384B59] text-left mb-[10px]">
               Tambien puedes modificar los datos que se hayan registrado
               incorrectamente!
             </h3>
@@ -127,7 +127,7 @@ const UpdateFormGoogle: React.FC = (): React.ReactElement => {
                     {placeholder}:
                   </label>
                   <input
-                    className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 mx-5 border-2 border-black"
+                    className="text-black h-[40px] w-[256px] rounded-[15px] px-2 outline-0 mx-5 bg-white"
                     type={type}
                     id={name}
                     name={name}

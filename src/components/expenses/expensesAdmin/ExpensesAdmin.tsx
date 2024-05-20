@@ -68,13 +68,13 @@ const ExpensesAdmin: React.FC = (): React.ReactElement => {
       <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] m-3">
         Expensas
       </h2>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center items-center px-[200px] max-2xl:px-[50px]">
         {expenses && expenses.length > 0 ? (
           expenses.map((expense: IExpense) => {
             return (
               <div
                 key={expense.id}
-                className="w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue"
+                className="w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
               >
                 <span className="m-2">
                   Generado en: {expense.dateGenerated}

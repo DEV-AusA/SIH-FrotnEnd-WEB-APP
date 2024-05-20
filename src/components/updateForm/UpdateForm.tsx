@@ -163,13 +163,13 @@ const UpdateForm: React.FC = (): React.ReactElement => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center py-10 ">
+    <div className="w-full flex flex-col items-center py-10 p-[200px] max-2xl:px-[50px]">
       <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px]">
         Tus datos
       </h2>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <div className="flex flex-col justify-center items-center">
-          <div className="flex flex-row justify-center items-center max-md:flex-col m-5">
+        <div className="flex flex-row items-center max-[1000px]:flex-col">
+          <div className="flex flex-col  items-center mt-[39px] max-md:flex-col">
             {user ? (
               <Image
                 className="rounded-full border-8 border-white h-[260px] w-[260px] max-md:h-[173px] max-md:w-[173px] max-cellphone:h-[100px] max-cellphone:w-[100px]"
@@ -198,44 +198,49 @@ const UpdateForm: React.FC = (): React.ReactElement => {
               </button>
             </div>
           </div>
-          <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] m-3">
-            Llena los espacios de los datos que desees actualizar.
-          </h2>
-          <div className="grid grid-cols-2 max-md:grid-cols-1">
-            {formData.map(({ name, type, placeholder }) => {
-              return (
-                <div className="flex flex-col items-center mx-5" key={name}>
-                  <label className="w-[256px] text-[#384B59] ">
-                    {placeholder}:
-                  </label>
-                  <input
-                    className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 mx-5 border-2 border-black"
-                    type={type}
-                    id={name}
-                    name={name}
-                    value={data[name as keyof IRegister]}
-                    placeholder={placeholder}
-                    onChange={handleChange}
-                  />
-                  {errors[name as keyof IRegister] ? (
-                    <span className="text-red-500 block w-[256px] text-sm">
-                      {errors[name as keyof IRegister]}
-                    </span>
-                  ) : null}
-                </div>
-              );
-            })}
+          <div className="flex flex-col  items-center">
+            <h2 className="text-[#384B59] text-xl  text-center px-8 max-md:text-[20px] m-3">
+              Llena los espacios de los datos que desees actualizar.
+            </h2>
+            <div className="grid grid-cols-2 max-md:grid-cols-1">
+              {formData.map(({ name, type, placeholder }) => {
+                return (
+                  <div
+                    className="flex flex-col items-center mx-5 my-1"
+                    key={name}
+                  >
+                    <label className="w-[256px] text-[#384B59] ">
+                      {placeholder}:
+                    </label>
+                    <input
+                      className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 mx-5  border-black bg-white"
+                      type={type}
+                      id={name}
+                      name={name}
+                      value={data[name as keyof IRegister]}
+                      placeholder={placeholder}
+                      onChange={handleChange}
+                    />
+                    {errors[name as keyof IRegister] ? (
+                      <span className="text-red-500 block w-[256px] text-sm">
+                        {errors[name as keyof IRegister]}
+                      </span>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
+            <button
+              type="submit"
+              disabled={Object.keys(errors).some(
+                (e) => errors[e as keyof IRegister],
+              )}
+              className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
+            >
+              Actualizar datos
+            </button>
           </div>
         </div>
-        <button
-          type="submit"
-          disabled={Object.keys(errors).some(
-            (e) => errors[e as keyof IRegister],
-          )}
-          className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
-        >
-          Actualizar datos
-        </button>
       </form>
     </div>
   );
