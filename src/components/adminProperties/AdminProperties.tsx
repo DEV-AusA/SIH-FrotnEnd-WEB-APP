@@ -36,13 +36,13 @@ const AdminProperties: React.FC = (): React.ReactElement => {
       <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] m-3">
         Propiedades
       </h2>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center items-center px-[200px] max-2xl:px-[50px]">
         {properties ? (
           properties.map((property: IProperty) => {
             return (
               <div
                 key={property.id}
-                className="h-[180px] w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue"
+                className="h-[100px] w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[30px] my-[40px] shadow-button text-sih-blue"
               >
                 <span>Dirección: {property.address}</span>
                 <span>Número de casa: {property.number}</span>

@@ -26,7 +26,11 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
         response.data.map((property: IPropertyExpenses) =>
           property.expences ? allExpenses.push(property.expences[0]) : null,
         );
-        setExpenses(allExpenses);
+        if (allExpenses.length === 0) {
+          setExpenses([]);
+        } else {
+          setExpenses(allExpenses);
+        }
       } catch (error) {
         console.log("Error al obtener las expensas:", error);
         setExpenses([]);
@@ -69,7 +73,11 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
             return (
               <div
                 key={expense.id}
-                className="w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue"
+                className={
+                  expense.state
+                    ? "w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue border-4 border-sih-green"
+                    : "w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue border-4 border-sih-red"
+                }
               >
                 {expense.dateGenerated ? (
                   <span className="m-2">
