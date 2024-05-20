@@ -61,13 +61,13 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
         Tus expensas
       </h2>
       <div className="flex flex-wrap">
-        {expenses && expenses.length > 0 ? (
+        {expenses && expenses[0] !== undefined ? (
           expenses.map((expense: IExpense) => {
             return (
               <div
                 key={expense.id}
                 className={
-                  expense.state
+                  expense?.state
                     ? "w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue border-4 border-sih-green"
                     : "w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue border-4 border-sih-red"
                 }
