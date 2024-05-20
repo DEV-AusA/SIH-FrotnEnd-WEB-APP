@@ -76,6 +76,11 @@ const UpdateFormGoogle: React.FC = (): React.ReactElement => {
           showConfirmButton: true,
         });
       })
+      .then(() => {
+        window.location.replace(
+          "https://sih-back.onrender.com/auth/google/login",
+        );
+      })
       .catch((error) => {
         console.log(error);
         Swal.fire({

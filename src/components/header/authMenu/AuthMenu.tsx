@@ -22,14 +22,13 @@ const AuthMenu: React.FC = (): React.ReactElement => {
     localStorage.clear();
     setToken(null);
     setUser(null);
+    router.push("/ingreso");
     Swal.fire({
       position: "top-end",
       icon: "success",
       title: "¡Nos vemos pronto!",
       showConfirmButton: false,
       timer: 1500,
-    }).then(() => {
-      router.push("/ingreso");
     });
   };
 
