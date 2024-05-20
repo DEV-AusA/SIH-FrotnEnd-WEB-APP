@@ -52,14 +52,7 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
         },
       )
       .then((data) => {
-        const newWindow = window.open(data.data, "_blank");
-        if (newWindow) {
-          newWindow.focus();
-        } else {
-          console.log(
-            "No se pudo abrir la nueva ventana. Por favor, revise la configuración de su navegador.",
-          );
-        }
+        window.location.replace(data.data);
       });
   };
   return (
