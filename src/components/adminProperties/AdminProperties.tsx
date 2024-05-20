@@ -9,27 +9,20 @@ const GETPROPERTIES_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const AdminProperties: React.FC = (): React.ReactElement => {
   const [properties, setProperties] = useState<IProperty[]>([]);
-  const { token, setToken } = useUserContext();
+  const { setToken } = useUserContext();
   useEffect(() => {
     const fetchProperties = async () => {
       const storedToken = await localStorage.getItem("token");
       setToken(storedToken);
 
-      axios
-        .get(`${GETPROPERTIES_URL}/properties`, {
-          headers: { Authorization: `Hola ${token}` },
-        })
-        .then(({ data }) => data)
-        .then((data) => {
-          console.log(data);
-          setProperties(data);
-        })
-        .catch((error) => console.log(error));
+      const response = await axios.get(`${GETPROPERTIES_URL}/properties`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      });
+      setProperties(response.data);
     };
 
     fetchProperties();
   }, []);
-  console.log(properties);
 
   return (
     <main className="flex flex-col items-center py-10">

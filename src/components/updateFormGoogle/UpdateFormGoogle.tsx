@@ -74,6 +74,10 @@ const UpdateFormGoogle: React.FC = (): React.ReactElement => {
           icon: "success",
           title: "Se han actulizado tus datos.",
           showConfirmButton: true,
+        }).then(() => {
+          window.location.replace(
+            "https://sih-back.onrender.com/auth/google/login",
+          );
         });
       })
       .catch((error) => {
