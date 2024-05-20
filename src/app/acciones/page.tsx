@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { ReactElement, useEffect } from "react";
 
 const Dashboard: React.FC = (): React.ReactElement | null => {
-  const isLogged = localStorage.getItem("token");
   const router = useRouter();
   const { user, setUser } = useUserContext();
 
@@ -17,6 +16,8 @@ const Dashboard: React.FC = (): React.ReactElement | null => {
       if (localStorage.user) {
         const currentUser = await JSON.parse(localStorage.user);
         setUser(currentUser);
+      } else {
+        router.push("/ingreso");
       }
     };
 
@@ -42,12 +43,7 @@ const Dashboard: React.FC = (): React.ReactElement | null => {
       children = null;
   }
 
-  if (isLogged) {
-    return <>{children}</>;
-  } else {
-    router.push("/ingreso");
-    return null;
-  }
+  return <>{children}</>;
 };
 
 export default Dashboard;

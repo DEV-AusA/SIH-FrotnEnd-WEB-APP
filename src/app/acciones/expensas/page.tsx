@@ -6,19 +6,24 @@ import ExpensesAdmin from "@/components/expenses/expensesAdmin/ExpensesAdmin";
 import { useRouter } from "next/navigation";
 
 const Expenses: React.FC = (): React.ReactElement | null => {
-  const isLogged = localStorage.getItem("token");
   const router = useRouter();
   const { user, setUser } = useUserContext();
   useEffect(() => {
     const checkToken = async () => {
-      if (localStorage.user) {
-        const currentUser = await JSON.parse(localStorage.user);
+      const userString = localStorage.getItem("user");
+      if (userString) {
+        const currentUser = JSON.parse(userString);
         setUser(currentUser);
+        if (currentUser.rol !== "admin" && currentUser.rol !== "owner") {
+          router.push("/");
+        }
+      } else {
+        router.push("/ingreso");
       }
     };
 
     checkToken();
-  }, [setUser]);
+  }, [setUser, router]);
   let children: ReactElement | null = null;
   switch (user?.rol) {
     case "owner":
@@ -30,11 +35,7 @@ const Expenses: React.FC = (): React.ReactElement | null => {
     default:
       break;
   }
-  if (isLogged) {
-    return <>{children}</>;
-  } else {
-    router.push("/ingreso");
-    return null;
-  }
+
+  return <>{children}</>;
 };
 export default Expenses;

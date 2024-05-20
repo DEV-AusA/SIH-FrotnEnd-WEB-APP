@@ -1,13 +1,24 @@
 "use client";
 import AdminProperties from "@/components/adminProperties/AdminProperties";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
 export default function Properties() {
-  const isLogged = localStorage.getItem("token");
   const router = useRouter();
-  if (isLogged) {
-    return <AdminProperties />;
-  } else {
-    router.push("/ingreso");
-    return null;
-  }
+
+  useEffect(() => {
+    const isLogged = localStorage.getItem("user");
+    if (isLogged) {
+      const localUser = JSON.parse(isLogged);
+      if (localUser.rol === "admin") {
+        return;
+      } else {
+        router.push("/");
+      }
+    } else {
+      router.push("/ingreso");
+    }
+  }, [router]);
+
+  return <AdminProperties />;
 }
