@@ -26,7 +26,7 @@ const buttonsOwner = [
   },
   { image: "/icons/check.png", title: "Autorizaciones", href: "/" },
   { image: "/icons/bill.png", title: "Mis facturas", href: "/" },
-  { image: "/icons/chat.png", title: "Chat", href: "/" },
+  { image: "/icons/chat.png", title: "Chat", href: "/acciones/chat" },
 ];
 
 const DashboardOwner: React.FC = (): React.ReactElement => {
