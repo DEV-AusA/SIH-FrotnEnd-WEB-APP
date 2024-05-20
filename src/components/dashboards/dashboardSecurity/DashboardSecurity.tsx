@@ -9,7 +9,7 @@ const buttonsOwner = [
   { image: "/icons/owner.png", title: "Propietarios", href: "/" },
   { image: "/icons/guest.png", title: "Invitados", href: "/" },
   { image: "/icons/delivery.png", title: "Paquetería", href: "/" },
-  { image: "/icons/chat.png", title: "Chat", href: "/" },
+  { image: "/icons/chat.png", title: "Chat", href: "/acciones/chat" },
 ];
 
 const DashboardSecurity: React.FC = (): React.ReactElement => {
