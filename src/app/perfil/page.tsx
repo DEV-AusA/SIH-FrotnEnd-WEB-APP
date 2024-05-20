@@ -7,18 +7,21 @@ import { ReactElement, useEffect } from "react";
 
 const Dashboard: React.FC = (): React.ReactElement | null => {
   const router = useRouter();
-  const isLogged = localStorage.getItem("token");
+
   const { user, setUser } = useUserContext();
   useEffect(() => {
     const checkToken = async () => {
       if (localStorage.user) {
         const currentUser = await JSON.parse(localStorage.user);
         setUser(currentUser);
+      } else {
+        router.push("/ingreso");
       }
     };
 
     checkToken();
   }, [setUser]);
+
   let children: ReactElement | null = null;
   switch (user?.rol) {
     case "owner":
@@ -36,12 +39,8 @@ const Dashboard: React.FC = (): React.ReactElement | null => {
     default:
       break;
   }
-  if (isLogged) {
-    return <>{children}</>;
-  } else {
-    router.push("/ingreso");
-    return null;
-  }
+
+  return <>{children}</>;
 };
 
 export default Dashboard;
