@@ -67,12 +67,12 @@ const UpdateForm: React.FC = (): React.ReactElement => {
     const newdata = updateDto(data);
     axios
       .put(`${REGISTERUSER_URL}/users/update/${user?.id}`, newdata, {
-        headers: { Authorization: `Hola ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {
         axios
           .get(`${REGISTERUSER_URL}/users/${user?.id}`, {
-            headers: { Authorization: `Hola ${token}` },
+            headers: { Authorization: `Bearer ${token}` },
           })
           .then(({ data }) => data)
           .then((data) => {
@@ -128,13 +128,13 @@ const UpdateForm: React.FC = (): React.ReactElement => {
         .put(`${REGISTERUSER_URL}/users/update/${user?.id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Hola ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(() => {
           axios
             .get(`${REGISTERUSER_URL}/users/${user?.id}`, {
-              headers: { Authorization: `Hola ${token}` },
+              headers: { Authorization: `Bearer ${token}` },
             })
             .then(({ data }) => data)
             .then((data) => {
@@ -213,7 +213,7 @@ const UpdateForm: React.FC = (): React.ReactElement => {
                       {placeholder}:
                     </label>
                     <input
-                      className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 mx-5  border-black bg-white"
+                      className="text-black h-[40px] w-[256px] rounded-[15px] px-2 outline-0 mx-5  border-black bg-white"
                       type={type}
                       id={name}
                       name={name}
