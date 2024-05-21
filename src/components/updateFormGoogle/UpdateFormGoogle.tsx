@@ -75,9 +75,7 @@ const UpdateFormGoogle: React.FC = (): React.ReactElement => {
           title: "Se han actulizado tus datos.",
           showConfirmButton: true,
         }).then(() => {
-          window.location.replace(
-            "https://sih-back.onrender.com/auth/google/login",
-          );
+          window.location.replace(`${REGISTERUSER_URL}/auth/google/login`);
         });
       })
       .catch((error) => {
@@ -85,6 +83,7 @@ const UpdateFormGoogle: React.FC = (): React.ReactElement => {
         Swal.fire({
           icon: "error",
           title: "Lo sentimos, algo ha salido mal.",
+          text: error.response.data.message || error.message,
           showConfirmButton: true,
         });
       });
