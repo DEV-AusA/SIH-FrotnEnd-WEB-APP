@@ -51,15 +51,30 @@ const LoginForm: React.FC = (): React.ReactElement => {
         });
         router.push("/acciones");
       })
-      .catch(() =>
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "Usuario o contraseña incorrecta",
-          showConfirmButton: false,
-          timer: 1500,
-        }),
-      );
+      .catch((error) => {
+        if (
+          error.response.data.message === "Cuenta Inactiva. Verifique su correo"
+        ) {
+          return Swal.fire({
+            title: "<strong>Por favor valida tu cuenta</strong>",
+            icon: "info",
+            html: `
+              Revisa tu <b>bandeja de entrada</b> o <b>correo no deseado</b>
+            `,
+            footer:
+              '<a href="https://mail.google.com/mail" target="_blank"><b>Ir al correo</b></a>',
+          });
+        } else {
+          return Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Usuario o contraseña incorrecta",
+            text: error.response.data.message || error.message,
+            showConfirmButton: false,
+            timer: 5000,
+          });
+        }
+      });
   };
 
   return (
