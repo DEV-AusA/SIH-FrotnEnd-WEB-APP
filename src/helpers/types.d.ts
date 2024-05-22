@@ -47,13 +47,18 @@ export interface IUser {
   image: string;
   lastLogin: string;
 }
+export interface IPropUser {
+  lastName: string;
+  name: string;
+  state: boolean;
+}
 export interface IProperty {
   address: string;
   code: string;
   id: string;
   image: string;
   number: number;
-  ubication: string;
+  user: null | IPropUser;
 }
 export interface ICreateProperty {
   address: string;

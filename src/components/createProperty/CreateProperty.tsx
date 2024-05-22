@@ -120,7 +120,7 @@ const CreateProperty: React.FC = (): React.ReactElement => {
           accept="image/*"
           id="file"
           name="file"
-          className="block w-[250px] mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          className="block w-[250px] mt-[10px] text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
         />
         <button
           type="submit"
@@ -128,7 +128,7 @@ const CreateProperty: React.FC = (): React.ReactElement => {
             data.address.length === 0 ||
             Object.keys(errors).some((e) => errors[e as keyof ICreateProperty])
           }
-          className="bg-sih-blue h-[37px] w-[120px] rounded-[15px] text-base p-1 my-[20px]"
+          className="bg-sih-blue h-[37px] w-[120px] rounded-[15px] text-base p-1 mt-[10px] mb-[20px]"
         >
           Agregar
         </button>
