@@ -57,7 +57,7 @@ export interface IProperty {
 }
 export interface ICreateProperty {
   address: string;
-  number: number | string;
+  number: string;
 }
 export interface IExpense {
   amount: number;

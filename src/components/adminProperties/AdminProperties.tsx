@@ -22,7 +22,7 @@ const AdminProperties: React.FC = (): React.ReactElement => {
     };
 
     fetchProperties();
-  }, [properties]);
+  }, []);
 
   return (
     <main className="flex flex-col items-center py-10">

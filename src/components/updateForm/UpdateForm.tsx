@@ -123,7 +123,6 @@ const UpdateForm: React.FC = (): React.ReactElement => {
     } else {
       const formData = new FormData();
       formData.append("file", file);
-      console.log(file);
       axios
         .put(`${REGISTERUSER_URL}/users/update/${user?.id}`, formData, {
           headers: {
