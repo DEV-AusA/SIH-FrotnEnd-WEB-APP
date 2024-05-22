@@ -55,6 +55,10 @@ export interface IProperty {
   number: number;
   ubication: string;
 }
+export interface ICreateProperty {
+  address: string;
+  number: number | string;
+}
 export interface IExpense {
   amount: number;
   dateGenerated: string;

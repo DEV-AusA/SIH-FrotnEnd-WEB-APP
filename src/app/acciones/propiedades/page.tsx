@@ -1,5 +1,6 @@
 "use client";
 import AdminProperties from "@/components/adminProperties/AdminProperties";
+import CreateProperty from "@/components/createProperty/CreateProperty";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -20,5 +21,10 @@ export default function Properties() {
     }
   }, [router]);
 
-  return <AdminProperties />;
+  return (
+    <div className="flex flex-col items-center">
+      <AdminProperties />
+      <CreateProperty />
+    </div>
+  );
 }
