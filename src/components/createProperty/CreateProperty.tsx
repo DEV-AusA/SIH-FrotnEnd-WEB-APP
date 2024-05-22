@@ -7,10 +7,13 @@ import createDto from "./helpers/createDto";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { createFormData } from "./helpers/createFormData";
+import { useUserContext } from "../UserProvider";
+
 const CREATE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const CreateProperty: React.FC = (): React.ReactElement => {
-  const token = localStorage.token;
+  const { token } = useUserContext();
+
   const initialState: ICreateProperty = {
     address: "",
     number: "",
@@ -27,33 +30,63 @@ const CreateProperty: React.FC = (): React.ReactElement => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const propertyData = createDto(data);
-    axios
-      .post(`${CREATE_URL}/properties/create`, propertyData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(({ data }) => data)
-      .then(() => {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "¡Propiedad creada correctamente!",
-          showConfirmButton: true,
-        });
-      })
-      .then(() => setData(initialState))
-      .catch((error) => {
-        console.log(error);
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: error.response.data.message,
-          showConfirmButton: false,
-          timer: 2500,
-        });
+    const fileInput = document.getElementById("file") as HTMLInputElement;
+    const file = fileInput.files ? fileInput.files[0] : null;
+
+    if (!file) {
+      Swal.fire({
+        icon: "error",
+        title: "No has seleccionado un archivo.",
+        showConfirmButton: true,
       });
+      return;
+    }
+    const maxSize = 200 * 1024;
+
+    if (file.size > maxSize) {
+      Swal.fire({
+        icon: "error",
+        title: "El tamaño máximo del archivo es de 200KB.",
+        showConfirmButton: true,
+      });
+      fileInput.value = "";
+      return;
+    } else {
+      const formData = new FormData();
+      formData.append("file", file);
+      const propertyData = createDto(data);
+      formData.append("address", propertyData.address);
+      formData.append("number", propertyData.number);
+      axios
+        .post(`${CREATE_URL}/properties/create`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({ data }) => data)
+        .then(() => {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "¡Propiedad creada correctamente!",
+            showConfirmButton: true,
+          }).then(() => {
+            location.reload();
+          });
+        })
+        .then(() => setData(initialState))
+        .catch((error) => {
+          console.log(error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: error.response.data.message,
+            showConfirmButton: false,
+            timer: 2500,
+          });
+        });
+    }
   };
 
   return (
@@ -82,11 +115,19 @@ const CreateProperty: React.FC = (): React.ReactElement => {
             </div>
           );
         })}
+        <input
+          type="file"
+          accept="image/*"
+          id="file"
+          name="file"
+          className="block w-[250px] mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        />
         <button
           type="submit"
-          disabled={Object.keys(errors).some(
-            (e) => errors[e as keyof ICreateProperty],
-          )}
+          disabled={
+            data.address.length === 0 ||
+            Object.keys(errors).some((e) => errors[e as keyof ICreateProperty])
+          }
           className="bg-sih-blue h-[37px] w-[120px] rounded-[15px] text-base p-1 my-[20px]"
         >
           Agregar

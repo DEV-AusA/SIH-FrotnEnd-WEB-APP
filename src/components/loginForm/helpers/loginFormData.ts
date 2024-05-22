@@ -2,7 +2,7 @@ export const formData = [
   {
     name: "user",
     type: "text",
-    placeholder: "Nombre de usuario",
+    placeholder: "Usuario o email",
   },
   {
     name: "password",
