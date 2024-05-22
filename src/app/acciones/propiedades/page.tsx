@@ -1,5 +1,6 @@
 "use client";
 import AdminProperties from "@/components/adminProperties/AdminProperties";
+import BackLink from "@/components/backButton/BackLink";
 import CreateProperty from "@/components/createProperty/CreateProperty";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -22,7 +23,15 @@ export default function Properties() {
   }, [router]);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col">
+      <div className="flex items-center justify-between px-[200px] mt-[5px]">
+        <BackLink href="/acciones" />
+        <div className="flex-1 flex justify-center">
+          <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] m-3">
+            Propiedades
+          </h2>
+        </div>
+      </div>
       <AdminProperties />
       <CreateProperty />
     </div>
