@@ -23,7 +23,7 @@ const ExpensesAdmin: React.FC = (): React.ReactElement => {
         setToken(storedToken);
 
         const response = await axios.get(`${EXPENSES_URL}/expenses`, {
-          headers: { Authorization: `Hola ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         setExpenses(response.data);
@@ -42,13 +42,13 @@ const ExpensesAdmin: React.FC = (): React.ReactElement => {
         `${EXPENSES_URL}/expenses/createAllExpenses`,
         { amount: amount },
         {
-          headers: { Authorization: `Hola ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         },
       )
       .then(() =>
         axios
           .get(`${EXPENSES_URL}/expenses`, {
-            headers: { Authorization: `Hola ${token}` },
+            headers: { Authorization: `Bearer ${token}` },
           })
           .then(({ data }) => {
             setExpenses(data);
