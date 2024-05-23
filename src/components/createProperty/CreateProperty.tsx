@@ -128,7 +128,7 @@ const CreateProperty: React.FC = (): React.ReactElement => {
             data.address.length === 0 ||
             Object.keys(errors).some((e) => errors[e as keyof ICreateProperty])
           }
-          className="bg-sih-blue h-[37px] w-[120px] rounded-[15px] text-base p-1 mt-[10px] mb-[20px]"
+          className="bg-sih-blue h-[37px] w-[120px] rounded-[15px] text-base p-1 mt-[20px] mb-[20px]"
         >
           Agregar
         </button>

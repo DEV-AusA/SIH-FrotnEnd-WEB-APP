@@ -11,9 +11,9 @@ const BackLink: React.FC<BackLinkProps> = ({ href }) => {
       <Image
         src="/icons/back.png"
         alt="Volver"
-        width={50}
-        height={50}
-        className="h-[50px] w-[50px]"
+        width={60}
+        height={60}
+        className="h-[60px] w-[60px]"
       />
     </Link>
   );
