@@ -5,7 +5,6 @@ import axios from "axios";
 import { useUserContext } from "../UserProvider";
 import { IProperty } from "@/helpers/types";
 import Image from "next/image";
-import { Span } from "next/dist/trace";
 import Link from "next/link";
 
 const GETPROPERTIES_URL = process.env.NEXT_PUBLIC_API_URL;
