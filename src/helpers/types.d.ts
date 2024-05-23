@@ -75,3 +75,19 @@ export interface IExpense {
 export interface IPropertyExpenses {
   expences: IExpense[];
 }
+export interface IAuthorization {
+  type: string;
+  name?: string;
+  document?: string;
+  shipmentNumber?: string;
+}
+export interface IAuthorizationCreated {
+  id: string;
+  type: string;
+  name?: string;
+  document?: string;
+  shipmentNumber?: string;
+  accessCode: number;
+  expirationTime: string;
+  number: number;
+}

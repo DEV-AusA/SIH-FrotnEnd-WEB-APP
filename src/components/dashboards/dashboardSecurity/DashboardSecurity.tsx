@@ -7,8 +7,16 @@ import { useEffect } from "react";
 
 const buttonsOwner = [
   { image: "/icons/owner.png", title: "Propietarios", href: "/" },
-  { image: "/icons/guest.png", title: "Invitados", href: "/" },
-  { image: "/icons/delivery.png", title: "Paquetería", href: "/" },
+  {
+    image: "/icons/guest.png",
+    title: "Invitados",
+    href: "/acciones/invitados",
+  },
+  {
+    image: "/icons/delivery.png",
+    title: "Paquetería",
+    href: "/acciones/paqueteria",
+  },
   { image: "/icons/chat.png", title: "Chat", href: "/acciones/chat" },
 ];
 

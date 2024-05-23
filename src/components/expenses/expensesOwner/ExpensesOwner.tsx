@@ -19,7 +19,7 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
         const response = await axios.get(
           `${EXPENSES_URL}/expenses/${user?.id}`,
           {
-            headers: { Authorization: `Hola ${token}` },
+            headers: { Authorization: `Bearer ${token}` },
           },
         );
         const allExpenses: IExpense[] = [];
@@ -48,7 +48,7 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
           amount: amount,
         },
         {
-          headers: { Authorization: `Hola ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         },
       )
       .then((data) => {
