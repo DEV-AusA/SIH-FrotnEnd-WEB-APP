@@ -24,7 +24,11 @@ const buttonsOwner = [
     title: "Realizar pago",
     href: "/acciones/expensas",
   },
-  { image: "/icons/check.png", title: "Autorizaciones", href: "/" },
+  {
+    image: "/icons/check.png",
+    title: "Autorizaciones",
+    href: "/acciones/autorizaciones",
+  },
   { image: "/icons/bill.png", title: "Mis facturas", href: "/" },
   { image: "/icons/chat.png", title: "Chat", href: "/acciones/chat" },
 ];
