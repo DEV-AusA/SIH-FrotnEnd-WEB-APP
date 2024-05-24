@@ -1,9 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Red+Hat+Display:400,500,900&display=swap");
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
-/* @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'); */
 
 .container{
   display: flex;
+}
+
+.scrollableDiv {
+  margin: 1rem;
+  max-height: 34rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #eee;
 }
 
 .status{
@@ -279,7 +286,4 @@
     transform: translate(0, -0.25rem) scale(1);
     opacity: 1;
   }
-}
-.pic.ps {
-  background-image: url("https://res.cloudinary.com/dcqdilhek/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1716051539/PS_mourp3.jpg");
 }
