@@ -6,6 +6,7 @@ import { useUserContext } from "../UserProvider";
 import { IProperty } from "@/helpers/types";
 import Image from "next/image";
 import expDto from "./helpers/helpers";
+import Swal from "sweetalert2";
 
 const GETPROPERTIES_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -145,16 +146,27 @@ const AdminProperties: React.FC = (): React.ReactElement => {
     try {
       const storedToken = await localStorage.getItem("token");
       const expenseDataDTO = expDto(expenseData);
-      await axios.post(
-        `${GETPROPERTIES_URL}/expenses/createExpense`,
-        expenseDataDTO,
-        {
+      await axios
+        .post(`${GETPROPERTIES_URL}/expenses/createExpense`, expenseDataDTO, {
           headers: { Authorization: `Bearer ${storedToken}` },
-        },
-      );
+        })
+        .then(() => {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "¡Gasto extraordinario creado correctamente!",
+            showConfirmButton: true,
+          });
+        });
       closeModal();
     } catch (error) {
-      console.error("Error al crear gasto extraordinario", error);
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Error al crear el gasto extraordinario",
+        showConfirmButton: false,
+        timer: 2500,
+      });
     }
   };
   return (
