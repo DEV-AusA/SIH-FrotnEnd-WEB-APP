@@ -29,11 +29,14 @@ const validateUpdate = ({
     password: "",
     confirmpassword: "",
   };
-  if (name && (name.trim().length < 2 || name.trim().length > 30))
+  if (!document || document.trim().length !== 8) {
+    errors.document = "Documento Invalido.";
+  } else if (!name || name.trim().length < 2 || name.trim().length > 30)
     errors.name = "Nombre Invalido.";
   else if (
-    lastName &&
-    (lastName.trim().length < 2 || lastName.trim().length > 30)
+    !lastName ||
+    lastName.trim().length < 2 ||
+    lastName.trim().length > 30
   ) {
     errors.lastName = "Apellido invalido.";
   } else if (!code) errors.code = "Ingresa el código de vivienda.";
@@ -46,9 +49,7 @@ const validateUpdate = ({
     (!userRegExp.test(username) || username.trim().length < 3)
   ) {
     errors.username = "Usuario invalido.";
-  } else if (document && document.trim().length !== 8) {
-    errors.document = "Documento Invalido.";
-  } else if (cellphone && cellphone.trim().length < 10)
+  } else if (!cellphone || cellphone.trim().length < 10)
     errors.cellphone = "Número de telefono invalido.";
   else if (password && !passwordRegExp.test(password))
     errors.password =

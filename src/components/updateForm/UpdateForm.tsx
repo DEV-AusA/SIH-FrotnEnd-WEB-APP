@@ -85,7 +85,7 @@ const UpdateForm: React.FC = (): React.ReactElement => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Se han actulizado tus datos.",
+          title: "Se han actualizado tus datos.",
           showConfirmButton: true,
         });
       })
@@ -94,6 +94,7 @@ const UpdateForm: React.FC = (): React.ReactElement => {
         Swal.fire({
           icon: "error",
           title: "Lo sentimos, algo ha salido mal.",
+          text: error.response.data.message || error.message,
           showConfirmButton: true,
         });
       });
@@ -123,7 +124,6 @@ const UpdateForm: React.FC = (): React.ReactElement => {
     } else {
       const formData = new FormData();
       formData.append("file", file);
-
       axios
         .put(`${REGISTERUSER_URL}/users/update/${user?.id}`, formData, {
           headers: {

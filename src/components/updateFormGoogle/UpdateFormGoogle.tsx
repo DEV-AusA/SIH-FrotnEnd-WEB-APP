@@ -29,12 +29,12 @@ const UpdateFormGoogle: React.FC = (): React.ReactElement => {
   }, []);
   const initialState: IRegister = {
     name: user ? user.name : "",
-    lastName: user ? user.lastName : "",
+    lastName: user ? (user.lastName === "Google" ? "" : user.lastName) : "",
     email: user ? user.email : "",
     username: "",
-    document: user ? String(user.document) : "",
+    document: "",
     phone: user ? String(user.phone) : "",
-    cellphone: user ? String(user.cellphone) : "",
+    cellphone: "",
     code: "",
     password: "",
     confirmpassword: "",
@@ -72,12 +72,10 @@ const UpdateFormGoogle: React.FC = (): React.ReactElement => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Se han actulizado tus datos.",
+          title: "Se han actualizado tus datos.",
           showConfirmButton: true,
         }).then(() => {
-          window.location.replace(
-            "https://sih-back.onrender.com/auth/google/login",
-          );
+          window.location.replace(`${REGISTERUSER_URL}/auth/google/login`);
         });
       })
       .catch((error) => {
@@ -85,6 +83,7 @@ const UpdateFormGoogle: React.FC = (): React.ReactElement => {
         Swal.fire({
           icon: "error",
           title: "Lo sentimos, algo ha salido mal.",
+          text: error.response.data.message || error.message,
           showConfirmButton: true,
         });
       });

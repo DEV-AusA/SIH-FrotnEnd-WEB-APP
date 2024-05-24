@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
+const REGISTERUSER_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const GoogleButton = () => {
   return (
     <a
-      href="https://sih-back.onrender.com/auth/google/login"
+      href={`${REGISTERUSER_URL}/auth/google/login`}
       className="bg-[#4385F5] h-[36px] w-[200px] rounded-[15px] text-base  flex items-center justify-between"
     >
       <Image
