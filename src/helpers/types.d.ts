@@ -99,3 +99,8 @@ export interface CustomError extends Error {
     };
   };
 }
+export interface ICreateExp {
+  id: string;
+  description: string;
+  amount: number;
+}
