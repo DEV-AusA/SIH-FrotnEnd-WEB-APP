@@ -16,7 +16,11 @@ const buttonsOwner = [
     title: "Propiedades",
     href: "/acciones/propiedades",
   },
-  { image: "/icons/owner.png", title: "Residentes", href: "/" },
+  {
+    image: "/icons/owner.png",
+    title: "Residentes",
+    href: "/acciones/residentes",
+  },
   { image: "/icons/security.png", title: "Guardias", href: "/" },
 ];
 
