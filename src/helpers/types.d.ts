@@ -104,3 +104,19 @@ export interface ICreateExp {
   description: string;
   amount: number;
 }
+export interface Message {
+  userIdFrom: string;
+  name: string;
+  message: string;
+  roomIdChat: string;
+  userIdTo: string;
+  imageTo: string;
+  lastLogin: string;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  image: string;
+  lastLogin: string;
+}
