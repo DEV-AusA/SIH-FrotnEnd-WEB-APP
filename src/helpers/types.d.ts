@@ -90,4 +90,12 @@ export interface IAuthorizationCreated {
   accessCode: number;
   expirationTime: string;
   number: number;
+  dateUsed: string;
+}
+export interface CustomError extends Error {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
 }
