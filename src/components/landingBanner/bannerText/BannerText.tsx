@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const BannerText: React.FC = (): React.ReactElement => {
   return (
     <div className="w-full flex flex-col  items-center px-[200px] py-24 ">
@@ -12,9 +14,12 @@ const BannerText: React.FC = (): React.ReactElement => {
         <br />
         -Realiza tus pagos administrativos
       </h3>
-      <button className="bg-[#384B59] w-[300px] h-[68px] mt-5 rounded-xl text-3xl hover:bg-[#FFBD5C] hover:text-[#384B59] ">
+      <Link
+        href="/residente"
+        className="bg-[#384B59] w-[200px] h-[60px] mt-5 text-center justify-center items-center flex rounded-xl text-2xl hover:bg-[#FFBD5C] hover:text-[#384B59]"
+      >
         Saber más
-      </button>
+      </Link>
     </div>
   );
 };

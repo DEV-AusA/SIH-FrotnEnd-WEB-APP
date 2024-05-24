@@ -6,6 +6,8 @@ import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import CompaniesBanner from "@/components/companiesBanner";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +30,7 @@ export default function RootLayout({
             {children}
             <CompaniesBanner />
             <Footer />
+            <ToastContainer />
           </UserProvider>
         </body>
       </html>

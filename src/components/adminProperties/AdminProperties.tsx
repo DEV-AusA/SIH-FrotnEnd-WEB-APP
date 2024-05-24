@@ -5,7 +5,8 @@ import axios from "axios";
 import { useUserContext } from "../UserProvider";
 import { IProperty } from "@/helpers/types";
 import Image from "next/image";
-import Link from "next/link";
+import expDto from "./helpers/helpers";
+import Swal from "sweetalert2";
 
 const GETPROPERTIES_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -16,6 +17,13 @@ const AdminProperties: React.FC = (): React.ReactElement => {
   const [properties, setProperties] = useState<IProperty[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [expenseData, setExpenseData] = useState({
+    id: "",
+    amount: 0,
+    description: "",
+  });
+  const [error, setError] = useState<string | null>(null);
 
   const { setToken } = useUserContext();
 
@@ -27,8 +35,6 @@ const AdminProperties: React.FC = (): React.ReactElement => {
       const response = await axios.get(`${GETPROPERTIES_URL}/properties`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
-
-      // Ordenar el array de propiedades por el número de casa de forma ascendente
       const sortedProperties = response.data.sort(
         (a: IProperty, b: IProperty) => a.number - b.number,
       );
@@ -38,6 +44,7 @@ const AdminProperties: React.FC = (): React.ReactElement => {
 
     fetchProperties();
   }, [setToken]);
+
   const handleUnoccupied = () => {
     setUnoccupied(!unoccupied);
     if (occupied) {
@@ -113,6 +120,74 @@ const AdminProperties: React.FC = (): React.ReactElement => {
 
   const paginatedProperties = getPaginatedData(displayProperties);
 
+  const openModal = (propertyId: string) => {
+    setExpenseData({ ...expenseData, id: propertyId });
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setExpenseData({
+      id: "",
+      amount: 0,
+      description: "",
+    });
+    setError(null);
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    if (name === "amount") {
+      const amountValue = parseFloat(value);
+      if (amountValue < 0) {
+        setError("El monto debe ser mayor o igual a 0");
+      } else {
+        setError(null);
+      }
+      setExpenseData({
+        ...expenseData,
+        [name]: amountValue,
+      });
+    } else {
+      setExpenseData({
+        ...expenseData,
+        [name]: value,
+      });
+    }
+  };
+
+  const handleExp = async () => {
+    if (expenseData.amount < 0) {
+      setError("El monto debe ser mayor o igual a 0");
+      return;
+    }
+    try {
+      const storedToken = await localStorage.getItem("token");
+      const expenseDataDTO = expDto(expenseData);
+      await axios
+        .post(`${GETPROPERTIES_URL}/expenses/createExpense`, expenseDataDTO, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then(() => {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "¡Gasto extraordinario creado correctamente!",
+            showConfirmButton: true,
+          });
+        });
+      closeModal();
+    } catch (error) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Error al crear el gasto extraordinario",
+        showConfirmButton: false,
+        timer: 2500,
+      });
+    }
+  };
+
   return (
     <main>
       <div className="flex flex-col items-center pb-[5px]">
@@ -180,12 +255,12 @@ const AdminProperties: React.FC = (): React.ReactElement => {
                 </span>
               )}
               {property.user ? (
-                <Link
-                  href=""
+                <button
+                  onClick={() => openModal(property.id)}
                   className="bg-sih-blue text-white mt-[10px] mb-[15px] mx-[10px] py-[5px] w-[250px] text-center rounded-[10px] hover:bg-sih-orange hover:text-sih-blue"
                 >
                   Gasto extraordinario
-                </Link>
+                </button>
               ) : null}
             </div>
           ))
@@ -203,6 +278,48 @@ const AdminProperties: React.FC = (): React.ReactElement => {
       <div className="flex justify-center my-4">
         {renderPagination(displayProperties.length)}
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-8 rounded-lg">
+            <h2 className="text-xl mb-4 text-sih-blue text-center">
+              Nuevo gasto extraordinario
+            </h2>
+            <div className="mb-4">
+              <input
+                type="number"
+                name="amount"
+                value={expenseData.amount}
+                onChange={handleInputChange}
+                className="border p-2 rounded-[15px] w-full text-sih-blue outline-0"
+                min="0"
+              />
+              {error && <span className="text-red-500">{error}</span>}
+            </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                name="description"
+                value={expenseData.description}
+                onChange={handleInputChange}
+                className="border p-2 rounded-[15px] w-full text-sih-blue outline-0"
+              />
+            </div>
+            <button
+              onClick={handleExp}
+              className="bg-sih-blue text-white py-2 px-4 rounded-[10px] hover:bg-sih-orange hover:text-sih-blue"
+            >
+              Crear gasto extraordinario
+            </button>
+            <button
+              onClick={closeModal}
+              className="bg-gray-500 text-white py-2 px-4 rounded-[10px] ml-2 hover:bg-sih-red"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 };

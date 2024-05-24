@@ -91,4 +91,33 @@ export interface IAuthorizationCreated {
   accessCode: number;
   expirationTime: string;
   number: number;
+  dateUsed: string;
+}
+export interface CustomError extends Error {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+}
+export interface ICreateExp {
+  id: string;
+  description: string;
+  amount: number;
+}
+export interface Message {
+  userIdFrom: string;
+  name: string;
+  message: string;
+  roomIdChat: string;
+  userIdTo: string;
+  imageTo: string;
+  lastLogin: string;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  image: string;
+  lastLogin: string;
 }
