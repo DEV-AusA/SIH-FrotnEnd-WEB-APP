@@ -6,6 +6,7 @@ import { useUserContext } from "../UserProvider";
 import { IProperty } from "@/helpers/types";
 import Image from "next/image";
 import expDto from "./helpers/helpers";
+import Swal from "sweetalert2";
 
 const GETPROPERTIES_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -16,13 +17,13 @@ const AdminProperties: React.FC = (): React.ReactElement => {
   const [properties, setProperties] = useState<IProperty[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expenseData, setExpenseData] = useState({
     id: "",
     amount: 0,
     description: "",
   });
+  const [error, setError] = useState<string | null>(null);
 
   const { setToken } = useUserContext();
 
@@ -131,32 +132,62 @@ const AdminProperties: React.FC = (): React.ReactElement => {
       amount: 0,
       description: "",
     });
+    setError(null);
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setExpenseData({
-      ...expenseData,
-      [name]: value,
-    });
+    if (name === "amount") {
+      const amountValue = parseFloat(value);
+      if (amountValue < 0) {
+        setError("El monto debe ser mayor o igual a 0");
+      } else {
+        setError(null);
+      }
+      setExpenseData({
+        ...expenseData,
+        [name]: amountValue,
+      });
+    } else {
+      setExpenseData({
+        ...expenseData,
+        [name]: value,
+      });
+    }
   };
 
   const handleExp = async () => {
+    if (expenseData.amount < 0) {
+      setError("El monto debe ser mayor o igual a 0");
+      return;
+    }
     try {
       const storedToken = await localStorage.getItem("token");
       const expenseDataDTO = expDto(expenseData);
-      await axios.post(
-        `${GETPROPERTIES_URL}/expenses/createExpense`,
-        expenseDataDTO,
-        {
+      await axios
+        .post(`${GETPROPERTIES_URL}/expenses/createExpense`, expenseDataDTO, {
           headers: { Authorization: `Bearer ${storedToken}` },
-        },
-      );
+        })
+        .then(() => {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "¡Gasto extraordinario creado correctamente!",
+            showConfirmButton: true,
+          });
+        });
       closeModal();
     } catch (error) {
-      console.error("Error al crear gasto extraordinario", error);
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Error al crear el gasto extraordinario",
+        showConfirmButton: false,
+        timer: 2500,
+      });
     }
   };
+
   return (
     <main>
       <div className="flex flex-col items-center pb-[5px]">
@@ -261,7 +292,9 @@ const AdminProperties: React.FC = (): React.ReactElement => {
                 value={expenseData.amount}
                 onChange={handleInputChange}
                 className="border p-2 rounded-[15px] w-full text-sih-blue outline-0"
+                min="0"
               />
+              {error && <span className="text-red-500">{error}</span>}
             </div>
             <div className="mb-4">
               <input

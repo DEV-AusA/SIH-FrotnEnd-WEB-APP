@@ -46,6 +46,7 @@ export interface IUser {
     | "googletemp";
   image: string;
   lastLogin: string;
+  state: boolean;
 }
 export interface IPropUser {
   lastName: string;
