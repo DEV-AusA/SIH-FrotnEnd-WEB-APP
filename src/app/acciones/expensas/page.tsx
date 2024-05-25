@@ -2,8 +2,9 @@
 import { ReactElement, useEffect } from "react";
 import { useUserContext } from "@/components/UserProvider";
 import ExpensesOwner from "@/components/expenses/expensesOwner/ExpensesOwner";
-import ExpensesAdmin from "@/components/expenses/expensesAdmin/ExpensesAdmin";
 import { useRouter } from "next/navigation";
+import TableExpenses from "@/components/expenses/expensesAdmin/TableExpenses";
+import BackLink from "@/components/backButton/BackLink";
 
 const Expenses: React.FC = (): React.ReactElement | null => {
   const router = useRouter();
@@ -30,7 +31,19 @@ const Expenses: React.FC = (): React.ReactElement | null => {
       children = <ExpensesOwner />;
       break;
     case "admin":
-      children = <ExpensesAdmin />;
+      children = (
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between px-[200px] mt-[20px]">
+            <BackLink href="/acciones" />
+            <div className="flex-1 flex justify-center">
+              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
+                Expensas
+              </h2>
+            </div>
+          </div>
+          <TableExpenses />
+        </div>
+      );
       break;
     default:
       break;
