@@ -72,7 +72,8 @@ const PackageAuthorization: React.FC = (): React.ReactElement => {
           headers: { Authorization: `Bearer ${token}` },
         },
       );
-      if (response.data.type === "guest") setFoundAuthorization(response.data);
+      if (response.data.type === "delivery")
+        setFoundAuthorization(response.data);
       else
         Swal.fire({
           icon: "error",
@@ -105,7 +106,7 @@ const PackageAuthorization: React.FC = (): React.ReactElement => {
       >
         Buscar
       </button>
-      {foundAuthorization && foundAuthorization.type === "guest" ? (
+      {foundAuthorization && foundAuthorization.type === "delivery" ? (
         <div
           key={foundAuthorization.id}
           className="w-[300px] bg-white m-3 p-5 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
