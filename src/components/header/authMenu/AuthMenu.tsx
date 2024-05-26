@@ -33,7 +33,7 @@ const AuthMenu: React.FC = (): React.ReactElement => {
   };
 
   return (
-    <div className="flex flex-col text-end text-xl ">
+    <div className="flex flex-col text-center text-xl bg-sih-blue my-[20px]">
       {token ? (
         <>
           <Link
