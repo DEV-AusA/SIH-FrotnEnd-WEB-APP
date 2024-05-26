@@ -29,15 +29,15 @@ const cards = [
 
 const ServicesCards: React.FC = (): React.ReactElement => {
   return (
-    <div className="px-[200px] py-[80px] flex flex-col  items-center justify-center">
-      <h2 className="text-[#384B59] text-4xl font-bold text-center px-[160px]">
+    <div className="px-[200px] py-[80px] flex flex-col  items-center justify-center max-[1600px]:px-[100px] max-[1400px]:px-[80px]">
+      <h2 className="text-[#384B59] text-4xl font-bold text-center px-[160px]  max-[800px]:text-xl max-[1400px]:px-[60px]">
         Ventajas de usar SIH en tu comunidad
       </h2>
       <div className="flex flex-wrap justify-center mt-[50px] ">
         {cards.map((card) => {
           return (
             <div
-              className="flex w-[480px] h-[150px] justify-between items-center my-[20px] mx-[50px] bg-white rounded-[15px] shadow-button"
+              className="flex w-[480px] h-[150px] justify-between items-center my-[20px] mx-[50px] bg-white rounded-[15px] shadow-button max-[800px]:w-[336px] max-[800px]:h-[105px] max-[500px]:h-[120px] max-[500px]:w-[269px] max-[1350px]:mx-[10px]"
               key={card.title}
             >
               <Image
@@ -47,7 +47,9 @@ const ServicesCards: React.FC = (): React.ReactElement => {
                 width={100}
                 alt={card.alt}
               />
-              <p className="text-sih-blue text-2xl pr-[15px]">{card.text}</p>
+              <p className="text-sih-blue text-2xl pr-[15px] max-[800px]:text-sm">
+                {card.text}
+              </p>
             </div>
           );
         })}
