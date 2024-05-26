@@ -1,5 +1,13 @@
 import Image from "next/image";
 
+interface Developer {
+  profilePic: string;
+  name: string;
+  stack: string;
+  linkedln: string;
+  github: string;
+}
+
 const developers = [
   {
     profilePic: "/icons/abalos.png",
@@ -23,14 +31,14 @@ const developers = [
     github: "https://github.com/DEV-AusA",
   },
   {
-    profilePic: "/icons/rueda.png",
+    profilePic: "/icons/jpr.png",
     name: "Juan Rueda",
     stack: "Desarrollador Back-end",
     linkedln: "https://www.linkedin.com/in/juan-pablo-rueda-zuluaga-40b34b217/",
     github: "https://github.com/JPRuedaZ",
   },
   {
-    profilePic: "/icons/guaicara.png",
+    profilePic: "/icons/mg.png",
     name: "Manuel Guaicara",
     stack: "Desarrollador Front-end",
     linkedln:
@@ -39,53 +47,58 @@ const developers = [
   },
 ];
 
+const DeveloperCard: React.FC<Developer> = ({
+  profilePic,
+  name,
+  stack,
+  linkedln,
+  github,
+}) => {
+  return (
+    <div className="flex flex-col flex-wrap items-center border border-white p-[20px] mx-[10px] rounded-[10px] bg-white">
+      <Image
+        src={profilePic}
+        alt={name}
+        width={200}
+        height={200}
+        className="rounded-full"
+      />
+      <h3 className="text-sih-blue text-bold text-2xl my-[5px]">{name}</h3>
+      <h4 className="text-sih-blue mb-[10px]">{stack}</h4>
+      <div className="flex">
+        <a href={linkedln} target="_blank" rel="noopener noreferrer">
+          <Image
+            src="/icons/linkedin.png"
+            alt="linkedin"
+            height={30}
+            width={30}
+            className="mx-[5px]"
+          />
+        </a>
+        <a href={github} target="_blank" rel="noopener noreferrer">
+          <Image
+            src="/icons/github.png"
+            alt="github"
+            width={30}
+            height={30}
+            className="mx-[5px]"
+          />
+        </a>
+      </div>
+    </div>
+  );
+};
+
 const Developers: React.FC = (): React.ReactElement => {
   return (
     <section className="flex flex-col items-center justify-center px-[200px] text-sih-blue text-justify">
       <h2 className="text-4xl font-bold text-sih-blue mt-[50px] mb-[80px]">
         Nuestro equipo de desarrolladores
       </h2>
-      <div className="flex mb-[100px]">
-        {developers.map((devs) => {
-          return (
-            <div
-              key={devs.name}
-              className="flex flex-col flex-wrap  items-center border border-white p-[20px] mx-[10px] rounded-[10px] bg-white"
-            >
-              <Image
-                src={devs.profilePic}
-                alt={devs.name}
-                width={200}
-                height={200}
-                className="rounded-full"
-              />
-              <h3 className="text-sih-blue text-bold text-2xl my-[5px]">
-                {devs.name}
-              </h3>
-              <h4 className="text-sih-blue mb-[10px]">{devs.stack}</h4>
-              <div className="flex">
-                <a href="">
-                  <Image
-                    src="/icons/linkedin.png"
-                    alt="linkedin"
-                    height={30}
-                    width={30}
-                    className="mx-[5px]"
-                  />
-                </a>
-                <a href="">
-                  <Image
-                    src="/icons/github.png"
-                    alt="github"
-                    width={30}
-                    height={30}
-                    className="mx-[5px]"
-                  />
-                </a>
-              </div>
-            </div>
-          );
-        })}
+      <div className="flex flex-wrap justify-center gap-[20px] mb-[100px]">
+        {developers.map((dev) => (
+          <DeveloperCard key={dev.name} {...dev} />
+        ))}
       </div>
     </section>
   );
