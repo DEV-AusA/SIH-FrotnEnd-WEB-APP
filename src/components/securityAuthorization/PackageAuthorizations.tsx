@@ -92,7 +92,7 @@ const PackageAuthorization: React.FC = (): React.ReactElement => {
   return (
     <div className="flex flex-col items-center pb-[5px]">
       <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] m-3">
-        Invitados
+        Paquetería
       </h2>
       <input
         id="search"

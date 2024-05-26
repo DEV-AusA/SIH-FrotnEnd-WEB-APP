@@ -127,7 +127,7 @@ const TableExpenses: React.FC = (): React.ReactElement => {
           </div>
           {/* Tabla */}
 
-          <div className="p-6 px-0 overflow-scroll">
+          <div className="p-6 px-0 overflow-scroll h-[600px]">
             <table className="w-full mt-4 text-left table-auto min-w-max">
               <thead>
                 <tr>

@@ -204,9 +204,12 @@ const OwnerAuthorization: React.FC = (): React.ReactElement => {
                   </span>
                 ) : null}
                 <button
-                  disabled={Object.keys(guestErrors).some(
-                    (e) => guestErrors[e as keyof IAuthorization],
-                  )}
+                  disabled={
+                    guestData.name === "" ||
+                    Object.keys(guestErrors).some(
+                      (e) => guestErrors[e as keyof IAuthorization],
+                    )
+                  }
                   type="submit"
                   className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
                 >
@@ -260,9 +263,12 @@ const OwnerAuthorization: React.FC = (): React.ReactElement => {
                   </span>
                 ) : null}
                 <button
-                  disabled={Object.keys(packageErrors).some(
-                    (e) => packageErrors[e as keyof IAuthorization],
-                  )}
+                  disabled={
+                    packageData.name === "" ||
+                    Object.keys(packageErrors).some(
+                      (e) => packageErrors[e as keyof IAuthorization],
+                    )
+                  }
                   type="submit"
                   className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
                 >
