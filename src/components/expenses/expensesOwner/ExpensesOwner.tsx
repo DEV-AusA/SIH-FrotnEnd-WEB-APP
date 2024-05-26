@@ -52,7 +52,7 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
         },
       )
       .then((data) => {
-        window.location.replace(data.data);
+        window.location.replace(data.data.urlMercadopago);
       });
   };
   return (
