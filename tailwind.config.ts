@@ -27,6 +27,8 @@ const config: Config = {
       },
       screens: {
         cellphone: "560px",
+        large: "1800px",
+        medium: "1330px",
       },
     },
   },

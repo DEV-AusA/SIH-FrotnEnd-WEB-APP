@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const LoginImage: React.FC = (): React.ReactElement => {
   return (
-    <div className="w-full h-[600]">
+    <div className="w-full h-[600] max-[880px]:hidden">
       <Image
         className="w-full h-full object-cover"
         width={1000}

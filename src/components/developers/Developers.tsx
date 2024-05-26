@@ -61,10 +61,12 @@ const DeveloperCard: React.FC<Developer> = ({
         alt={name}
         width={200}
         height={200}
-        className="rounded-full"
+        className="rounded-full  max-[700px]:w-[100px] max-[700px]:h-[100px]"
       />
-      <h3 className="text-sih-blue text-bold text-2xl my-[5px]">{name}</h3>
-      <h4 className="text-sih-blue mb-[10px]">{stack}</h4>
+      <h3 className="text-sih-blue text-bold text-2xl my-[5px]  max-[700px]:text-lg">
+        {name}
+      </h3>
+      <h4 className="text-sih-blue mb-[10px]  max-[700px]:text-sm">{stack}</h4>
       <div className="flex">
         <a href={linkedln} target="_blank" rel="noopener noreferrer">
           <Image
@@ -91,8 +93,8 @@ const DeveloperCard: React.FC<Developer> = ({
 
 const Developers: React.FC = (): React.ReactElement => {
   return (
-    <section className="flex flex-col items-center justify-center px-[200px] text-sih-blue text-justify">
-      <h2 className="text-4xl font-bold text-sih-blue mt-[50px] mb-[80px]">
+    <section className="flex flex-col items-center justify-center px-[200px] text-sih-blue text-center max-[1700px]:px-[100px] max-[1050px]:px-[50px]">
+      <h2 className="text-4xl font-bold text-sih-blue mt-[50px] mb-[80px] max-[1330px]:px-0 max-md:text-2xl max-[635px]:text-xl max-[600px]:text-lg">
         Nuestro equipo de desarrolladores
       </h2>
       <div className="flex flex-wrap justify-center gap-[20px] mb-[100px]">

@@ -84,7 +84,7 @@ const LoginForm: React.FC = (): React.ReactElement => {
           return (
             <div className="flex flex-col items-center" key={name}>
               <input
-                className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 m-[10px]"
+                className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 m-[10px] max-[400px]:w-[200px]"
                 type={type}
                 id={name}
                 name={name}
@@ -93,7 +93,7 @@ const LoginForm: React.FC = (): React.ReactElement => {
                 onChange={handleChange}
               />
               {errors[name as keyof ILogin] ? (
-                <span className="text-red-500 block w-[256px] text-sm">
+                <span className="text-red-500 block w-[256px] text-sm max-[400px]:text-center">
                   {errors[name as keyof ILogin]}
                 </span>
               ) : null}
