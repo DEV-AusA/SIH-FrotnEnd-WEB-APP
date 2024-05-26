@@ -2,35 +2,35 @@ import Image from "next/image";
 
 const developers = [
   {
-    profilePic: "https://i.ibb.co/whTCw5h/abalos.jpg",
+    profilePic: "/icons/abalos.png",
     name: "Alejandro Abalos",
     stack: "Desarrollador Back-end",
     linkedln: "https://www.linkedin.com/in/alejandro-abalos-5bb905115/",
     github: "https://github.com/AlejandroExeAbalosF",
   },
   {
-    profilePic: "https://i.ibb.co/fryzLqp/alzate.jpg",
+    profilePic: "/icons/alzate.png",
     name: "Alejandro Alzate",
     stack: "Desarrollador Front-end",
     linkedln: "https://www.linkedin.com/in/alejandro-alzate-morales-91b3b127b/",
     github: "https://github.com/AlejandroA03",
   },
   {
-    profilePic: "https://i.ibb.co/5BZByhc/ausa.jpg",
+    profilePic: "/icons/ausa.png",
     name: "Cesar Ausa",
     stack: "Desarrollador Back-end",
     linkedln: "https://www.linkedin.com/in/dev-ausa/",
     github: "https://github.com/DEV-AusA",
   },
   {
-    profilePic: "https://i.ibb.co/fM13G9d/rueda.jpg",
+    profilePic: "/icons/rueda.png",
     name: "Juan Rueda",
     stack: "Desarrollador Back-end",
     linkedln: "https://www.linkedin.com/in/juan-pablo-rueda-zuluaga-40b34b217/",
     github: "https://github.com/JPRuedaZ",
   },
   {
-    profilePic: "https://i.ibb.co/cxT0V7x/guaicara.png",
+    profilePic: "/icons/guaicara.png",
     name: "Manuel Guaicara",
     stack: "Desarrollador Front-end",
     linkedln:
