@@ -4,6 +4,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../UserProvider";
 import { IUser } from "@/helpers/types";
+import BarStadisticsGraphicsComponent from "../graphics/BarStadisticsGraphics";
+import StatisticsPolarGraphicsComponent from "../graphics/StadisticsPolarGraphics";
 
 const GETUsers_URL = process.env.NEXT_PUBLIC_API_URL;
 const TableProperty: React.FC = (): React.ReactElement => {
@@ -24,7 +26,7 @@ const TableProperty: React.FC = (): React.ReactElement => {
       //   const sortedUsers = response.data.sort(
       //     (a: IUser, b: IUser) => a.number - b.number,
       //   );
-      console.log(response.data);
+      // console.log(response.data);
       setUsers(response.data);
     };
 
@@ -42,7 +44,16 @@ const TableProperty: React.FC = (): React.ReactElement => {
 
   return (
     <main>
-      <div className="m-auto my-24 relative flex flex-col w-4/5 h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
+      <div className="flex flex-col items-center">
+        <div className="mb-5 text-gray-700 text-lg">
+          Propietarios ingresados en el periodo 2024
+        </div>
+        <div className="m-auto relative flex w-4/5">
+          <BarStadisticsGraphicsComponent users={Users} />
+          <StatisticsPolarGraphicsComponent users={Users} />
+        </div>
+      </div>
+      <div className="m-auto my-2 relative flex flex-col w-4/5 h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
         <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white rounded-none bg-clip-border">
           <div className="flex flex-col justify-between gap-8 mb-4 md:flex-row md:items-center">
             {/* <div>
@@ -61,14 +72,14 @@ const TableProperty: React.FC = (): React.ReactElement => {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
                       aria-hidden="true"
                       className="w-5 h-5"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
                       ></path>
                     </svg>
@@ -119,7 +130,7 @@ const TableProperty: React.FC = (): React.ReactElement => {
             <tbody>
               {Users.length > 0
                 ? Users.map((user: IUser) => (
-                    <tr>
+                    <tr key={user.id}>
                       <td className="p-4 border-b border-blue-gray-50">
                         <div className="flex items-center gap-3">
                           <img
