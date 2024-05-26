@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,18 +9,42 @@ import AuthMenu from "../authMenu/AuthMenu";
 const Hamburger: React.FC = (): React.ReactElement => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
 
   const HamburgerClick = () => {
-    if (open) {
-      setOpen(false);
-    } else {
-      setOpen(true);
-    }
+    setOpen(!open);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
 
   return (
     <div>
-      <div className={`${open ? "hidden" : "xl:hidden cursor-pointer"}`}>
+      <div
+        ref={buttonRef}
+        className={`${open ? "hidden" : "xl:hidden cursor-pointer"}`}
+      >
         <Image
           onClick={HamburgerClick}
           width={50}
@@ -30,6 +54,7 @@ const Hamburger: React.FC = (): React.ReactElement => {
         />
       </div>
       <div
+        ref={menuRef}
         className={`${open ? "h-full bg-[#384B59] fixed right-0 top-0 w-60 z-10 border-l-2 border-slate-500 flex flex-col text-center xl:hidden" : "hidden"}`}
       >
         <div>
@@ -48,19 +73,21 @@ const Hamburger: React.FC = (): React.ReactElement => {
             alt="Secure Ingress Home"
           />
           <ul className="flex flex-col my-5">
-            {links.map((link) => {
-              return (
+            {links.map((link) => (
+              <li key={link.name}>
                 <Link
                   href={link.href}
-                  key={link.name}
-                  className={`text-xl my-2 hover:text-[#FFBD5C]
-
-                        ${pathname === link.href ? "cursor-default text-[#FFBD5C] disabled" : ""}`}
+                  onClick={() => setOpen(false)}
+                  className={`text-xl my-2 hover:text-[#FFBD5C] ${
+                    pathname === link.href
+                      ? "cursor-default text-[#FFBD5C] disabled"
+                      : ""
+                  }`}
                 >
                   {link.text}
                 </Link>
-              );
-            })}
+              </li>
+            ))}
             <div className="text-center justify-center items-center">
               <AuthMenu />
             </div>
@@ -70,4 +97,5 @@ const Hamburger: React.FC = (): React.ReactElement => {
     </div>
   );
 };
+
 export default Hamburger;
