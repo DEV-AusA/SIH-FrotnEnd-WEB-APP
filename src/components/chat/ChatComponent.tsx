@@ -206,7 +206,7 @@ const ChatComponent: React.FC = (): React.ReactElement => {
                   userConnections[userData.id] ? "" : `${styles.hidden}`
                 }
               >
-                Online
+                En linea
               </div>
               <div
                 id={styles.statusOffline}
@@ -214,7 +214,7 @@ const ChatComponent: React.FC = (): React.ReactElement => {
                   userConnections[userData.id] ? `${styles.hidden}` : ""
                 }
               >
-                Offline
+                Desconectado
               </div>
             </div>
           </div>
@@ -438,13 +438,13 @@ const ChatComponent: React.FC = (): React.ReactElement => {
                 id={styles.statusOnline}
                 className={selectedUser ? "" : `${styles.hidden}`}
               >
-                Online
+                Conectado
               </div>
               <div
                 id={styles.statusOffline}
                 className={selectedUser ? `${styles.hidden}` : ""}
               >
-                Offline
+                Desconectado
               </div>
             </div>
             <form onSubmit={handleSubmit} className={`${styles.input}`}>

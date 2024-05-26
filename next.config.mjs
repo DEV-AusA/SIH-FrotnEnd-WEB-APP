@@ -10,6 +10,7 @@ const nextConfig = {
       "images.pexels.com",
       "cloudflare-ipfs.com",
       "avatars.githubusercontent.com",
+      "loremflickr.com",
     ],
   },
 };
