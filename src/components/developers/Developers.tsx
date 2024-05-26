@@ -16,7 +16,7 @@ const developers = [
     github: "https://github.com/AlejandroA03",
   },
   {
-    profilePic: "/icons/Ausa.jpeg",
+    profilePic: "/icons/ausa.jpeg",
     name: "Cesar Ausa",
     stack: "Desarrollador Back-end",
     linkedln: "https://www.linkedin.com/in/dev-ausa/",
