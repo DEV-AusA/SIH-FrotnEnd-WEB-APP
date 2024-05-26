@@ -17,7 +17,7 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
         setUser(storedUser);
 
         const response = await axios.get(
-          `${EXPENSES_URL}/expenses/${user?.id}`,
+          `${EXPENSES_URL}/expenses/user/${user?.id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           },
@@ -52,7 +52,7 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
         },
       )
       .then((data) => {
-        window.location.replace(data.data);
+        window.location.replace(data.data.urlMercadopago);
       });
   };
   return (

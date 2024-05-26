@@ -29,7 +29,11 @@ const buttonsOwner = [
     title: "Autorizaciones",
     href: "/acciones/autorizaciones",
   },
-  { image: "/icons/bill.png", title: "Mis facturas", href: "/" },
+  {
+    image: "/icons/bill.png",
+    title: "Mis facturas",
+    href: "/acciones/facturas",
+  },
   { image: "/icons/chat.png", title: "Chat", href: "/acciones/chat" },
 ];
 

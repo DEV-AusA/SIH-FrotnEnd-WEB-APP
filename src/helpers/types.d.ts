@@ -46,7 +46,7 @@ export interface IUser {
     | "googletemp";
   image: string;
   lastLogin: string;
-  state: boolean;
+  state?: boolean;
   createdAt: string;
 }
 export interface IPropUser {
@@ -73,6 +73,8 @@ export interface IExpense {
   id: string;
   numberOperation?: string;
   state: boolean;
+  description: string;
+  userProperty: string;
 }
 export interface IPropertyExpenses {
   expences: IExpense[];
@@ -121,4 +123,9 @@ export interface User {
   name: string;
   image: string;
   lastLogin: string;
+}
+export interface OwnerExpense {
+  name: string;
+  lastName: string;
+  email: string;
 }
