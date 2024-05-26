@@ -26,13 +26,15 @@ const About: React.FC = (): React.ReactElement => {
             los residentes de muchas comunidades privadas al rededor del mundo.
           </p>
         </main>
-        <Image
-          src="/icons/aboutBanner.jpg"
-          width={830}
-          height={627}
-          alt="Familia"
-          className="w-auto h-auto"
-        ></Image>
+        <div className="w-full h-[700px]">
+          <Image
+            className="w-full h-full object-cover"
+            width={1000}
+            height={600}
+            src="/icons/loginFamily.png"
+            alt="Secure Ingress Home"
+          />
+        </div>
       </section>
       <Developers />
     </div>
