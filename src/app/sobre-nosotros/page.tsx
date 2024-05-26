@@ -1,3 +1,4 @@
+import Developers from "@/components/developers/Developers";
 import Image from "next/image";
 
 const About: React.FC = (): React.ReactElement => {
@@ -33,7 +34,7 @@ const About: React.FC = (): React.ReactElement => {
           className="w-auto h-auto"
         ></Image>
       </section>
-      {/* <Developers /> */}
+      <Developers />
     </div>
   );
 };
