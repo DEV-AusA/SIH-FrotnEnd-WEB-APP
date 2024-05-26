@@ -7,6 +7,9 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "static.tokkobroker.com",
       "www.arquimaster.com.ar",
+      "images.pexels.com",
+      "cloudflare-ipfs.com",
+      "avatars.githubusercontent.com",
     ],
   },
 };
