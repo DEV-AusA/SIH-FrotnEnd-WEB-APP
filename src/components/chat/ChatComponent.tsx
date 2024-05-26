@@ -41,6 +41,7 @@ const ChatComponent: React.FC = (): React.ReactElement => {
           id: storedUser.id,
           token: storedToken,
           name: storedUser.name,
+          lastName: storedUser.lastName,
           date: new Date().toISOString(),
         },
       });
@@ -97,6 +98,7 @@ const ChatComponent: React.FC = (): React.ReactElement => {
                 handleUserClick({
                   id: payload.userIdFrom,
                   name: payload.name,
+                  lastName: payload.lastName,
                   image: payload.imageTo,
                   lastLogin: payload.lastLogin,
                 });
@@ -199,7 +201,9 @@ const ChatComponent: React.FC = (): React.ReactElement => {
           </div>
           <div className={`${styles.name}`}>
             <div className={`${styles.containerHeaderChat}`}>
-              <h2>{userData.name}</h2>
+              <h2>
+                {userData.name} {userData.lastName}
+              </h2>
               <div
                 id={styles.statusOnline}
                 className={
@@ -280,6 +284,7 @@ const ChatComponent: React.FC = (): React.ReactElement => {
       const dataMessage: Message = {
         userIdFrom: user!.id,
         name: user!.name,
+        lastName: user!.name,
         message,
         roomIdChat: roomId,
         userIdTo: selectedUser!.id,
@@ -397,7 +402,9 @@ const ChatComponent: React.FC = (): React.ReactElement => {
               <div className={`${styles.name}`}>
                 <div className={`${styles.containerHeaderChat}`}>
                   <h2>
-                    {selectedUser ? selectedUser.name : "Personal de Seguridad"}
+                    {selectedUser
+                      ? `${selectedUser.name} ${selectedUser.lastName}`
+                      : "Personal de Seguridad"}
                   </h2>
                 </div>
               </div>
