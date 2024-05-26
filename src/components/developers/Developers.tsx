@@ -10,35 +10,35 @@ interface Developer {
 
 const developers = [
   {
-    profilePic: "/icons/abalos.png",
+    profilePic: "/abalos.png",
     name: "Alejandro Abalos",
     stack: "Desarrollador Back-end",
     linkedln: "https://www.linkedin.com/in/alejandro-abalos-5bb905115/",
     github: "https://github.com/AlejandroExeAbalosF",
   },
   {
-    profilePic: "/icons/alzate.png",
+    profilePic: "/alzate.png",
     name: "Alejandro Alzate",
     stack: "Desarrollador Front-end",
     linkedln: "https://www.linkedin.com/in/alejandro-alzate-morales-91b3b127b/",
     github: "https://github.com/AlejandroA03",
   },
   {
-    profilePic: "/icons/ausa.png",
+    profilePic: "/ausa.png",
     name: "Cesar Ausa",
     stack: "Desarrollador Back-end",
     linkedln: "https://www.linkedin.com/in/dev-ausa/",
     github: "https://github.com/DEV-AusA",
   },
   {
-    profilePic: "/icons/jpr.png",
+    profilePic: "/jpr.png",
     name: "Juan Rueda",
     stack: "Desarrollador Back-end",
     linkedln: "https://www.linkedin.com/in/juan-pablo-rueda-zuluaga-40b34b217/",
     github: "https://github.com/JPRuedaZ",
   },
   {
-    profilePic: "/icons/mg.png",
+    profilePic: "/mg.png",
     name: "Manuel Guaicara",
     stack: "Desarrollador Front-end",
     linkedln:
