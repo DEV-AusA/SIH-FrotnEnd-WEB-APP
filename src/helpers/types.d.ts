@@ -111,6 +111,7 @@ export interface ICreateExp {
 export interface Message {
   userIdFrom: string;
   name: string;
+  lastName: string;
   message: string;
   roomIdChat: string;
   userIdTo: string;
@@ -121,6 +122,7 @@ export interface Message {
 export interface User {
   id: string;
   name: string;
+  lastName: string;
   image: string;
   lastLogin: string;
 }

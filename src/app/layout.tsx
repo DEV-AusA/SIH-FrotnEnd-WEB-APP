@@ -24,6 +24,9 @@ export default function RootLayout({
   return (
     <GoogleOAuthProvider clientId="651220245380-9ka4dug85joldqc4r26turbqm1dvmpkg.apps.googleusercontent.com">
       <html lang="en">
+        <head>
+          <link rel="icon" href="/sih.ico" />
+        </head>
         <body className={inter.className}>
           <UserProvider>
             <Header />
