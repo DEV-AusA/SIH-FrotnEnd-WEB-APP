@@ -95,6 +95,10 @@ export interface IAuthorizationCreated {
   expirationTime: string;
   number: number;
   dateUsed: string;
+  numberProp: number;
+  addressProp: string;
+  lastNameProp: string;
+  nameProp: string;
 }
 export interface CustomError extends Error {
   response?: {

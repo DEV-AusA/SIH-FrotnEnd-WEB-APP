@@ -12,11 +12,13 @@ const PackageAuthorization: React.FC = (): React.ReactElement => {
     useState<IAuthorizationCreated>();
   const [authorizations, setAuthorizations] =
     useState<IAuthorizationCreated[]>();
-  const { setToken, token, user } = useUserContext();
+  const { setToken, token, setUser } = useUserContext();
   const validateAuth = async (number: number) => {
     try {
+      const storedUser = await JSON.parse(localStorage.user);
+      setUser(storedUser);
       await axios.put(
-        `${AUTHORIZATIONS_URL}/authorizations/${user?.id}`,
+        `${AUTHORIZATIONS_URL}/authorizations/${storedUser.id}`,
         { code: number },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -51,13 +53,12 @@ const PackageAuthorization: React.FC = (): React.ReactElement => {
             headers: { Authorization: `Bearer ${storedToken}` },
           },
         );
+        console.log(response.data);
 
         setAuthorizations(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log("Error al obtener las expensas:", error);
         setAuthorizations([]);
-        console.log(authorizations);
       }
     };
 
@@ -72,6 +73,7 @@ const PackageAuthorization: React.FC = (): React.ReactElement => {
           headers: { Authorization: `Bearer ${token}` },
         },
       );
+      console.log(response.data);
       if (response.data.type === "delivery")
         setFoundAuthorization(response.data);
       else
@@ -87,6 +89,14 @@ const PackageAuthorization: React.FC = (): React.ReactElement => {
         showConfirmButton: true,
       });
     }
+  };
+  const dateTimeConvert = (dateTime: string) => {
+    const date = new Date(dateTime);
+
+    const formattedDate = date.toISOString().split("T")[0]; // "2024-05-24"
+    const formattedTime = date.toISOString().split("T")[1].split(".")[0];
+
+    return formattedDate + " \n " + formattedTime;
   };
 
   return (
@@ -111,7 +121,6 @@ const PackageAuthorization: React.FC = (): React.ReactElement => {
           key={foundAuthorization.id}
           className="w-[300px] bg-white m-3 p-5 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
         >
-          <span>Número: {foundAuthorization.number}</span>
           <span>Código de acceso:{foundAuthorization.accessCode}</span>
           <span>Nombre: {foundAuthorization.name}</span>
           {foundAuthorization.document ? (
@@ -126,6 +135,12 @@ const PackageAuthorization: React.FC = (): React.ReactElement => {
           ) : (
             ""
           )}
+          <span>Número de casa: {foundAuthorization.numberProp}</span>
+          <span>Dirección: {foundAuthorization.addressProp}</span>
+          <span>
+            Propietario: {foundAuthorization.nameProp}{" "}
+            {foundAuthorization.lastNameProp}
+          </span>
           {foundAuthorization.dateUsed ? (
             <span>Validado</span>
           ) : (
@@ -140,6 +155,94 @@ const PackageAuthorization: React.FC = (): React.ReactElement => {
       ) : (
         ""
       )}
+      <div className="m-auto my-5 relative flex flex-col w-4/5 h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
+        <div className="p-6 px-0 overflow-scroll h-[600px]">
+          <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] m-3">
+            Últimos ingresos registrados
+          </h2>
+          <table className="w-full mt-4 text-left table-auto min-w-max">
+            <thead>
+              <tr>
+                <th className="w-[200px] p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <p className="block font-sans text-sm antialiased font-bold leading-none ">
+                    Número de authorización
+                  </p>
+                </th>
+                <th className=" w-[200px] p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <p className="block font-sans text-sm antialiased font-bold  leading-none">
+                    Código de acceso
+                  </p>
+                </th>
+                <th className="w-[200px] p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <p className="block font-sans text-sm antialiased font-bold  leading-none ">
+                    Nombre
+                  </p>
+                </th>
+                <th className="w-[200px] p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <p className="block font-sans text-sm antialiased font-bold  leading-none">
+                    Referencia de envio
+                  </p>
+                </th>
+                <th className=" w-[200px] p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <p className="block font-sans text-sm antialiased font-bold  leading-none">
+                    Fecha de validación
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {authorizations
+                ?.filter(
+                  (auth: IAuthorizationCreated) =>
+                    auth.dateUsed && auth.type === "delivery",
+                )
+                .sort(
+                  (a, b) =>
+                    new Date(b.dateUsed).getTime() -
+                    new Date(a.dateUsed).getTime(),
+                )
+                .slice(0, 10)
+                .map((auth: IAuthorizationCreated) => (
+                  <tr key={auth.id}>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <div className="flex flex-col">
+                        <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                          {auth.number}
+                        </p>
+                      </div>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <div className="flex flex-col">
+                        <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                          {auth.accessCode}
+                        </p>
+                      </div>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <div className="flex flex-col">
+                        <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                          {auth.name}
+                        </p>
+                      </div>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <div className="flex flex-col">
+                        <p>{auth.shipmentNumber}</p>
+                      </div>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <div className="flex flex-col">
+                        <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                          {dateTimeConvert(auth.dateUsed)}
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
