@@ -47,7 +47,7 @@ export interface IUser {
   image: string;
   lastLogin: string;
   state?: boolean;
-  createdAt: string;
+  createdAt?: string;
 }
 export interface IPropUser {
   lastName: string;
