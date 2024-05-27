@@ -17,9 +17,11 @@ const BarStadisticsGraphicsComponent: React.FC<
   const data = new Array(13).fill(0);
   // itero sobre las fechas, cuento por mes y lo guardo
   usersDateCreated.forEach((dateCreated) => {
-    const date = new Date(dateCreated);
-    const month = date.getUTCMonth(); // obtengo el mes
-    data[month]++;
+    if (dateCreated !== undefined) {
+      const date = new Date(dateCreated);
+      const month = date.getUTCMonth();
+      data[month]++;
+    }
   });
 
   const dataAxis = ["Ene-24", "Feb-24", "Mar-24", "Abr-24", "May-24"];
