@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useUserContext } from "../UserProvider";
 import axios from "axios";
 import { IExpense, IPropertyExpenses } from "@/helpers/types";
+import Link from "next/link";
 
 const EXPENSES_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -40,6 +41,28 @@ const OwnerBills: React.FC = (): React.ReactElement => {
 
     fetchExpenses();
   }, []);
+  const generatePdf = async (id: string) => {
+    try {
+      const response = await axios.get(
+        `${EXPENSES_URL}/expenses/generatePdf/${id}`,
+        {
+          responseType: "arraybuffer",
+        },
+      );
+
+      const blob = new Blob([response.data], { type: "application/pdf" });
+
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `expense.pdf`;
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <div className="m-auto my-5 relative flex flex-col w-4/5 h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
@@ -58,7 +81,7 @@ const OwnerBills: React.FC = (): React.ReactElement => {
         </div>
         {/* Tabla */}
 
-        <div className="p-6 px-0 overflow-scroll">
+        <div className="p-6 px-0 overflow-scroll h-[600px]">
           <table className="w-full mt-4 text-left table-auto min-w-max">
             <thead>
               <tr>
@@ -90,53 +113,64 @@ const OwnerBills: React.FC = (): React.ReactElement => {
               </tr>
             </thead>
             <tbody>
-              {expenses && expenses[0] !== undefined ? (
-                expenses.map((expense: IExpense) => {
-                  return (
-                    <div
-                      key={expense.id}
-                      className={
-                        expense?.state
-                          ? "w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue border-4 border-sih-green"
-                          : "w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue border-4 border-sih-red"
-                      }
-                    >
-                      {expense.dateGenerated ? (
-                        <span className="m-2">
-                          Generado en: {expense.dateGenerated}
-                        </span>
-                      ) : (
-                        ""
-                      )}
-                      <span className="m-2">
-                        Valor a pagar: {expense.amount}
-                      </span>
-                      <span className="m-2">
-                        {expense.state ? "Pagado" : "Pendiente"}
-                      </span>
-                      {expense.numberOperation && (
-                        <span className="m-2">
-                          Confirmación de pago: {expense.numberOperation}
-                        </span>
-                      )}
-                      {expense.datePaid && (
-                        <span className="m-2">
-                          Pagado en: {expense.datePaid}
-                        </span>
-                      )}
-                      {!expense.state && (
-                        <button className="bg-sih-orange  rounded-md duration-150  hover:scale-105 p-2 px-5 my-2 shadow-sm shadow-black">
-                          Pagar
-                        </button>
-                      )}
-                    </div>
-                  );
-                })
-              ) : (
-                <div className="text-[#384B59] text-4xl font-semibold text-center px-8 max-md:text-[20px] m-3">
-                  Aun no hay expensas registradas
-                </div>
-              )}
+              {expenses && expenses[0] !== undefined
+                ? expenses.map((expense: IExpense) => {
+                    console.log(expense.id);
+                    return (
+                      <tr key={expense.id}>
+                        <td className="p-4 border-b border-blue-gray-50">
+                          <div className="flex flex-col">
+                            <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                              {expense.dateGenerated}
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 border-b border-blue-gray-50">
+                          <div className="flex flex-col">
+                            <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                              {expense.amount}
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 border-b border-blue-gray-50">
+                          <div className="flex flex-col">
+                            <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                              {expense.description}
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 border-b border-blue-gray-50">
+                          <p
+                            className={
+                              expense.state
+                                ? "block font-sans text-sm antialiased font-bold leading-normal text-sih-green"
+                                : "block font-sans text-sm antialiased font-bold leading-normal text-red-500"
+                            }
+                          >
+                            {expense.state ? "Pagado" : "Pendiente"}
+                          </p>
+                        </td>
+                        <td className="p-4 border-b border-blue-gray-50">
+                          <p
+                            className={
+                              expense.state
+                                ? "block font-sans text-sm antialiased font-bold leading-normal rounded-md bg-sih-green cursor-pointer w-36 text-center"
+                                : "block font-sans text-sm antialiased font-bold leading-normal text-gray-600"
+                            }
+                          >
+                            {expense.state ? (
+                              <span onClick={() => generatePdf(expense.id)}>
+                                Generar factura
+                              </span>
+                            ) : (
+                              <Link href="/acciones/expensas">Ir a pagar</Link>
+                            )}
+                          </p>
+                        </td>
+                      </tr>
+                    );
+                  })
+                : null}
             </tbody>
           </table>
         </div>

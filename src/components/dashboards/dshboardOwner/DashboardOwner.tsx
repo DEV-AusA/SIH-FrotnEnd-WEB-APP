@@ -2,21 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-/* import { IUser } from "@/helpers/types"; */
+
 import { useUserContext } from "@/components/UserProvider";
 import { useEffect } from "react";
-
-/* const data: IUser = {
-  name: "Manuel",
-  document: 12345787,
-  lastName: "Guaicara",
-  email: "manu@gmail.com",
-  phone: 3517899626,
-  cellphone: 1231564,
-  rol: "user",
-  image: "https://i.ibb.co/8rc9VCF/Profile-3-2.png",
-  lastLogin: "ayer",
-}; */
 
 const buttonsOwner = [
   {
@@ -48,6 +36,7 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
     checkToken();
   }, []);
   const data = user;
+  console.log(data);
   return (
     <div>
       {data ? (

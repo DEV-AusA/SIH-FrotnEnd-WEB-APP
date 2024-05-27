@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
+    "@react-google-maps/api": "^2.19.3",
     "@react-oauth/google": "^0.12.1",
     "axios": "^1.6.8",
+    "echarts-for-react": "^3.0.2",
     "gapi": "^0.0.3",
     "gapi-script": "^1.2.0",
     "jwt-decode": "^4.0.0",

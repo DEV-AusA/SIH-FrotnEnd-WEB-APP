@@ -42,8 +42,8 @@ const ContactPage: React.FC = (): React.ReactElement => {
   return (
     <>
       <main className="flex justify-between px-200 bg-white min-h-[600px]">
-        <div className="w-full flex flex-col  items-center px-[200px] py-24 ">
-          <h2 className="text-[#384B59] text-4xl font-bold text-center">
+        <div className="w-full flex flex-col  items-center px-[200px] py-24 max-[1200px]:px-[100px] max-[600px]:px-[50px]">
+          <h2 className="text-[#384B59] text-4xl font-bold text-center px-[160px] max-[1330px]:px-0 max-[600px]:text-[20px] max-[500px]:text-base">
             ¿Tienes alguna duda?
             <br /> Contáctanos
           </h2>
@@ -79,12 +79,12 @@ const ContactPage: React.FC = (): React.ReactElement => {
               Enviar
             </button>
           </form>
-          <h2 className="text-[#384B59] text-xl mt-[30px] text-center">
+          <h2 className="text-[#384B59] text-xl mt-[30px] text-center max-[600px]:text-[20px] max-[500px]:text-base">
             O escríbenos a <br />
             secureingresshome.sih@gmail.com
           </h2>
         </div>
-        <div className="w-full h-[600]">
+        <div className="w-full h-[600]  max-[900px]:hidden">
           <Image
             className="w-full h-full object-cover"
             width={1000}
