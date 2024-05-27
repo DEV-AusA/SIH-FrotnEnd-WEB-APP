@@ -1,5 +1,3 @@
-"use client";
-
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useUserContext } from "../UserProvider";
@@ -139,8 +137,8 @@ const AdminProperties: React.FC = (): React.ReactElement => {
     const { name, value } = event.target;
     if (name === "amount") {
       const amountValue = parseFloat(value);
-      if (amountValue < 0) {
-        setError("El monto debe ser mayor o igual a 0");
+      if (amountValue < 1) {
+        setError("El monto debe ser mayor a 0");
       } else {
         setError(null);
       }
@@ -157,8 +155,8 @@ const AdminProperties: React.FC = (): React.ReactElement => {
   };
 
   const handleExp = async () => {
-    if (expenseData.amount < 0) {
-      setError("El monto debe ser mayor o igual a 0");
+    if (expenseData.amount <= 1) {
+      setError("El monto debe ser mayor a 1");
       return;
     }
     try {
@@ -286,18 +284,26 @@ const AdminProperties: React.FC = (): React.ReactElement => {
               Nuevo gasto extraordinario
             </h2>
             <div className="mb-4">
+              <label className="text-sih-blue" htmlFor="amount">
+                Monto
+              </label>
               <input
                 type="number"
+                id="amount"
                 name="amount"
                 value={expenseData.amount}
                 onChange={handleInputChange}
                 className="border p-2 rounded-[15px] w-full text-sih-blue outline-0"
-                min="0"
+                min="1"
               />
               {error && <span className="text-red-500">{error}</span>}
             </div>
             <div className="mb-4">
+              <label className="text-sih-blue" htmlFor="description">
+                Descripción
+              </label>
               <input
+                id="description"
                 type="text"
                 name="description"
                 value={expenseData.description}

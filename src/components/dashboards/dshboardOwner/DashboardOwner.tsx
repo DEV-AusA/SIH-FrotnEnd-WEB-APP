@@ -36,6 +36,7 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
     checkToken();
   }, []);
   const data = user;
+  console.log(data);
   return (
     <div>
       {data ? (
