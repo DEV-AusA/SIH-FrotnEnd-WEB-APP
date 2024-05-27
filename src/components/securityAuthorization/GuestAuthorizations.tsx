@@ -53,7 +53,6 @@ const GuestAuthorization: React.FC = (): React.ReactElement => {
             headers: { Authorization: `Bearer ${storedToken}` },
           },
         );
-        console.log(response.data);
 
         setAuthorizations(response.data);
       } catch (error) {
@@ -73,7 +72,6 @@ const GuestAuthorization: React.FC = (): React.ReactElement => {
           headers: { Authorization: `Bearer ${token}` },
         },
       );
-      console.log(response.data);
       if (response.data.type === "guest") setFoundAuthorization(response.data);
       else
         Swal.fire({
