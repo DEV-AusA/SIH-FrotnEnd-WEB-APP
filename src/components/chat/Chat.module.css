@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Red+Hat+Display:400,500,900&display=swap");
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
 
-.container{
+.container {
   display: flex;
 }
 
@@ -13,11 +13,11 @@
   background-color: #eee;
 }
 
-.status{
+.status {
   text-align: center;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
@@ -32,12 +32,11 @@
   color: red;
 }
 
-.form input{
+.form input {
   padding: 10px;
   width: 250px;
   border-radius: 15px;
 }
-
 
 .center {
   display: flex;
@@ -80,34 +79,35 @@
   font-weight: 500;
   margin-bottom: 0.125rem;
 }
-.containerHeaderChat{
+.containerHeaderChat {
   display: flex;
 }
-.containerHeaderChat h2{
+.containerHeaderChat h2 {
   margin-inline-end: 1rem;
   color: #e0931f;
   font-weight: bold;
 }
 
-.contact .message, .contact .seen {
+.contact .message,
+.contact .seen {
   font-size: 0.9rem;
   color: #999;
 }
 
-.container{
+.container {
   display: flex;
   justify-content: center;
 }
 
-.divChat{
+.divChat {
   display: flex;
   justify-content: center;
 }
-.securityStatus{
+.securityStatus {
   display: flex;
   justify-content: center;
 }
-.securityPersonal{
+.securityPersonal {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -118,7 +118,9 @@
   box-sizing: border-box;
   border-radius: 1rem;
   background: white;
-  box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1), 0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 0 8rem 0 rgba(0, 0, 0, 0.1),
+    0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
   margin: 1rem;
 }
 .securityPersonal .contact.bar {
@@ -139,7 +141,9 @@
   box-sizing: border-box;
   border-radius: 1rem;
   background: white;
-  box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1), 0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 0 8rem 0 rgba(0, 0, 0, 0.1),
+    0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
   margin: 1rem;
 }
 
@@ -152,15 +156,17 @@
 
 .chat .messages {
   padding: 1rem;
-  background: #F7F7F7;
+  background: #f7f7f7;
   flex-shrink: 2;
   overflow-y: auto;
   min-height: 420px;
-  box-shadow: inset 0 2rem 2rem -2rem rgba(0, 0, 0, 0.05), inset 0 -2rem 2rem -2rem rgba(0, 0, 0, 0.05);
+  box-shadow:
+    inset 0 2rem 2rem -2rem rgba(0, 0, 0, 0.05),
+    inset 0 -2rem 2rem -2rem rgba(0, 0, 0, 0.05);
 }
 .time {
   font-size: 0.8rem;
-  background: #EEE;
+  background: #eee;
   padding: 0.25rem 0.5rem;
   border-radius: 2rem;
   color: #999;
@@ -170,7 +176,7 @@
 }
 .chat .messages .time {
   font-size: 0.8rem;
-  background: #EEE;
+  background: #eee;
   padding: 0.25rem 1rem;
   border-radius: 2rem;
   color: #999;
@@ -179,7 +185,7 @@
   width: fit-content;
   margin: 0 auto;
 }
-.chat .messages .message.incoming  {
+.chat .messages .message.incoming {
   box-sizing: border-box;
   padding: 0.5rem 1rem;
   margin: 1rem;
@@ -190,11 +196,13 @@
   width: -moz-fit-content;
   width: fit-content;
   max-width: 80%;
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075), 0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 0 2rem rgba(0, 0, 0, 0.075),
+    0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
   word-wrap: break-word; /* evitar que salga del cuadro */
 }
 
-.chat .messages .message{
+.chat .messages .message {
   box-sizing: border-box;
   padding: 0.5rem 1rem;
   margin: 1rem 1rem 1rem auto;
@@ -219,15 +227,15 @@
 }
 .chat .messages .message .typing.typing1 {
   -webkit-animation: typing 3s infinite;
-          animation: typing 3s infinite;
+  animation: typing 3s infinite;
 }
 .chat .messages .message .typing.typing2 {
   -webkit-animation: typing 3s 250ms infinite;
-          animation: typing 3s 250ms infinite;
+  animation: typing 3s 250ms infinite;
 }
 .chat .messages .message .typing.typing3 {
   -webkit-animation: typing 3s 500ms infinite;
-          animation: typing 3s 500ms infinite;
+  animation: typing 3s 500ms infinite;
 }
 .chat .input {
   box-sizing: border-box;
@@ -256,8 +264,12 @@
   margin-right: 1rem;
   border-radius: 1.125rem;
   flex-grow: 2;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1), 0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.2);
-  font-family: Red hat Display, sans-serif;
+  box-shadow:
+    0 0 1rem rgba(0, 0, 0, 0.1),
+    0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.2);
+  font-family:
+    Red hat Display,
+    sans-serif;
   font-weight: 400;
   letter-spacing: 0.025em;
   color: #333;
@@ -267,7 +279,9 @@
 }
 
 @-webkit-keyframes typing {
-  0%, 75%, 100% {
+  0%,
+  75%,
+  100% {
     transform: translate(0, 0.25rem) scale(0.9);
     opacity: 0.5;
   }
@@ -278,7 +292,9 @@
 }
 
 @keyframes typing {
-  0%, 75%, 100% {
+  0%,
+  75%,
+  100% {
     transform: translate(0, 0.25rem) scale(0.9);
     opacity: 0.5;
   }

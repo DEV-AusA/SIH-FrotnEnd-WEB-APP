@@ -224,38 +224,38 @@ const AdminProperties: React.FC = (): React.ReactElement => {
           paginatedProperties.map((property: IProperty) => (
             <div
               key={property.id}
-              className="h-auto w-auto bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[8px] my-[30px] shadow-button text-sih-blue"
+              className="h-auto w-auto bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[8px] my-[30px] shadow-button text-sih-blue  max-[920px]:text-xs max-[530px]:text-[8px] max-[506px]:my-[5px]"
             >
               <Image
-                className="w-[380px] h-[250px] rounded-t-[15px]"
+                className="w-[380px] h-[250px] rounded-t-[15px]  max-[920px]:w-[190px]  max-[920px]:h-[125px] max-[530px]:w-[114px] max-[530px]:h-[75px]"
                 src={property.image}
                 width={380}
                 height={250}
                 alt="Frente de la propiedad"
               />
-              <span className="my-[2px] mt-[10px]">
+              <span className="my-[2px] mt-[10px] max-[530px]:mt-[2px] max-[530px]:my-[1px]">
                 <b>Número de casa:</b> {property.number}
               </span>
-              <span className="my-[2px]">
+              <span className="my-[2px] max-[530px]:my-[1px]">
                 <b>Dirección:</b> {property.address}
               </span>
-              <span className="my-[2px]">
+              <span className="my-[2px] max-[530px]:my-[1px]">
                 <b>Codigo de vivienda:</b> {property.code}
               </span>
               {property.user ? (
-                <span className="my-[2px]">
+                <span className="my-[2px] max-[530px]:my-[1px]">
                   <b>Propietario: </b>
                   {property.user?.name} {property.user?.lastName}
                 </span>
               ) : (
-                <span className="text-sih-green mt-[38px] mb-[25px]">
+                <span className="text-sih-green mt-[38px] mb-[25px] max-[530px]:mt-[10px]">
                   <b>Desocupada</b>
                 </span>
               )}
               {property.user ? (
                 <button
                   onClick={() => openModal(property.id)}
-                  className="bg-sih-blue text-white mt-[10px] mb-[15px] mx-[10px] py-[5px] w-[250px] text-center rounded-[10px] hover:bg-sih-orange hover:text-sih-blue"
+                  className="bg-sih-blue text-white mt-[10px] mb-[15px] mx-[10px] py-[5px] w-[250px] text-center rounded-[10px] hover:bg-sih-orange hover:text-sih-blue  max-[920px]:w-[150px]  max-[920px]:text-xs max-[530px]:text-[8px] max-[530px]:w-[90px] max-[530px]:my-[5px]"
                 >
                   Gasto extraordinario
                 </button>

@@ -48,6 +48,7 @@ export interface IUser {
   lastLogin: string;
   state?: boolean;
   createdAt?: string;
+  properties: [IProperty];
 }
 export interface IPropUser {
   lastName: string;
