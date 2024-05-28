@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
 import { useUserContext } from "@/components/UserProvider";
 import { useEffect } from "react";
 
@@ -32,11 +31,10 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
       const currentUser = await JSON.parse(localStorage.user);
       setUser(currentUser);
     };
-
     checkToken();
   }, []);
   const data = user;
-  console.log(data);
+  const propertyNumber = user?.properties[0].number;
   return (
     <div>
       {data ? (
@@ -59,7 +57,7 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
                     : "Security"}
               </h3>
               <h4 className="text-[25px] text-sih-orange mt-[10px] max-[1330px]:mt-0 max-md:text-[16px] max-cellphone:text-[10px]">
-                {data.cellphone}
+                Casa número: {propertyNumber}
               </h4>
               <Link
                 className="h-[60px] w-[280px] bg-white mt-[100px] duration-150 rounded-[15px] text-sih-blue text-[32px] flex justify-center items-center font-bold hover:bg-sih-orange shadow-button max-[1330px]:mt-[20px] max-md:w-[186px]  max-md:text-[22px] max-cellphone:text-[12px] max-cellphone:h-[26px] max-cellphone:w-[126px] max-cellphone:mt-[10px]"

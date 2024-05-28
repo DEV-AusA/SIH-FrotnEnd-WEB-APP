@@ -12,6 +12,7 @@ const userDto = (data: IUser) => {
     rol: data.rol,
     image: data.image,
     lastLogin: data.lastLogin,
+    properties: data.properties,
   };
   return Dto;
 };

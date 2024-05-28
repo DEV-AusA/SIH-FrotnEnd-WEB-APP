@@ -28,7 +28,19 @@ const Expenses: React.FC = (): React.ReactElement | null => {
   let children: ReactElement | null = null;
   switch (user?.rol) {
     case "owner":
-      children = <ExpensesOwner />;
+      children = (
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between px-[200px] mt-[20px]">
+            <BackLink href="/acciones" />
+            <div className="flex-1 flex justify-center">
+              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
+                Tus Expensas
+              </h2>
+            </div>
+          </div>
+          <ExpensesOwner />
+        </div>
+      );
       break;
     case "admin":
       children = (

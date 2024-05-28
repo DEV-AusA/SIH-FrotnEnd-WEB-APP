@@ -235,7 +235,7 @@ const OwnerAuthorization: React.FC = (): React.ReactElement => {
                   placeholder="Servicio de entrega"
                   onChange={handleChangePackage}
                 />
-                {guestErrors.name ? (
+                {packageErrors.name ? (
                   <span className="text-red-500 block w-[256px] text-sm">
                     {packageErrors.name}
                   </span>

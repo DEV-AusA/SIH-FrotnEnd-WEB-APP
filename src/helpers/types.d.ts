@@ -48,6 +48,7 @@ export interface IUser {
   lastLogin: string;
   state?: boolean;
   createdAt?: string;
+  properties: [IProperty];
 }
 export interface IPropUser {
   lastName: string;
@@ -75,6 +76,11 @@ export interface IExpense {
   state: boolean;
   description: string;
   userProperty: string;
+  property: {
+    number: number;
+    address: string;
+    user: { name: string; lastName: string };
+  };
 }
 export interface IPropertyExpenses {
   expences: IExpense[];
@@ -95,6 +101,10 @@ export interface IAuthorizationCreated {
   expirationTime: string;
   number: number;
   dateUsed: string;
+  numberProp: number;
+  addressProp: string;
+  lastNameProp: string;
+  nameProp: string;
 }
 export interface CustomError extends Error {
   response?: {
