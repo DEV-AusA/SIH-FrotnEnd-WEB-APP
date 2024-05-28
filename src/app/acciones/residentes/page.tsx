@@ -1,10 +1,10 @@
 "use client";
 import BackLink from "@/components/backButton/BackLink";
-import TableProperty from "@/components/tableProperty/tableProperty";
+import ResidentTable from "@/components/residentTable/residentTable";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function Properties() {
+export default function Resident() {
   const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Properties() {
           </h2>
         </div>
       </div>
-      <TableProperty />
+      <ResidentTable />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import UpdateForm from "@/components/updateForm/UpdateForm";
 import UpdateFormGoogle from "@/components/updateFormGoogle/UpdateFormGoogle";
 import { useRouter } from "next/navigation";
 import { ReactElement, useEffect } from "react";
+import BackLink from "@/components/backButton/BackLink";
 
 const Dashboard: React.FC = (): React.ReactElement | null => {
   const router = useRouter();
@@ -25,16 +26,64 @@ const Dashboard: React.FC = (): React.ReactElement | null => {
   let children: ReactElement | null = null;
   switch (user?.rol) {
     case "owner":
-      children = <UpdateForm />;
+      children = (
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between px-[200px] mt-[20px]">
+            <BackLink href="/acciones" />
+            <div className="flex-1 flex justify-center">
+              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
+                Tus Datos
+              </h2>
+            </div>
+          </div>
+          <UpdateForm />
+        </div>
+      );
       break;
     case "admin":
-      children = <UpdateForm />;
+      children = (
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between px-[200px] mt-[20px]">
+            <BackLink href="/acciones" />
+            <div className="flex-1 flex justify-center">
+              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
+                Tus Datos
+              </h2>
+            </div>
+          </div>
+          <UpdateForm />
+        </div>
+      );
       break;
     case "security":
-      children = <UpdateForm />;
+      children = (
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between px-[200px] mt-[20px]">
+            <BackLink href="/acciones" />
+            <div className="flex-1 flex justify-center">
+              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
+                Tus Datos
+              </h2>
+            </div>
+          </div>
+          <UpdateForm />
+        </div>
+      );
       break;
     case "googletemp":
-      children = <UpdateFormGoogle />;
+      children = (
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between px-[200px] mt-[20px]">
+            <BackLink href="/acciones" />
+            <div className="flex-1 flex justify-center">
+              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
+                Tus Datos
+              </h2>
+            </div>
+          </div>
+          <UpdateFormGoogle />
+        </div>
+      );
       break;
     default:
       break;

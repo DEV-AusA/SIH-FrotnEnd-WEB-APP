@@ -21,7 +21,11 @@ const buttonsOwner = [
     title: "Residentes",
     href: "/acciones/residentes",
   },
-  { image: "/icons/security.png", title: "Guardias", href: "/" },
+  {
+    image: "/icons/security.png",
+    title: "Guardias",
+    href: "/acciones/guardias",
+  },
 ];
 
 const DashboardAdmin: React.FC = (): React.ReactElement => {
