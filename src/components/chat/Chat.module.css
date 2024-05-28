@@ -4,6 +4,14 @@
 .container {
   display: flex;
 }
+@media (max-width: 1470px) {
+  .container {
+    flex-direction: column;
+  }
+  .divChat {
+    padding: 0 50px;
+  }
+}
 
 .scrollableDiv {
   margin: 1rem;

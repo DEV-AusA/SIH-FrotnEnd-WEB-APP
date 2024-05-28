@@ -25,7 +25,7 @@ export default function Properties() {
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between px-[200px] mt-[20px]">
-        <div className=" max-[650px]:hidden">
+        <div className="max-[650px]:hidden">
           <BackLink href="/acciones" />
         </div>
         <div className="flex-1 flex justify-center">

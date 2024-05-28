@@ -192,7 +192,7 @@ const ChatComponent: React.FC = (): React.ReactElement => {
         <div className={`${styles.contact} ${styles.bar}`}>
           <div className={`${styles.pic} ${styles.ps}`}>
             <Image
-              className="rounded-full border-white max-md:h-[173px] max-md:w-[173px] max-cellphone:h-[100px] max-cellphone:w-[100px]"
+              className="rounded-full border-white max-md:h-[64px] max-md:w-[64px]"
               src={userData.image}
               height={260}
               width={260}
@@ -337,9 +337,9 @@ const ChatComponent: React.FC = (): React.ReactElement => {
           <div className={`${styles.chat}`}>
             <div className="p-5">
               <div className="w-full flex flex-col items-center">
-                <h2 className="text-[#384B59] text-4xl font-bold text-center">
+                <h2 className="text-[#384B59] text-4xl font-bold text-center max-[900px]:text-2xl max-[500px]:text-xl">
                   Bienvenido a{" "}
-                  <span className="text-[#FFBD5C] text-[40px] text-left">
+                  <span className="text-[#FFBD5C] text-[40px] text-left max-[900px]:text-2xl max-[500px]:text-xl">
                     SIH
                   </span>{" "}
                   CHAT
@@ -352,19 +352,20 @@ const ChatComponent: React.FC = (): React.ReactElement => {
               ref={chatElementRef}
             >
               <div className="w-full flex flex-col  items-center p-10">
-                <h2 className="text-[#384B59] text-4xl font-bold text-center p-5">
-                  Hola{" "}
-                  <span className="text-[#FFBD5C] text-[40px] text-left">
+                <h2 className="text-[#384B59] text-4xl font-bold text-center p-5 max-[900px]:text-2xl max-[700px]:text-xl max-[550px]:text-sm max-[550px]:p-[10px]">
+                  ¡Hola{" "}
+                  <span className="text-[#FFBD5C] text-[40px] text-left max-[900px]:text-2xl max-[700px]:text-xl max-[550px]:text-sm max-[550px]:p-[10px]">
                     {user?.name}
-                  </span>{" "}
-                  ! ¿en que puedo ayudarte el día de hoy? 👮‍♂️‍✋
+                  </span>
+                  !
+                  <br /> ¿En que puedo ayudarte el día de hoy? 👮‍♂️‍✋
                 </h2>
                 <br />
-                <h2 className="text-[#384B59] text-4xl font-bold text-center p-5">
+                <h2 className="text-[#384B59] text-4xl font-bold text-center p-5 max-[900px]:text-2xl max-[700px]:text-xl max-[550px]:text-sm max-[550px]:p-[10px]">
                   Por favor selecciona al personal con quien deseas comunicarte.
                 </h2>
-                <h2 className="text-[#384B59] text-4xl font-bold text-center p-5">
-                  Gracias por contactarte!
+                <h2 className="text-[#384B59] text-4xl font-bold text-center p-5 max-[900px]:text-2xl max-[700px]:text-xl max-[550px]:text-sm max-[550px]:p-[10px]">
+                  ¡Gracias por contactarte!
                 </h2>
               </div>
             </div>
