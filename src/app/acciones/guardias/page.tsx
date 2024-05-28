@@ -1,10 +1,10 @@
 "use client";
 import BackLink from "@/components/backButton/BackLink";
-import ResidentTable from "@/components/residentTable/residentTable";
+import GuardsTable from "@/components/guardsTable/guardsTable";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function Resident() {
+export default function Guards() {
   const router = useRouter();
 
   useEffect(() => {
@@ -27,11 +27,11 @@ export default function Resident() {
         <BackLink href="/acciones" />
         <div className="flex-1 flex justify-center">
           <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
-            Residentes
+            Guardias
           </h2>
         </div>
       </div>
-      <ResidentTable />
+      <GuardsTable />
     </div>
   );
 }

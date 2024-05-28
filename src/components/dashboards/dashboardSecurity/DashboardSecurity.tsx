@@ -6,7 +6,11 @@ import { useUserContext } from "@/components/UserProvider";
 import { useEffect } from "react";
 
 const buttonsOwner = [
-  { image: "/icons/owner.png", title: "Propietarios", href: "/" },
+  {
+    image: "/icons/owner.png",
+    title: "Propietarios",
+    href: "/acciones/propietarios",
+  },
   {
     image: "/icons/guest.png",
     title: "Invitados",
