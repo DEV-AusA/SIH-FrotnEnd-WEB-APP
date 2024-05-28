@@ -69,7 +69,7 @@ const Hamburger: React.FC = (): React.ReactElement => {
           <Image
             width={50}
             height={50}
-            src="/icons/UserIcon.png"
+            src="https://i.ibb.co/xFwM7yh/user-Icon2.png"
             alt="Secure Ingress Home"
           />
           <ul className="flex flex-col my-5">
