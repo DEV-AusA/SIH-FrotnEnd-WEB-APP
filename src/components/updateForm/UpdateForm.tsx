@@ -164,9 +164,6 @@ const UpdateForm: React.FC = (): React.ReactElement => {
 
   return (
     <div className="w-full flex flex-col items-center py-10 p-[200px] max-2xl:px-[50px]">
-      <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px]">
-        Tus datos
-      </h2>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <div className="flex flex-row items-center max-[1000px]:flex-col">
           <div className="flex flex-col  items-center mt-[39px] max-md:flex-col">

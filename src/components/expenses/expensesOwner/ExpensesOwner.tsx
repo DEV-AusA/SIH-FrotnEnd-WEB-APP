@@ -24,7 +24,9 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
         );
         const allExpenses: IExpense[] = [];
         response.data.map((property: IPropertyExpenses) =>
-          property.expences ? allExpenses.push(property.expences[0]) : null,
+          property.expences
+            ? property.expences.map((expence) => allExpenses.push(expence))
+            : null,
         );
         if (allExpenses.length === 0) {
           setExpenses([]);
@@ -57,9 +59,6 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
   };
   return (
     <main className="flex flex-col items-center py-10">
-      <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] m-3">
-        Tus expensas
-      </h2>
       <div className="flex flex-wrap">
         {expenses && expenses[0] !== undefined ? (
           expenses.map((expense: IExpense) => {
