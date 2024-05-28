@@ -7,7 +7,8 @@ import { useUserContext } from "../UserProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
 import validatePackageData from "./helpers/validatePackageData";
-
+import Image from "next/image";
+const WHATSAPP_URL = "https://api.whatsapp.com/send?text=";
 const AUTHORIZATION_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const OwnerAuthorization: React.FC = (): React.ReactElement => {
@@ -292,7 +293,7 @@ const OwnerAuthorization: React.FC = (): React.ReactElement => {
                   className="w-[300px] bg-white m-3 p-5 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
                 >
                   <span>Número: {authorization.number}</span>
-                  <span>Código de acceso:{authorization.accessCode}</span>
+                  <span>Código de acceso: {authorization.accessCode}</span>
                   <span>Nombre: {authorization.name}</span>
                   {authorization.document ? (
                     <span>Documento: {authorization.document}</span>
@@ -311,6 +312,22 @@ const OwnerAuthorization: React.FC = (): React.ReactElement => {
                   ) : (
                     <span>Sin utilizar</span>
                   )}
+
+                  <a
+                    href={`${WHATSAPP_URL}${encodeURIComponent(`Te comparto el código de Acceso: ${authorization.accessCode}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cursor-pointer ml-2 flex justify-center items-center bg-[#29A71A] text-white pr-[10px] rounded-[20px] mt-[10px]"
+                  >
+                    <Image
+                      src="/icons/whatsapp.png"
+                      alt="whatsapp"
+                      height={40}
+                      width={40}
+                      className="ml-[5px]"
+                    />
+                    <span>Compartir en Whatsapp</span>
+                  </a>
                 </div>
               );
             })
