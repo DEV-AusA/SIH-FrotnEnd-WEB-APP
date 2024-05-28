@@ -312,23 +312,22 @@ const OwnerAuthorization: React.FC = (): React.ReactElement => {
                   ) : (
                     <span>Sin utilizar</span>
                   )}
-                  <div className="flex justify-center items-center">
-                    <span>Compartir código</span>
-                    <a
-                      href={`${WHATSAPP_URL}${encodeURIComponent(`Te comparto el código de Acceso: ${authorization.accessCode}`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cursor-pointer text-blue-500 hover:text-blue-700 ml-2"
-                    >
-                      <Image
-                        src="/icons/whatsapp.png"
-                        alt="whatsapp"
-                        height={40}
-                        width={40}
-                        className="ml-[5px]"
-                      />
-                    </a>
-                  </div>
+
+                  <a
+                    href={`${WHATSAPP_URL}${encodeURIComponent(`Te comparto el código de Acceso: ${authorization.accessCode}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cursor-pointer ml-2 flex justify-center items-center bg-[#29A71A] text-white pr-[10px] rounded-[20px] mt-[10px]"
+                  >
+                    <Image
+                      src="/icons/whatsapp.png"
+                      alt="whatsapp"
+                      height={40}
+                      width={40}
+                      className="ml-[5px]"
+                    />
+                    <span>Compartir en Whatsapp</span>
+                  </a>
                 </div>
               );
             })
