@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
 import { useUserContext } from "@/components/UserProvider";
 import { useEffect } from "react";
 
@@ -32,11 +31,9 @@ const DashboardOwner: React.FC = (): React.ReactElement => {
       const currentUser = await JSON.parse(localStorage.user);
       setUser(currentUser);
     };
-
     checkToken();
   }, []);
   const data = user;
-  console.log(data);
   return (
     <div>
       {data ? (

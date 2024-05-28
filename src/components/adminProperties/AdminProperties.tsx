@@ -248,7 +248,7 @@ const AdminProperties: React.FC = (): React.ReactElement => {
                   {property.user?.name} {property.user?.lastName}
                 </span>
               ) : (
-                <span className="mb-[10px] text-sih-green mt-[38px] mb-[25px]">
+                <span className="text-sih-green mt-[38px] mb-[25px]">
                   <b>Desocupada</b>
                 </span>
               )}
