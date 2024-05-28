@@ -166,7 +166,6 @@ const OwnerTable: React.FC = (): React.ReactElement => {
           .then((data) => {
             const userInfo = data;
             setUsers(userInfo);
-            localStorage.setItem("user", JSON.stringify(userInfo));
           });
       })
       .then(() => {
@@ -236,7 +235,6 @@ const OwnerTable: React.FC = (): React.ReactElement => {
             .then((data) => {
               const userInfo = data;
               setUsers(userInfo);
-              localStorage.setItem("user", JSON.stringify(userInfo));
             });
         })
         .then(() => {
@@ -280,7 +278,6 @@ const OwnerTable: React.FC = (): React.ReactElement => {
             console.log(data);
             const userInfo = data;
             setUsers(userInfo);
-            localStorage.setItem("user", JSON.stringify(userInfo));
           });
       })
       .then(() => {
