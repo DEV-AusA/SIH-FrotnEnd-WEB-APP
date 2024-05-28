@@ -1,17 +1,17 @@
 "use client";
 import BackLink from "@/components/backButton/BackLink";
-import ResidentTable from "@/components/residentTable/residentTable";
+import OwnersTable from "@/components/ownersTable/ownersTable";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function Resident() {
+export default function Properties() {
   const router = useRouter();
 
   useEffect(() => {
     const isLogged = localStorage.getItem("user");
     if (isLogged) {
       const localUser = JSON.parse(isLogged);
-      if (localUser.rol === "admin") {
+      if (localUser.rol === "security") {
         return;
       } else {
         router.push("/");
@@ -31,7 +31,8 @@ export default function Resident() {
           </h2>
         </div>
       </div>
-      <ResidentTable />
+      <OwnersTable />
+      {/* <OwnerTable /> */}
     </div>
   );
 }
