@@ -2,6 +2,7 @@ import { IRegister } from "../../../helpers/types";
 
 const emailRegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const userRegExp = /^[a-zA-Z0-9]+$/;
+const nameRegExp = /^[a-zA-Z0-9 ]+$/;
 const passwordRegExp =
   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W)(?!.*\s).{8,15}$/;
 const onlypositivenumbers = /^[0-9]+$/;
@@ -32,13 +33,13 @@ const validateUpdate = ({
   if (!name) errors.name = "Ingresa tu nombre.";
   else if (name.trim().length < 2 || name.trim().length > 30) {
     errors.name = "Nombre invalido.";
-  } else if (!userRegExp.test(name)) {
+  } else if (!nameRegExp.test(name)) {
     errors.name = "Este campo no acepta caracteres especiales.";
   } else if (!lastName) {
     errors.lastName = "Ingresa tu apellido.";
   } else if (lastName.trim().length < 2 || lastName.trim().length > 30) {
     errors.lastName = "Apellido invalido.";
-  } else if (!userRegExp.test(lastName)) {
+  } else if (!nameRegExp.test(lastName)) {
     errors.lastName = "Este campo no acepta caracteres especiales.";
   } else if (email && !emailRegExp.test(email))
     errors.email = "Correo electrónico invalido.";
