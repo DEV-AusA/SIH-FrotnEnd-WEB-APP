@@ -25,6 +25,14 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
     phone: 0,
   });
 
+  const [errors, setErrors] = useState({
+    address: "",
+    location: "",
+    email: "",
+    news: "",
+    phone: "",
+  });
+
   useEffect(() => {
     const getData = async () => {
       const storedToken = localStorage.getItem("token");
@@ -49,10 +57,55 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
       ...prev,
       [name]: name === "phone" ? Number(value) : value,
     }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
+
+  const validateForm = () => {
+    let formIsValid = true;
+    const newErrors = {
+      address: "",
+      location: "",
+      email: "",
+      news: "",
+      phone: "",
+    };
+
+    if (!formData.address) {
+      formIsValid = false;
+      newErrors.address = "La dirección es requerida.";
+    }
+    if (!formData.location) {
+      formIsValid = false;
+      newErrors.location = "La ubicación es requerida.";
+    }
+    if (!formData.email) {
+      formIsValid = false;
+      newErrors.email = "El correo electrónico es requerido.";
+    }
+    if (!formData.news) {
+      formIsValid = false;
+      newErrors.news = "El mensaje parroquial es requerido.";
+    }
+    if (!formData.phone) {
+      formIsValid = false;
+      newErrors.phone = "El teléfono es requerido.";
+    }
+
+    setErrors(newErrors);
+    return formIsValid;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     const storedToken = localStorage.getItem("token");
     const dataToSubmit = {
       ...formData,
@@ -100,6 +153,9 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
               onChange={handleChange}
               className="border p-2 rounded-[15px] w-full text-sih-blue outline-0"
             />
+            {errors.address && (
+              <span className="text-red-500">{errors.address}</span>
+            )}
           </div>
           <div className="mb-4">
             <label className="block text-gray-700">Coordenadas</label>
@@ -110,6 +166,9 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
               onChange={handleChange}
               className="border p-2 rounded-[15px] w-full text-sih-blue outline-0"
             />
+            {errors.location && (
+              <span className="text-red-500">{errors.location}</span>
+            )}
           </div>
           <div className="mb-4">
             <label className="block text-gray-700">Correo electrónico</label>
@@ -120,6 +179,9 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
               onChange={handleChange}
               className="border p-2 rounded-[15px] w-full text-sih-blue outline-0"
             />
+            {errors.email && (
+              <span className="text-red-500">{errors.email}</span>
+            )}
           </div>
           <div className="mb-4">
             <label className="block text-gray-700">Teléfono</label>
@@ -130,6 +192,9 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
               onChange={handleChange}
               className="border p-2 rounded-[15px] w-full text-sih-blue outline-0"
             />
+            {errors.phone && (
+              <span className="text-red-500">{errors.phone}</span>
+            )}
           </div>
           <div className="mb-4">
             <label className="block text-gray-700">Mensaje parroquial</label>
@@ -139,6 +204,7 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
               onChange={handleChange}
               className="border p-2 rounded-[15px] w-full text-sih-blue outline-0"
             />
+            {errors.news && <span className="text-red-500">{errors.news}</span>}
           </div>
           <div className="flex justify-end">
             <button
