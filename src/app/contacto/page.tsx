@@ -43,7 +43,7 @@ const ContactPage: React.FC = (): React.ReactElement => {
     <>
       <main className="flex justify-between px-200 bg-white min-h-[600px]">
         <div className="w-full flex flex-col  items-center px-[200px] py-24 max-[1200px]:px-[100px] max-[600px]:px-[50px]">
-          <h2 className="text-[#384B59] text-4xl font-bold text-center px-[160px] max-[1330px]:px-0 max-[600px]:text-[20px] max-[500px]:text-base">
+          <h2 className="text-[#384B59] text-4xl font-bold text-center  max-[1330px]:px-0 max-[600px]:text-[20px] max-[500px]:text-base">
             ¿Tienes alguna duda?
             <br /> Contáctanos
           </h2>

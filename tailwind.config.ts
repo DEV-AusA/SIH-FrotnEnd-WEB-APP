@@ -15,7 +15,7 @@ const config: Config = {
         },
       },
       animation: {
-        marquee: "marquee 20s linear infinite",
+        marquee: "marquee 30s linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
