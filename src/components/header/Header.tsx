@@ -52,7 +52,9 @@ const Header: React.FC = (): React.ReactElement => {
           <div
             ref={modalRef}
             className={`absolute top-full mt-2 left-1/2 transform -translate-x-1/2 w-[180px] bg-sih-blue rounded shadow-lg z-50 transition-transform duration-500 ease-in-out ${
-              open ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+              open
+                ? "opacity-100 translate-y-0 max-xl:hidden"
+                : "opacity-0 -translate-y-4 hidden"
             }`}
           >
             <AuthMenu />
