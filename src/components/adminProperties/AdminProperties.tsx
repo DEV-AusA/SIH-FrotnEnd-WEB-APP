@@ -219,15 +219,15 @@ const AdminProperties: React.FC = (): React.ReactElement => {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center items-center px-[200px] max-2xl:px-[50px]">
+      <div className="flex flex-wrap justify-center items-center px-[200px] max-2xl:px-[50px] max-md:px-[50px]">
         {paginatedProperties.length > 0 ? (
           paginatedProperties.map((property: IProperty) => (
             <div
               key={property.id}
-              className="h-auto w-auto bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[8px] my-[30px] shadow-button text-sih-blue  max-[920px]:text-xs max-[530px]:text-[8px] max-[506px]:my-[5px]"
+              className="h-auto w-auto bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[8px] my-[30px] shadow-button text-sih-blue  max-[920px]:text-xs"
             >
               <Image
-                className="w-[380px] h-[250px] rounded-t-[15px]  max-[920px]:w-[190px]  max-[920px]:h-[125px] max-[530px]:w-[114px] max-[530px]:h-[75px]"
+                className="w-[380px] h-[250px] rounded-t-[15px]  max-[920px]:w-[190px]  max-[920px]:h-[125px]"
                 src={property.image}
                 width={380}
                 height={250}
@@ -255,7 +255,7 @@ const AdminProperties: React.FC = (): React.ReactElement => {
               {property.user ? (
                 <button
                   onClick={() => openModal(property.id)}
-                  className="bg-sih-blue text-white mt-[10px] mb-[15px] mx-[10px] py-[5px] w-[250px] text-center rounded-[10px] hover:bg-sih-orange hover:text-sih-blue  max-[920px]:w-[150px]  max-[920px]:text-xs max-[530px]:text-[8px] max-[530px]:w-[90px] max-[530px]:my-[5px]"
+                  className="bg-sih-blue text-white mt-[10px] mb-[15px] mx-[10px] py-[5px] w-[250px] text-center rounded-[10px] hover:bg-sih-orange hover:text-sih-blue  max-[920px]:w-[150px]  max-[920px]:text-xs"
                 >
                   Gasto extraordinario
                 </button>

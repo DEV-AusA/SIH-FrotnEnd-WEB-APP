@@ -30,6 +30,7 @@ const ChatComponent: React.FC = (): React.ReactElement => {
   const [userConnections, setUserConnections] = useState<{
     [userId: string]: boolean;
   }>({});
+  const [isConnected, setIsConnected] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -48,6 +49,8 @@ const ChatComponent: React.FC = (): React.ReactElement => {
 
       socketRef.current = socket;
       isSocketInitialized.current = true;
+      socket.on("connect", () => setIsConnected(true));
+      socket.on("disconnect", () => setIsConnected(false));
       socket.on("error", (errorMessage: string) => setError(errorMessage));
       socket.on("room-id", (roomId: string) => setRoomId(roomId));
       socket.on("security-personal", (userPs: User[]) =>
@@ -125,6 +128,7 @@ const ChatComponent: React.FC = (): React.ReactElement => {
         );
 
         socketRef.current.on("user-connect", (userId: string) => {
+          setIsConnected(true);
           setUserConnections((prevConnections) => ({
             ...prevConnections,
             [userId]: true, // usuario on
@@ -444,13 +448,13 @@ const ChatComponent: React.FC = (): React.ReactElement => {
             <div className={styles.status}>
               <div
                 id={styles.statusOnline}
-                className={selectedUser ? "" : `${styles.hidden}`}
+                className={isConnected ? "" : `${styles.hidden}`}
               >
                 Conectado
               </div>
               <div
                 id={styles.statusOffline}
-                className={selectedUser ? `${styles.hidden}` : ""}
+                className={isConnected ? `${styles.hidden}` : ""}
               >
                 Desconectado
               </div>

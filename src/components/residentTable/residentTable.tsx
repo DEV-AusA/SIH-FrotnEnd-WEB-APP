@@ -308,11 +308,15 @@ const OwnerTable: React.FC = (): React.ReactElement => {
     const token = await localStorage.getItem("token");
     console.log(newdata);
     axios
-      .put(`${REGISTERUSER_URL}/users/update/${userDataState?.id}`, newdata, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      .put(
+        `${REGISTERUSER_URL}/users/unsubscribe/${userDataState?.id}`,
+        newdata,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      })
+      )
       .then(() => {
         axios
           .get(`${REGISTERUSER_URL}/users`, {
