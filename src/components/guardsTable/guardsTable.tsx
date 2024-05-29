@@ -4,8 +4,6 @@ import axios from "axios";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useUserContext } from "../UserProvider";
 import { IRegister, IUser } from "@/helpers/types";
-import BarStadisticsGraphicsComponent from "../graphics/BarStadisticsGraphics";
-import StatisticsPolarGraphicsComponent from "../graphics/StadisticsPolarGraphics";
 import Image from "next/image";
 import updateDto from "../updateForm/helpers/updateDto";
 import { formData } from "../updateForm/helpers/updateFormData";
@@ -13,15 +11,21 @@ import Swal from "sweetalert2";
 import validateUpdate from "../updateForm/helpers/validateUpdate";
 // import userDto from "../loginForm/helpers/userDto";
 import { useRouter } from "next/navigation";
+// import { tree } from "next/dist/build/templates/app-page";
+// import TableContent from "./tableContent";
 
 const GETUsers_URL = process.env.NEXT_PUBLIC_API_URL;
 const REGISTERUSER_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const GuardsTable: React.FC = (): React.ReactElement => {
+const OwnerTable: React.FC = (): React.ReactElement => {
   const [Users, setUsers] = useState<IUser[]>([]);
+  const [usersFilter, setUsersFilter] = useState<IUser[]>(Users); // [usersFilter]
   const [isModalOpenUpdate, setIsModalOpen] = useState(false);
   const [userDataUpdated, setUserDataUpdated] = useState<IUser | null>(null);
-  const [isModalOpenState, setIsModalOpenState] = useState(false);
+  const [isModalOpenState, setIsModalOpenState] = useState({
+    stateModal: false,
+    stateUser: "",
+  });
   const [userDataState, setUserDataState] = useState<IUser | null>(null);
   // const [search, setSearch] = useState("");
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -57,10 +61,34 @@ const GuardsTable: React.FC = (): React.ReactElement => {
       //   );
       // console.log(response.data);
       setUsers(response.data);
+
+      setUsersFilter(response.data);
     };
 
     fetchUsers();
   }, [setToken]);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const filteredUsers = [...Users].filter((userData) =>
+        userData.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+      setUsersFilter(filteredUsers);
+    };
+    checkToken();
+  }, [searchTerm]);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      // c
+
+      // console.log(sortedUsers);
+      // setUsersFilter(sortedUsers);
+      console.log("asdasda");
+      console.log(usersFilter);
+    };
+    checkToken();
+  }, [setUsersFilter]);
 
   const initialState: IRegister = {
     name: userDataUpdated ? userDataUpdated.name : "",
@@ -70,6 +98,7 @@ const GuardsTable: React.FC = (): React.ReactElement => {
     document: userDataUpdated ? String(userDataUpdated.document) : "",
     phone: userDataUpdated ? String(userDataUpdated.phone) : "",
     cellphone: userDataUpdated ? String(userDataUpdated.cellphone) : "",
+    image: userDataUpdated ? String(userDataUpdated.image) : "",
     code: "",
     password: "",
     confirmpassword: "",
@@ -98,6 +127,7 @@ const GuardsTable: React.FC = (): React.ReactElement => {
         document: userDataUpdated ? String(userDataUpdated.document) : "",
         phone: userDataUpdated ? String(userDataUpdated.phone) : "",
         cellphone: userDataUpdated ? String(userDataUpdated.cellphone) : "",
+        image: userDataUpdated ? String(userDataUpdated.image) : "",
         code: "",
         password: "",
         confirmpassword: "",
@@ -106,12 +136,12 @@ const GuardsTable: React.FC = (): React.ReactElement => {
     cargaUserDataUpdated();
   }, [userDataUpdated]);
 
-  // useEffect(() => {
-  //   const cargaUserDataUpdated = async () => {
-  //     console.log(`${data} state`);
-  //   };
-  //   cargaUserDataUpdated();
-  // }, [userDataUpdated]);
+  useEffect(() => {
+    const cargaUserDataUpdated = async () => {
+      console.log(`${data} state`);
+    };
+    cargaUserDataUpdated();
+  }, [userDataUpdated]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -128,17 +158,18 @@ const GuardsTable: React.FC = (): React.ReactElement => {
     return formattedDate + " \n " + formattedTime;
   };
 
-  const openModalStatu = (user: IUser) => {
+  const openModalStatu = (user: IUser, stateUser: string) => {
     setUserDataState(user);
-    console.log(userDataState);
-    setIsModalOpenState(true);
+    console.log("Modal State: ", userDataState);
+    setIsModalOpenState({ stateModal: true, stateUser: stateUser });
   };
 
   const closeModalStatu = () => {
-    setIsModalOpenState(false);
+    setIsModalOpenState({ stateModal: false, stateUser: "" });
   };
   const openModal = (user: IUser) => {
     setUserDataUpdated(user);
+    console.log("Modal Update: ", userDataUpdated);
     setIsModalOpen(true);
   };
 
@@ -150,7 +181,6 @@ const GuardsTable: React.FC = (): React.ReactElement => {
     event.preventDefault();
     const newdata = updateDto(data);
     const token = await localStorage.getItem("token");
-    console.log(newdata);
     axios
       .put(`${REGISTERUSER_URL}/users/update/${userDataUpdated?.id}`, newdata, {
         headers: { Authorization: `Bearer ${token}` },
@@ -163,8 +193,7 @@ const GuardsTable: React.FC = (): React.ReactElement => {
           .then(({ data }) => data)
           .then((data) => {
             const userInfo = data;
-            setUsers(userInfo);
-            localStorage.setItem("user", JSON.stringify(userInfo));
+            setUsersFilter(userInfo);
           });
       })
       .then(() => {
@@ -190,7 +219,6 @@ const GuardsTable: React.FC = (): React.ReactElement => {
   const uploadImage = async () => {
     const fileInput = document.getElementById("file") as HTMLInputElement;
     const file = fileInput.files ? fileInput.files[0] : null;
-    console.log(file);
     const token = await localStorage.getItem("token");
     if (!file) {
       Swal.fire({
@@ -213,7 +241,6 @@ const GuardsTable: React.FC = (): React.ReactElement => {
     } else {
       const formData = new FormData();
       formData.append("file", file);
-      console.log(formData);
       axios
         .put(
           `${REGISTERUSER_URL}/users/update/${userDataUpdated?.id}`,
@@ -233,8 +260,19 @@ const GuardsTable: React.FC = (): React.ReactElement => {
             .then(({ data }) => data)
             .then((data) => {
               const userInfo = data;
-              setUsers(userInfo);
-              localStorage.setItem("user", JSON.stringify(userInfo));
+              setUsersFilter(userInfo);
+            });
+          axios
+            .get(`${REGISTERUSER_URL}/users/${userDataUpdated?.id}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then(({ data }) => data)
+            .then((data) => {
+              const user = data;
+              setUserDataUpdated(user);
+            })
+            .catch((error) => {
+              console.log(error);
             });
         })
         .then(() => {
@@ -257,9 +295,15 @@ const GuardsTable: React.FC = (): React.ReactElement => {
   };
 
   const handleState = async () => {
-    const newdata = { state: false };
+    console.log("afirmativo");
+    console.log(isModalOpenState);
+    const newdata = { state: true };
+    if (isModalOpenState.stateUser === "Activar") {
+      newdata.state = true;
+    } else if (isModalOpenState.stateUser === "Desactivar") {
+      newdata.state = false;
+    }
     const token = await localStorage.getItem("token");
-    console.log(userDataState);
     console.log(newdata);
     axios
       .put(`${REGISTERUSER_URL}/users/update/${userDataState?.id}`, newdata, {
@@ -276,8 +320,7 @@ const GuardsTable: React.FC = (): React.ReactElement => {
           .then((data) => {
             console.log(data);
             const userInfo = data;
-            setUsers(userInfo);
-            localStorage.setItem("user", JSON.stringify(userInfo));
+            setUsersFilter(userInfo);
           });
       })
       .then(() => {
@@ -287,7 +330,7 @@ const GuardsTable: React.FC = (): React.ReactElement => {
           title: "Se han actualizado tus datos.",
           showConfirmButton: true,
         });
-        setIsModalOpenState(false);
+        setIsModalOpenState({ stateModal: false, stateUser: "" });
       })
       .catch((error) => {
         console.log(error);
@@ -297,7 +340,7 @@ const GuardsTable: React.FC = (): React.ReactElement => {
           text: error.response.data.message || error.message,
           showConfirmButton: true,
         });
-        setIsModalOpenState(false);
+        setIsModalOpenState({ stateModal: false, stateUser: "" });
       });
   };
 
@@ -306,10 +349,15 @@ const GuardsTable: React.FC = (): React.ReactElement => {
   //   setSearch(searchBar);
   // };
 
-  const filteredUsers = [...Users].filter((userData) =>
-    userData.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  // const filteredUsers = [...Users].filter((userData) =>
+  //   userData.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  // );
 
+  // setUsersFilter(
+  //   [...Users].filter((userData) =>
+  //     userData.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  //   ),
+  // );
   const renderUserButton = (user: IUser) => {
     return (
       <tr key={user.id}>
@@ -332,7 +380,7 @@ const GuardsTable: React.FC = (): React.ReactElement => {
         </td>
         <td className="p-4 border-b border-blue-gray-50">
           <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-            {user.rol === "security" ? "Seguridad" : "Usuario"}
+            {user.rol === "security" ? "Seguridad" : "Usuario Temp."}
           </p>
         </td>
         <td className="p-4 border-b border-blue-gray-50">
@@ -352,25 +400,19 @@ const GuardsTable: React.FC = (): React.ReactElement => {
         </td>
         <td className="p-4 border-b border-blue-gray-50">
           <div className="w-max">
-            {
-              user?.state === true ? (
-                <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
-                  <span className="">Activo</span>
-                </div>
-              ) : user?.state === false ? (
-                <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-red-500/20">
-                  <span className="">Inactivo</span>
-                </div>
-              ) : (
-                <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-                  <span className="">No Estado</span>
-                </div>
-              )
-
-              // <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-              //   <span className="">No Estado</span>
-              // </div>
-            }
+            {user?.state === true ? (
+              <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
+                <span className="">Activo</span>
+              </div>
+            ) : user?.state === false ? (
+              <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-red-900 uppercase rounded-md select-none whitespace-nowrap bg-red-500/20">
+                <span className="">Inactivo</span>
+              </div>
+            ) : (
+              <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
+                <span className="">No Estado</span>
+              </div>
+            )}
           </div>
         </td>
         <td className="p-4 border-b border-blue-gray-50">
@@ -396,47 +438,100 @@ const GuardsTable: React.FC = (): React.ReactElement => {
               </svg>
             </span>
           </button>
-          <button
-            className="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            type="button"
-            onClick={() => openModalStatu(user)}
-          >
-            <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-              <svg
-                version="1.0"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16.000000pt"
-                height="16.000000pt"
-                viewBox="0 0 16.000000 16.000000"
-                preserveAspectRatio="xMidYMid meet"
-              >
-                <g
-                  transform="translate(0.000000,16.000000) scale(0.100000,-0.100000)"
-                  fill="#000000"
-                  stroke="none"
+
+          {user?.state === true ? (
+            <button
+              className="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              type="button"
+              onClick={() => openModalStatu(user, "Desactivar")}
+            >
+              <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <svg
+                  className=" text-gray-800 dark:text-red-600/60"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16.000000pt"
+                  height="16.000000pt"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
                 >
                   <path
-                    d="M39 144 c-10 -12 -10 -22 -2 -45 10 -26 9 -31 -13 -45 -35 -23 -30
--34 16 -34 22 0 49 -6 60 -12 33 -21 80 26 53 53 -5 5 -9 -3 -8 -19 0 -22 -4
--27 -25 -27 -21 0 -25 5 -25 27 1 14 -4 24 -9 21 -6 -4 -6 1 -2 13 14 35 16
-57 5 71 -15 17 -34 16 -50 -3z"
+                    fill-rule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z"
+                    clip-rule="evenodd"
                   />
-                </g>
-              </svg>
-            </span>
-          </button>
+                </svg>
+              </span>
+            </button>
+          ) : user?.state === false ? (
+            <button
+              className="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              type="button"
+              onClick={() => openModalStatu(user, "Activar")}
+            >
+              <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <svg
+                  className=" text-gray-800 dark:text-green-600/60"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16.000000pt"
+                  height="16.000000pt"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          ) : (
+            <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
+              <span className="">No Estado</span>
+            </div>
+          )}
         </td>
       </tr>
     );
   };
+
+  const onClickName = () => {
+    console.log("Click");
+
+    const sortedUsers = usersFilter.sort((a: IUser, b: IUser) => {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      // a debe ser igual b
+      return 0;
+    });
+    console.log(sortedUsers);
+    setUsersFilter(sortedUsers);
+    console.log(usersFilter);
+    // filteredUsers = [{ sortedUsers }];
+    // console.log(response.data);
+  };
+  // !!
   return (
     <main>
-      {isModalOpenState && (
+      {isModalOpenState.stateModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-8 rounded-lg">
-            <h2 className="text-xl mb-4 text-sih-blue text-center">
-              Desea dar de baja al Propietario?
-            </h2>
+            {isModalOpenState.stateUser === "Activar" ? (
+              <h2 className="text-xl mb-4 text-sih-blue text-center">
+                Desea Activar (Dar de alta) al Propietario?
+              </h2>
+            ) : (
+              <h2 className="text-xl mb-4 text-sih-blue text-center">
+                Desea dar de baja al Propietario?
+              </h2>
+            )}
+
             <button
               onClick={handleState}
               className="bg-sih-blue text-white py-2 px-4 rounded-[10px] hover:bg-sih-orange hover:text-sih-blue"
@@ -546,7 +641,7 @@ const GuardsTable: React.FC = (): React.ReactElement => {
           </div>
         </div>
       )}
-      <div className="flex flex-col items-center">
+      {/* <div className="flex flex-col items-center">
         <div className="mb-5 text-gray-700 text-lg">
           Propietarios ingresados en el periodo 2024
         </div>
@@ -554,7 +649,7 @@ const GuardsTable: React.FC = (): React.ReactElement => {
           <BarStadisticsGraphicsComponent users={Users} />
           <StatisticsPolarGraphicsComponent users={Users} />
         </div>
-      </div>
+      </div> */}
       <div className="m-auto my-2 relative flex flex-col w-4/5 h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
         <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white rounded-none bg-clip-border">
           <div className="flex flex-col justify-between gap-8 mb-4 md:flex-row md:items-center">
@@ -605,7 +700,10 @@ const GuardsTable: React.FC = (): React.ReactElement => {
           <table className="w-full mt-4 text-left table-auto min-w-max">
             <thead>
               <tr>
-                <th className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <th
+                  className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  onClick={onClickName}
+                >
                   <p className="block font-sans text-sm antialiased font-bold leading-none ">
                     Propietario
                   </p>
@@ -641,7 +739,7 @@ const GuardsTable: React.FC = (): React.ReactElement => {
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.map((userData) => renderUserButton(userData))}
+              {usersFilter.map((userData) => renderUserButton(userData))}
             </tbody>
           </table>
         </div>
@@ -723,4 +821,4 @@ const GuardsTable: React.FC = (): React.ReactElement => {
   );
 };
 
-export default GuardsTable;
+export default OwnerTable;

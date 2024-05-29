@@ -29,7 +29,7 @@ export default function Properties() {
           <BackLink href="/acciones" />
         </div>
         <div className="flex-1 flex justify-center">
-          <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 mt-[20px] mb-[10px] mr-[50px] max-[1330px]:px-0 max-md:text-[20px] max-[500px]:text-base">
+          <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 mt-[20px] mb-[10px] mr-0 sm:mr-[50px] max-[1330px]:px-0 max-md:text-[20px] max-[500px]:text-base">
             Propiedades
           </h2>
         </div>
