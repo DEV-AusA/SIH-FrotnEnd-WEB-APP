@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 interface ModalProps {
@@ -9,6 +9,14 @@ interface ModalProps {
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
+  const [establishmentData, setEstablishmentData] = useState({
+    address: "",
+    location: "",
+    email: "",
+    news: "",
+    phone: 0,
+  });
+
   const [formData, setFormData] = useState({
     address: "",
     location: "",
@@ -16,6 +24,22 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
     news: "",
     phone: 0,
   });
+
+  useEffect(() => {
+    const getData = async () => {
+      const storedToken = localStorage.getItem("token");
+      const response = await axios.get(`${API_URL}/establishment`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      });
+      const { address, location, email, news, phone } = response.data[0];
+      setEstablishmentData({ address, location, email, news, phone });
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {
+    setFormData(establishmentData);
+  }, [establishmentData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -26,11 +50,17 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
       [name]: name === "phone" ? Number(value) : value,
     }));
   };
-  const storedToken = localStorage.getItem("token");
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const storedToken = localStorage.getItem("token");
+    const dataToSubmit = {
+      ...formData,
+      phone: Number(formData.phone),
+    };
+
     axios
-      .post(`${API_URL}/establishment/create`, formData, {
+      .put(`${API_URL}/establishment/update`, dataToSubmit, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => {
@@ -41,9 +71,10 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
           showConfirmButton: false,
           timer: 1500,
         });
+        onClose();
       })
       .catch((error) => {
-        return Swal.fire({
+        Swal.fire({
           position: "top-end",
           icon: "error",
           title: "Error",
@@ -58,7 +89,7 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-5 rounded-lg shadow-lg relative">
+      <div className="bg-white p-5 rounded-lg shadow-lg relative w-3/4 md:w-3/4 lg:w-2/5">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700">Dirección</label>
