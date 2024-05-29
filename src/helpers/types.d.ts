@@ -3,6 +3,7 @@ export interface ILogin {
   password: string;
 }
 export interface IRegister {
+  image?: string;
   file?: string;
   name: string;
   lastName: string;

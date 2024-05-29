@@ -4,8 +4,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../UserProvider";
 import { IUser } from "@/helpers/types";
-import BarStadisticsGraphicsComponent from "../graphics/BarStadisticsGraphics";
-import StatisticsPolarGraphicsComponent from "../graphics/StadisticsPolarGraphics";
 // import Image from "next/image";
 // import updateDto from "../updateForm/helpers/updateDto";
 // import { formData } from "../updateForm/helpers/updateFormData";
@@ -503,10 +501,6 @@ const OwnersTable: React.FC = (): React.ReactElement => {
       <div className="flex flex-col items-center">
         <div className="mb-5 text-gray-700 text-lg">
           Propietarios ingresados en el periodo 2024
-        </div>
-        <div className="m-auto relative flex w-4/5">
-          <BarStadisticsGraphicsComponent users={Users} />
-          <StatisticsPolarGraphicsComponent users={Users} />
         </div>
       </div>
       <div className="m-auto my-2 relative flex flex-col w-4/5 h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
