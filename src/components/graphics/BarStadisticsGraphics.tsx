@@ -96,7 +96,7 @@ const BarStadisticsGraphicsComponent: React.FC<
     <>
       <ReactECharts
         option={option}
-        className="min-h-[400px] min-w-[50%] max-w-[850px]"
+        className="min-h-[400px] min-w-full md:min-w-[50%] md:max-w-[850px]"
       />
     </>
   );
