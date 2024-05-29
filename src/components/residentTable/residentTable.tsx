@@ -263,11 +263,15 @@ const OwnerTable: React.FC = (): React.ReactElement => {
     console.log(userDataState);
     console.log(newdata);
     axios
-      .put(`${REGISTERUSER_URL}/users/update/${userDataState?.id}`, newdata, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      .put(
+        `${REGISTERUSER_URL}/users/unsubscribe/${userDataState?.id}`,
+        newdata,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      })
+      )
       .then(() => {
         axios
           .get(`${REGISTERUSER_URL}/users`, {
