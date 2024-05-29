@@ -79,9 +79,10 @@ const ContactPage: React.FC = (): React.ReactElement => {
               Enviar
             </button>
           </form>
+
           <h2 className="text-[#384B59] text-xl mt-[30px] text-center max-[600px]:text-[20px] max-[500px]:text-base">
             O escríbenos a <br />
-            secureingresshome.sih@gmail.com
+            secureingresshome@gmail.com
           </h2>
         </div>
         <div className="w-full h-[600]  max-[900px]:hidden">

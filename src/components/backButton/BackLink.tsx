@@ -7,13 +7,13 @@ interface BackLinkProps {
 
 const BackLink: React.FC<BackLinkProps> = ({ href }) => {
   return (
-    <Link href={href}>
+    <Link className="max-md:hidden" href={href}>
       <Image
         src="/icons/back.png"
         alt="Volver"
         width={60}
         height={60}
-        className="h-[60px] w-[60px]"
+        className="h-[60px] w-[60px] "
       />
     </Link>
   );
