@@ -10,6 +10,7 @@ const GETPROPERTIES_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const AdminProperties: React.FC = (): React.ReactElement => {
   const [search, setSearch] = useState("");
+  const [searchOwner, setSearchOwner] = useState("");
   const [occupied, setOccupied] = useState(false);
   const [unoccupied, setUnoccupied] = useState(false);
   const [properties, setProperties] = useState<IProperty[]>([]);
@@ -65,8 +66,19 @@ const AdminProperties: React.FC = (): React.ReactElement => {
     setCurrentPage(1);
   };
 
-  const filteredProperties = properties.filter((property) =>
-    property.number.toString().includes(search),
+  const handleOwnerChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const searchBar = event.target.value;
+    setSearchOwner(searchBar);
+    setCurrentPage(1);
+  };
+
+  const filteredProperties = properties.filter(
+    (property) =>
+      property.number.toString().includes(search) &&
+      (property.user?.name.toLowerCase().includes(searchOwner.toLowerCase()) ||
+        property.user?.lastName
+          .toLowerCase()
+          .includes(searchOwner.toLowerCase())),
   );
 
   const unoccupiedProperties = properties.filter(
@@ -108,13 +120,14 @@ const AdminProperties: React.FC = (): React.ReactElement => {
     return pages;
   };
 
-  const displayProperties = search
-    ? filteredProperties
-    : unoccupied
-      ? unoccupiedProperties
-      : occupied
-        ? occupiedProperties
-        : properties;
+  const displayProperties =
+    search || searchOwner
+      ? filteredProperties
+      : unoccupied
+        ? unoccupiedProperties
+        : occupied
+          ? occupiedProperties
+          : properties;
 
   const paginatedProperties = getPaginatedData(displayProperties);
 
@@ -189,12 +202,20 @@ const AdminProperties: React.FC = (): React.ReactElement => {
   return (
     <main>
       <div className="flex flex-col items-center pb-[5px]">
-        <input
-          onChange={handleChange}
-          type="text"
-          placeholder="Buscar por número de casa..."
-          className="text-black h-[40px] w-[256px] bg-white rounded-[15px] px-2 outline-0 m-[10px]"
-        />
+        <div className="flex max-[650px]:flex-col">
+          <input
+            onChange={handleChange}
+            type="text"
+            placeholder="Buscar por número de casa..."
+            className="text-black h-[40px] w-[256px] bg-white rounded-[15px] px-2 outline-0 m-[10px]"
+          />
+          <input
+            onChange={handleOwnerChange}
+            type="text"
+            placeholder="Buscar por propietario..."
+            className="text-black h-[40px] w-[256px] bg-white rounded-[15px] px-2 outline-0 m-[10px]"
+          />
+        </div>
         <div className="flex justify-center items-center mt-[5px]">
           <button
             onClick={handleOccupied}
@@ -264,8 +285,8 @@ const AdminProperties: React.FC = (): React.ReactElement => {
           ))
         ) : (
           <div className="text-sih-blue text-xl  text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
-            {search
-              ? "No se encontraron propiedades con ese número"
+            {search || searchOwner
+              ? "No se encontraron propiedades con ese criterio"
               : unoccupied
                 ? "No hay propiedades desocupadas"
                 : "Aún no hay propiedades registradas"}
