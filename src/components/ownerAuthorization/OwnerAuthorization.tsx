@@ -30,7 +30,6 @@ const OwnerAuthorization: React.FC = (): React.ReactElement => {
           },
         );
         setAuthorizations(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log("Error al obtener las autorizaciones:", error);
         setAuthorizations([]);

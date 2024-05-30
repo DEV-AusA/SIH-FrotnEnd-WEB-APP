@@ -12,7 +12,6 @@
     padding: 0 50px;
   }
 }
-
 .scrollableDiv {
   margin: 1rem;
   max-height: 34rem;
@@ -130,6 +129,11 @@
     0 0 8rem 0 rgba(0, 0, 0, 0.1),
     0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
   margin: 1rem;
+}
+@media (max-width: 430px){
+  .securityPersonal{
+    width: 19rem;
+  }
 }
 .securityPersonal .contact.bar {
   flex-basis: 3.5rem;
