@@ -28,10 +28,10 @@ const Dashboard: React.FC = (): React.ReactElement | null => {
     case "owner":
       children = (
         <div className="flex flex-col">
-          <div className="flex items-center justify-between px-[200px] mt-[20px]">
+          <div className="flex items-center justify-between md:px-[200px] md:mt-[20px]">
             <BackLink href="/acciones" />
             <div className="flex-1 flex justify-center">
-              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
+              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] md:mr-[45px]">
                 Tus Datos
               </h2>
             </div>
@@ -43,10 +43,10 @@ const Dashboard: React.FC = (): React.ReactElement | null => {
     case "admin":
       children = (
         <div className="flex flex-col">
-          <div className="flex items-center justify-between px-[200px] mt-[20px]">
+          <div className="flex items-center justify-between md:px-[200px] md:mt-[20px]">
             <BackLink href="/acciones" />
             <div className="flex-1 flex justify-center">
-              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
+              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] md:mr-[45px]">
                 Tus Datos
               </h2>
             </div>
@@ -58,10 +58,10 @@ const Dashboard: React.FC = (): React.ReactElement | null => {
     case "security":
       children = (
         <div className="flex flex-col">
-          <div className="flex items-center justify-between px-[200px] mt-[20px]">
+          <div className="flex items-center justify-between md:px-[200px] md:mt-[20px]">
             <BackLink href="/acciones" />
             <div className="flex-1 flex justify-center">
-              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
+              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] md:mr-[45px]">
                 Tus Datos
               </h2>
             </div>
@@ -73,10 +73,10 @@ const Dashboard: React.FC = (): React.ReactElement | null => {
     case "googletemp":
       children = (
         <div className="flex flex-col">
-          <div className="flex items-center justify-between px-[200px] mt-[20px]">
+          <div className="flex items-center justify-between md:px-[200px] md:mt-[20px]">
             <BackLink href="/acciones" />
             <div className="flex-1 flex justify-center">
-              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
+              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] md:mr-[45px]">
                 Tus Datos
               </h2>
             </div>

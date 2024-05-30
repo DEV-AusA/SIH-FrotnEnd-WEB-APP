@@ -65,12 +65,12 @@ const RegisterForm: React.FC = (): React.ReactElement => {
   return (
     <div>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <div className="flex flex-wrap justify-center">
+        <div className="grid grid-cols-2 max-md:grid-cols-1 justify-center">
           {formData.map(({ name, type, placeholder }) => {
             return (
               <div className="flex flex-col items-center" key={name}>
                 <input
-                  className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 m-[10px] max-[1430px]:w-[200px] max-[1050px]:w-[180px] max-[550px]:w-[130px] max-[550px]:h-[30px] max-[410px]:w-[100px] max-[410px]:h-[20px]"
+                  className="text-black h-[40px] w-[256px] bg-sih-grey rounded-[15px] px-2 outline-0 m-[10px] max-[1430px]:w-[200px] max-[1050px]:w-[180px] max-[850px]:w-[256px]"
                   type={type}
                   id={name}
                   name={name}

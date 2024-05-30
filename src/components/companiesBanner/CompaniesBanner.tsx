@@ -12,7 +12,7 @@ const CompaniesBanner: React.FC = (): React.ReactElement => {
   return (
     <div className="w-full flex flex-col bg-white  items-center px-[200px] py-[80px] max-[1330px]:px-[50px]">
       <h2 className="text-[#384B59] text-4xl font-bold text-center px-[160px] max-[1330px]:px-0 max-md:text-[20px] max-[500px]:text-base">
-        Cada vez son más compañias que confian en nuestro sistema para mejorar
+        Cada vez son más compañías que confían en nuestro sistema para mejorar
         su seguridad y la experiencia de sus residentes.
       </h2>
       <div className=" w-full flex justify-center flex-wrap items-center">
