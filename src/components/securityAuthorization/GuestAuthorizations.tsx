@@ -116,7 +116,7 @@ const GuestAuthorization: React.FC = (): React.ReactElement => {
       {foundAuthorization && foundAuthorization.type === "guest" ? (
         <div
           key={foundAuthorization.id}
-          className="w-[300px] bg-white m-3 p-5 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
+          className="w-[300px] text-center bg-white m-3 p-5 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
         >
           <span>Código de acceso:{foundAuthorization.accessCode}</span>
           <span>Nombre: {foundAuthorization.name}</span>
@@ -126,7 +126,7 @@ const GuestAuthorization: React.FC = (): React.ReactElement => {
             ""
           )}
           {foundAuthorization.shipmentNumber ? (
-            <span>
+            <span className="text-center">
               Referencia de envio: {foundAuthorization.shipmentNumber}
             </span>
           ) : (
