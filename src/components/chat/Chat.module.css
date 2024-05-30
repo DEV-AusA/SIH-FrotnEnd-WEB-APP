@@ -86,11 +86,8 @@
   font-weight: 500;
   margin-bottom: 0.125rem;
 }
-.containerHeaderChat {
-  display: flex;
-}
+
 .containerHeaderChat h2 {
-  margin-inline-end: 1rem;
   color: #e0931f;
   font-weight: bold;
 }
