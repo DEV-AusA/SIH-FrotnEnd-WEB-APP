@@ -64,7 +64,7 @@ const DashboardAdmin: React.FC = (): React.ReactElement => {
               width={260}
               alt="Imagen del usuario"
             />
-            <div className="text-center">
+            <div className="text-center flex flex-col items-center justify-center">
               <h2 className="text-[35px] text-white mt-[30px] max-[1330px]:mt-0 max-md:text-[22px] max-cellphone:text-[16px]">{`${data.name} ${data.lastName}`}</h2>
               <h3 className="text-[30px] text-sih-orange mt-[10px] max-[1330px]:mt-0 max-md:text-[20px] max-cellphone:text-[12px]">
                 {data.rol === "owner"
@@ -77,7 +77,7 @@ const DashboardAdmin: React.FC = (): React.ReactElement => {
                 {data.cellphone}
               </h4>
               <Link
-                className="h-[60px] w-[280px] bg-white mt-[60px] duration-150 rounded-[15px] text-sih-blue text-[32px] flex justify-center items-center font-bold hover:bg-sih-orange shadow-button max-[1330px]:mt-[20px] max-md:w-[186px] max-md:text-[22px] max-cellphone:text-[12px] max-cellphone:h-[26px] max-cellphone:w-[126px] max-cellphone:mt-[10px]"
+                className="h-[60px] w-[280px] bg-white mt-[30px] duration-150 rounded-[15px] text-sih-blue text-[32px] flex justify-center items-center font-bold hover:bg-sih-orange shadow-button max-[1330px]:mt-[20px] max-md:w-[186px] max-md:text-[22px] max-cellphone:text-[12px] max-cellphone:h-[26px] max-cellphone:w-[126px] max-cellphone:mt-[10px]"
                 href="/perfil"
               >
                 Actualizar datos
