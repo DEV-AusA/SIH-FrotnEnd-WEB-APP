@@ -164,12 +164,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
   }, [searchTerm, filterColumn, Users]);
 
   const dateTimeConvert = (dateTime: string) => {
-    const date = new Date(dateTime);
-
-    const formattedDate = date.toISOString().split("T")[0]; // "2024-05-24"
-    const formattedTime = date.toISOString().split("T")[1].split(".")[0];
-
-    return formattedDate + " \n " + formattedTime;
+    return new Date(dateTime).toLocaleString();
   };
 
   // const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
