@@ -67,8 +67,8 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
                 key={expense.id}
                 className={
                   expense?.state
-                    ? "w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue border-4 border-sih-green max-md:w-[240px] max-md:mx-0"
-                    : "w-[300px] bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue border-4 border-sih-red max-md:w-[240px] max-md:mx-0"
+                    ? "w-[300px] text-center bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue border-4 border-sih-green max-md:w-[240px] max-md:mx-0"
+                    : "w-[300px] text-center bg-white m-3 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue border-4 border-sih-red max-md:w-[240px] max-md:mx-0"
                 }
               >
                 {expense.dateGenerated ? (
@@ -86,7 +86,7 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
                   {expense.state ? "Pagado" : "Pendiente"}
                 </span>
                 {expense.numberOperation && (
-                  <span className="m-1">
+                  <span className="m-1 text-center">
                     Confirmación de pago: {expense.numberOperation}
                   </span>
                 )}

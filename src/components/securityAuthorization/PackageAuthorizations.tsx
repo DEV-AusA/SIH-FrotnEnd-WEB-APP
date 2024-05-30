@@ -117,7 +117,7 @@ const PackageAuthorization: React.FC = (): React.ReactElement => {
       {foundAuthorization && foundAuthorization.type === "delivery" ? (
         <div
           key={foundAuthorization.id}
-          className="w-[300px] bg-white m-3 p-5 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
+          className="w-[300px] text-center bg-white m-3 p-5 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
         >
           <span>Código de acceso:{foundAuthorization.accessCode}</span>
           <span>Nombre: {foundAuthorization.name}</span>
