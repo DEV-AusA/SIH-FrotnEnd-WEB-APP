@@ -204,14 +204,18 @@ const ChatComponent: React.FC = (): React.ReactElement => {
             ></Image>
           </div>
           <div className={`${styles.name}`}>
-            <div className={`${styles.containerHeaderChat}`}>
-              <h2>
+            <div
+              className={`flex flex-col md:flex-row md:space-x-4 lg:flex-row lg:space-x-4 ${styles.containerHeaderChat}`}
+            >
+              <h2 className="text-left">
                 {userData.name} {userData.lastName}
               </h2>
               <div
                 id={styles.statusOnline}
                 className={
-                  userConnections[userData.id] ? "" : `${styles.hidden}`
+                  userConnections[userData.id]
+                    ? "text-left"
+                    : `${styles.hidden}`
                 }
               >
                 En linea
@@ -219,7 +223,9 @@ const ChatComponent: React.FC = (): React.ReactElement => {
               <div
                 id={styles.statusOffline}
                 className={
-                  userConnections[userData.id] ? `${styles.hidden}` : ""
+                  userConnections[userData.id]
+                    ? `${styles.hidden}`
+                    : "text-left"
                 }
               >
                 Desconectado
@@ -397,7 +403,7 @@ const ChatComponent: React.FC = (): React.ReactElement => {
             <div className={`${styles.contact} ${styles.bar}`}>
               <div className={`${styles.pic} ${styles.ps}`}>
                 <Image
-                  className="rounded-full border-white max-md:h-[13px] max-md:w-[173px] max-cellphone:h-[100px] max-cellphone:w-[100px]"
+                  className="rounded-full border-white max-md:h-[60px] max-md:w-[60px] max-cellphone:h-[60px] max-cellphone:w-[60px]"
                   src={selectedUser ? selectedUser.image : ""}
                   height={260}
                   width={260}
