@@ -712,7 +712,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
         <div className="mb-5 text-gray-700 text-lg">
           Propietarios ingresados en el periodo 2024
         </div>
-        <div className="m-auto relative flex w-4/5">
+        <div className="m-auto relative flex flex-col md:flex-row w-4/5">
           <BarStadisticsGraphicsComponent users={Users} />
           <StatisticsPolarGraphicsComponent users={Users} />
         </div>

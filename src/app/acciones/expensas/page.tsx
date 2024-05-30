@@ -48,7 +48,7 @@ const Expenses: React.FC = (): React.ReactElement | null => {
           <div className="flex items-center justify-between px-[200px] mt-[20px] max-md:justify-center max-md:px-12">
             <BackLink href="/acciones" />
             <div className="flex-1 flex justify-center">
-              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-[45px]">
+              <h2 className="text-[#384B59] text-4xl font-bold text-center px-8 max-md:text-[20px] my-[20px] mr-0 sm:mr-[45px]">
                 Expensas
               </h2>
             </div>

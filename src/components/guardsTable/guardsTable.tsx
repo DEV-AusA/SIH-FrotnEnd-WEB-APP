@@ -4,8 +4,6 @@ import axios from "axios";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useUserContext } from "../UserProvider";
 import { IRegister, IUser } from "@/helpers/types";
-import BarStadisticsGraphicsComponent from "../graphics/BarStadisticsGraphics";
-import StatisticsPolarGraphicsComponent from "../graphics/StadisticsPolarGraphics";
 import Image from "next/image";
 import updateDto from "../updateForm/helpers/updateDto";
 import { formData } from "../updateForm/helpers/updateFormData";
@@ -708,7 +706,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
           </div>
         </div>
       )}
-      <div className="flex flex-col items-center">
+      {/* <div className="flex flex-col items-center">
         <div className="mb-5 text-gray-700 text-lg">
           Propietarios ingresados en el periodo 2024
         </div>
@@ -716,7 +714,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
           <BarStadisticsGraphicsComponent users={Users} />
           <StatisticsPolarGraphicsComponent users={Users} />
         </div>
-      </div>
+      </div> */}
       <div className="m-auto my-2 relative flex flex-col w-4/5 h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
         <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white rounded-none bg-clip-border">
           <div className="flex flex-col justify-between gap-8 mb-4 md:flex-row md:items-center">
