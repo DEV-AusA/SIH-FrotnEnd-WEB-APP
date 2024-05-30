@@ -289,7 +289,7 @@ const OwnerAuthorization: React.FC = (): React.ReactElement => {
             return (
               <div
                 key={authorization.id}
-                className="w-[300px] bg-white m-3 p-5 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
+                className="w-[300px] text-center bg-white m-3 p-5 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
               >
                 <span>Número: {authorization.number}</span>
                 <span>Código de acceso: {authorization.accessCode}</span>
@@ -300,7 +300,7 @@ const OwnerAuthorization: React.FC = (): React.ReactElement => {
                   ""
                 )}
                 {authorization.shipmentNumber ? (
-                  <span>
+                  <span className="text-center">
                     Referencia de envio: {authorization.shipmentNumber}
                   </span>
                 ) : (
