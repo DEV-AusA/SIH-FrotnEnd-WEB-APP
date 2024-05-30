@@ -72,15 +72,23 @@ const AdminProperties: React.FC = (): React.ReactElement => {
     setCurrentPage(1);
   };
 
-  const filteredProperties = properties.filter(
-    (property) =>
-      property.number.toString().includes(search) &&
-      (property.user?.name.toLowerCase().includes(searchOwner.toLowerCase()) ||
-        property.user?.lastName
+  const filteredProperties = properties.filter((property) => {
+    const matchesNumber = property.number.toString().includes(search);
+    const matchesOwner =
+      property.user &&
+      (property.user.name.toLowerCase().includes(searchOwner.toLowerCase()) ||
+        property.user.lastName
           .toLowerCase()
-          .includes(searchOwner.toLowerCase())),
-  );
+          .includes(searchOwner.toLowerCase()));
 
+    if (searchOwner) {
+      return matchesOwner;
+    } else if (search) {
+      return matchesNumber;
+    }
+
+    return true;
+  });
   const unoccupiedProperties = properties.filter(
     (property) => property.user === null,
   );
