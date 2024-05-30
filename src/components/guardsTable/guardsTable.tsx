@@ -10,6 +10,8 @@ import { formData } from "../updateForm/helpers/updateFormData";
 import Swal from "sweetalert2";
 import validateUpdate from "../updateForm/helpers/validateUpdate";
 import { useRouter } from "next/navigation";
+import BarStadisticsGraphicsComponent from "../graphics/BarStadisticsGraphics";
+import StatisticsPolarGraphicsComponent from "../graphics/StadisticsPolarGraphics";
 
 const GETUsers_URL = process.env.NEXT_PUBLIC_API_URL;
 const REGISTERUSER_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -229,12 +231,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
     setErrors(validateUpdate({ ...data, [name]: value }));
   };
   const dateTimeConvert = (dateTime: string) => {
-    const date = new Date(dateTime);
-
-    const formattedDate = date.toISOString().split("T")[0]; // "2024-05-24"
-    const formattedTime = date.toISOString().split("T")[1].split(".")[0];
-
-    return formattedDate + " \n " + formattedTime;
+    return new Date(dateTime).toLocaleString();
   };
 
   const openModalStatu = (user: IUser, stateUser: string) => {
@@ -706,7 +703,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
           </div>
         </div>
       )}
-      {/* <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center">
         <div className="mb-5 text-gray-700 text-lg">
           Propietarios ingresados en el periodo 2024
         </div>
@@ -714,7 +711,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
           <BarStadisticsGraphicsComponent users={Users} />
           <StatisticsPolarGraphicsComponent users={Users} />
         </div>
-      </div> */}
+      </div>
       <div className="m-auto my-2 relative flex flex-col w-4/5 h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
         <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white rounded-none bg-clip-border">
           <div className="flex flex-col justify-between gap-8 mb-4 md:flex-row md:items-center">
