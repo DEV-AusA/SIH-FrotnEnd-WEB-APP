@@ -284,53 +284,57 @@ const OwnerAuthorization: React.FC = (): React.ReactElement => {
         Tus autorizaciones
       </h2>
       <div className="flex flex-wrap justify-center">
-        {authorizations && authorizations.length > 0
-          ? authorizations.map((authorization: IAuthorizationCreated) => {
-              return (
-                <div
-                  key={authorization.id}
-                  className="w-[300px] bg-white m-3 p-5 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
-                >
-                  <span>Número: {authorization.number}</span>
-                  <span>Código de acceso: {authorization.accessCode}</span>
-                  <span>Nombre: {authorization.name}</span>
-                  {authorization.document ? (
-                    <span>Documento: {authorization.document}</span>
-                  ) : (
-                    ""
-                  )}
-                  {authorization.shipmentNumber ? (
-                    <span>
-                      Referencia de envio: {authorization.shipmentNumber}
-                    </span>
-                  ) : (
-                    ""
-                  )}
-                  {authorization.dateUsed ? (
-                    <span>Validado</span>
-                  ) : (
-                    <span>Sin utilizar</span>
-                  )}
+        {authorizations && authorizations.length > 0 ? (
+          authorizations.map((authorization: IAuthorizationCreated) => {
+            return (
+              <div
+                key={authorization.id}
+                className="w-[300px] bg-white m-3 p-5 flex justify-center flex-col items-center rounded-[15px] mx-[45px] my-[40px] shadow-button text-sih-blue  max-[1600px]:mx-[30px]"
+              >
+                <span>Número: {authorization.number}</span>
+                <span>Código de acceso: {authorization.accessCode}</span>
+                <span>Nombre: {authorization.name}</span>
+                {authorization.document ? (
+                  <span>Documento: {authorization.document}</span>
+                ) : (
+                  ""
+                )}
+                {authorization.shipmentNumber ? (
+                  <span>
+                    Referencia de envio: {authorization.shipmentNumber}
+                  </span>
+                ) : (
+                  ""
+                )}
+                {authorization.dateUsed ? (
+                  <span>Validado</span>
+                ) : (
+                  <span>Sin utilizar</span>
+                )}
 
-                  <a
-                    href={`${WHATSAPP_URL}${encodeURIComponent(`Te comparto el código de Acceso: ${authorization.accessCode}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="cursor-pointer ml-2 flex justify-center items-center bg-[#29A71A] text-white pr-[10px] rounded-[20px] mt-[10px]"
-                  >
-                    <Image
-                      src="/icons/whatsapp.png"
-                      alt="whatsapp"
-                      height={40}
-                      width={40}
-                      className="ml-[5px]"
-                    />
-                    <span>Compartir en Whatsapp</span>
-                  </a>
-                </div>
-              );
-            })
-          : ""}
+                <a
+                  href={`${WHATSAPP_URL}${encodeURIComponent(`Te comparto el código de Acceso: ${authorization.accessCode}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cursor-pointer ml-2 flex justify-center items-center bg-[#29A71A] text-white pr-[10px] rounded-[20px] mt-[10px]"
+                >
+                  <Image
+                    src="/icons/whatsapp.png"
+                    alt="whatsapp"
+                    height={40}
+                    width={40}
+                    className="ml-[5px]"
+                  />
+                  <span>Compartir en Whatsapp</span>
+                </a>
+              </div>
+            );
+          })
+        ) : (
+          <span className="text-sih-blue mb-[30px]">
+            No has generado autorizaciones
+          </span>
+        )}
       </div>
     </div>
   );
