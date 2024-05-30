@@ -202,7 +202,7 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose }) => {
               name="news"
               value={formData.news}
               onChange={handleChange}
-              className="border p-2 rounded-[15px] w-full text-sih-blue outline-0"
+              className="border p-2 rounded-[15px] w-full h-40 text-sih-blue outline-0"
             />
             {errors.news && <span className="text-red-500">{errors.news}</span>}
           </div>

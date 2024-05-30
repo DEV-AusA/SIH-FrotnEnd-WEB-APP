@@ -253,7 +253,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
     );
   };
 
-  const onClickName = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onClickName = (event: React.MouseEvent<HTMLElement>) => {
     const target = event.target as HTMLButtonElement;
     const innerText = target.innerText;
 
