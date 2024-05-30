@@ -11,10 +11,7 @@ import updateDto from "../updateForm/helpers/updateDto";
 import { formData } from "../updateForm/helpers/updateFormData";
 import Swal from "sweetalert2";
 import validateUpdate from "../updateForm/helpers/validateUpdate";
-// import userDto from "../loginForm/helpers/userDto";
 import { useRouter } from "next/navigation";
-// import { tree } from "next/dist/build/templates/app-page";
-// import TableContent from "./tableContent";
 
 const GETUsers_URL = process.env.NEXT_PUBLIC_API_URL;
 const REGISTERUSER_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -31,6 +28,10 @@ const OwnerTable: React.FC = (): React.ReactElement => {
   const [userDataState, setUserDataState] = useState<IUser | null>(null);
   // const [search, setSearch] = useState("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filterColumn, setFilterColumn] = useState({
+    type: "",
+    order: true,
+  });
   const { setToken } = useUserContext();
   const { setUser } = useUserContext();
   const router = useRouter();
@@ -72,25 +73,110 @@ const OwnerTable: React.FC = (): React.ReactElement => {
 
   useEffect(() => {
     const checkToken = async () => {
-      const filteredUsers = [...Users].filter((userData) =>
-        userData.name.toLowerCase().includes(searchTerm.toLowerCase()),
-      );
+      const filteredUsers = [...Users].filter((userData) => {
+        const searchString = `${userData.name} ${userData.lastName} ${userData.document} ${userData.username} ${userData.email}`;
+        return searchString.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+      if (filterColumn.type === "Propietario") {
+        if (filterColumn.order) {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (a.name < b.name) {
+              return 1;
+            }
+            if (a.name > b.name) {
+              return -1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        } else {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        }
+      }
+      if (filterColumn.type === "Estado") {
+        if (filterColumn.order) {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (String(a.state) < String(b.state)) {
+              return 1;
+            }
+            if (String(a.state) > String(b.state)) {
+              return -1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        } else {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (String(a.state) < String(b.state)) {
+              return -1;
+            }
+            if (String(a.state) > String(b.state)) {
+              return 1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        }
+      }
+
+      if (filterColumn.type === "Documento") {
+        if (filterColumn.order) {
+          filteredUsers.sort((a: IUser, b: IUser) => a.document - b.document);
+        } else {
+          filteredUsers.sort((a: IUser, b: IUser) => b.document - a.document);
+        }
+      }
+      if (filterColumn.type === "Ult. Login") {
+        if (filterColumn.order) {
+          filteredUsers.sort(
+            (a: IUser, b: IUser) =>
+              new Date(a.lastLogin).getTime() - new Date(b.lastLogin).getTime(),
+          );
+        } else {
+          filteredUsers.sort(
+            (a: IUser, b: IUser) =>
+              new Date(b.lastLogin).getTime() - new Date(a.lastLogin).getTime(),
+          );
+        }
+      }
+      if (filterColumn.type === "Rol") {
+        if (filterColumn.order) {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (a.rol < b.rol) {
+              return 1;
+            }
+            if (a.rol > b.rol) {
+              return -1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        } else {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (a.rol < b.rol) {
+              return -1;
+            }
+            if (a.rol > b.rol) {
+              return 1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        }
+      }
       setUsersFilter(filteredUsers);
     };
     checkToken();
-  }, [searchTerm]);
-
-  useEffect(() => {
-    const checkToken = async () => {
-      // c
-
-      // console.log(sortedUsers);
-      // setUsersFilter(sortedUsers);
-      console.log("asdasda");
-      console.log(usersFilter);
-    };
-    checkToken();
-  }, [setUsersFilter]);
+  }, [searchTerm, filterColumn, Users]);
 
   const initialState: IRegister = {
     name: userDataUpdated ? userDataUpdated.name : "",
@@ -138,13 +224,6 @@ const OwnerTable: React.FC = (): React.ReactElement => {
     cargaUserDataUpdated();
   }, [userDataUpdated]);
 
-  useEffect(() => {
-    const cargaUserDataUpdated = async () => {
-      console.log(`${data} state`);
-    };
-    cargaUserDataUpdated();
-  }, [userDataUpdated]);
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     setData({ ...data, [name]: value });
@@ -162,7 +241,6 @@ const OwnerTable: React.FC = (): React.ReactElement => {
 
   const openModalStatu = (user: IUser, stateUser: string) => {
     setUserDataState(user);
-    console.log("Modal State: ", userDataState);
     setIsModalOpenState({ stateModal: true, stateUser: stateUser });
   };
 
@@ -171,7 +249,6 @@ const OwnerTable: React.FC = (): React.ReactElement => {
   };
   const openModal = (user: IUser) => {
     setUserDataUpdated(user);
-    console.log("Modal Update: ", userDataUpdated);
     setIsModalOpen(true);
   };
 
@@ -195,7 +272,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
           .then(({ data }) => data)
           .then((data) => {
             const userInfo = data;
-            setUsersFilter(userInfo);
+            setUsers(userInfo);
           });
       })
       .then(() => {
@@ -262,7 +339,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
             .then(({ data }) => data)
             .then((data) => {
               const userInfo = data;
-              setUsersFilter(userInfo);
+              setUsers(userInfo);
             });
           axios
             .get(`${REGISTERUSER_URL}/users/${userDataUpdated?.id}`, {
@@ -297,26 +374,21 @@ const OwnerTable: React.FC = (): React.ReactElement => {
   };
 
   const handleState = async () => {
-    console.log("afirmativo");
-    console.log(isModalOpenState);
-    const newdata = { state: true };
+    const newdata = { url: "", state: true };
     if (isModalOpenState.stateUser === "Activar") {
+      newdata.url = `${REGISTERUSER_URL}/users/subscribe/${userDataState?.id}`;
       newdata.state = true;
     } else if (isModalOpenState.stateUser === "Desactivar") {
+      newdata.url = `${REGISTERUSER_URL}/users/unsubscribe/${userDataState?.id}`;
       newdata.state = false;
     }
     const token = await localStorage.getItem("token");
-    console.log(newdata);
     axios
-      .put(
-        `${REGISTERUSER_URL}/users/unsubscribe/${userDataState?.id}`,
-        newdata,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      .put(newdata.url, newdata.state, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      )
+      })
       .then(() => {
         axios
           .get(`${REGISTERUSER_URL}/users`, {
@@ -324,9 +396,8 @@ const OwnerTable: React.FC = (): React.ReactElement => {
           })
           .then(({ data }) => data)
           .then((data) => {
-            console.log(data);
             const userInfo = data;
-            setUsersFilter(userInfo);
+            setUsers(userInfo);
           });
       })
       .then(() => {
@@ -376,7 +447,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
             />
             <div className="flex flex-col">
               <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                {user.name} {user.lastName}
+                {user.name} {user.lastName} | {user.username}
               </p>
               <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900 opacity-70">
                 {user.email}
@@ -503,24 +574,15 @@ const OwnerTable: React.FC = (): React.ReactElement => {
     );
   };
 
-  const onClickName = () => {
-    console.log("Click");
+  const onClickName = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const target = event.target as HTMLButtonElement;
+    const innerText = target.innerText;
 
-    const sortedUsers = usersFilter.sort((a: IUser, b: IUser) => {
-      if (a.name < b.name) {
-        return -1;
-      }
-      if (a.name > b.name) {
-        return 1;
-      }
-      // a debe ser igual b
-      return 0;
-    });
-    console.log(sortedUsers);
-    setUsersFilter(sortedUsers);
-    console.log(usersFilter);
-    // filteredUsers = [{ sortedUsers }];
-    // console.log(response.data);
+    if (filterColumn.order) {
+      setFilterColumn({ type: innerText, order: false });
+    } else {
+      setFilterColumn({ type: innerText, order: true });
+    }
   };
   // !!
   return (
@@ -591,7 +653,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
                   </div>
                 </div>
                 <div className="flex flex-col  items-center">
-                  <h2 className="text-[#384B59] text-xl  text-center px-8 max-md:text-[20px] m-3">
+                  <h2 className="text-[#202122]  text-xl  text-center px-8 max-md:text-[20px] m-3">
                     Llena los espacios de los datos que desees actualizar.
                   </h2>
                   <div className="grid grid-cols-2 max-md:grid-cols-1">
@@ -606,7 +668,9 @@ const OwnerTable: React.FC = (): React.ReactElement => {
                               {placeholder}:
                             </label>
                             <input
-                              className="text-black h-[40px] w-[256px] rounded-[15px] px-2 outline-0 mx-5  border-black bg-white"
+                              className="text-black h-[40px] w-[256px]   rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all
+                              focus:border-2 focus:border-gray-700
+                              "
                               type={type}
                               id={name}
                               name={name}
@@ -629,9 +693,6 @@ const OwnerTable: React.FC = (): React.ReactElement => {
               <div className="flex justify-center ">
                 <button
                   type="submit"
-                  // disabled={Object.keys(errors).some(
-                  //   (e) => errors[e as keyof IRegister],
-                  // )}
                   className="bg-sih-blue text-white py-2 px-4 rounded-[10px] hover:bg-sih-orange hover:text-sih-blue"
                 >
                   Actualizar datos
@@ -707,14 +768,17 @@ const OwnerTable: React.FC = (): React.ReactElement => {
             <thead>
               <tr>
                 <th
-                  className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  className="cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
                   onClick={onClickName}
                 >
                   <p className="block font-sans text-sm antialiased font-bold leading-none ">
                     Propietario
                   </p>
                 </th>
-                <th className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <th
+                  className="cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  onClick={onClickName}
+                >
                   <p className="block font-sans text-sm antialiased font-bold  leading-none ">
                     Rol
                   </p>
@@ -724,17 +788,26 @@ const OwnerTable: React.FC = (): React.ReactElement => {
                     Contactos
                   </p>
                 </th>
-                <th className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <th
+                  className="cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  onClick={onClickName}
+                >
                   <p className="block font-sans text-sm antialiased font-bold  leading-none ">
                     Documento
                   </p>
                 </th>
-                <th className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <th
+                  className="cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  onClick={onClickName}
+                >
                   <p className="block font-sans text-sm antialiased font-bold  leading-none">
                     Estado
                   </p>
                 </th>
-                <th className="  p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <th
+                  className="cursor-pointer  p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  onClick={onClickName}
+                >
                   <p className="block font-sans text-sm antialiased font-bold  leading-none">
                     Ult. Login
                   </p>
