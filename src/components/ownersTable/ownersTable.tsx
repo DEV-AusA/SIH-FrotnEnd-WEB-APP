@@ -4,25 +4,19 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../UserProvider";
 import { IUser } from "@/helpers/types";
-// import Image from "next/image";
-// import updateDto from "../updateForm/helpers/updateDto";
-// import { formData } from "../updateForm/helpers/updateFormData";
-// import Swal from "sweetalert2";
-// import validateUpdate from "../updateForm/helpers/validateUpdate";
-// import userDto from "../loginForm/helpers/userDto";
 import { useRouter } from "next/navigation";
 
 const GETUsers_URL = process.env.NEXT_PUBLIC_API_URL;
-// const REGISTERUSER_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const OwnersTable: React.FC = (): React.ReactElement => {
+const OwnerTable: React.FC = (): React.ReactElement => {
   const [Users, setUsers] = useState<IUser[]>([]);
-  // const [isModalOpenUpdate, setIsModalOpen] = useState(false);
-  // const [userDataUpdated, setUserDataUpdated] = useState<IUser | null>(null);
-  // const [isModalOpenState, setIsModalOpenState] = useState(false);
-  // const [userDataState, setUserDataState] = useState<IUser | null>(null);
+  const [usersFilter, setUsersFilter] = useState<IUser[]>(Users); // [usersFilter]
   // const [search, setSearch] = useState("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filterColumn, setFilterColumn] = useState({
+    type: "",
+    order: true,
+  });
   const { setToken } = useUserContext();
   const { setUser } = useUserContext();
   const router = useRouter();
@@ -55,68 +49,120 @@ const OwnersTable: React.FC = (): React.ReactElement => {
       //   );
       // console.log(response.data);
       setUsers(response.data);
+
+      setUsersFilter(response.data);
     };
 
     fetchUsers();
   }, [setToken]);
 
-  // const initialState: IRegister = {
-  //   name: userDataUpdated ? userDataUpdated.name : "",
-  //   lastName: userDataUpdated ? userDataUpdated.lastName : "",
-  //   email: userDataUpdated ? userDataUpdated.email : "",
-  //   username: "",
-  //   document: userDataUpdated ? String(userDataUpdated.document) : "",
-  //   phone: userDataUpdated ? String(userDataUpdated.phone) : "",
-  //   cellphone: userDataUpdated ? String(userDataUpdated.cellphone) : "",
-  //   code: "",
-  //   password: "",
-  //   confirmpassword: "",
-  // };
-  // const initialStateErrors: IRegister = {
-  //   name: "",
-  //   lastName: "",
-  //   email: "",
-  //   username: "",
-  //   document: "",
-  //   phone: "",
-  //   cellphone: "",
-  //   code: "",
-  //   password: "",
-  //   confirmpassword: "",
-  // };
-  // const [data, setData] = useState(initialState);
-  // const [errors, setErrors] = useState(initialStateErrors);
-  // useEffect(() => {
-  //   const cargaUserDataUpdated = async () => {
-  //     setData({
-  //       name: userDataUpdated ? userDataUpdated.name : "",
-  //       lastName: userDataUpdated ? userDataUpdated.lastName : "",
-  //       email: userDataUpdated ? userDataUpdated.email : "",
-  //       username: "",
-  //       document: userDataUpdated ? String(userDataUpdated.document) : "",
-  //       phone: userDataUpdated ? String(userDataUpdated.phone) : "",
-  //       cellphone: userDataUpdated ? String(userDataUpdated.cellphone) : "",
-  //       code: "",
-  //       password: "",
-  //       confirmpassword: "",
-  //     });
-  //   };
-  //   cargaUserDataUpdated();
-  // }, [userDataUpdated]);
+  useEffect(() => {
+    const checkToken = async () => {
+      const filteredUsers = [...Users].filter((userData) => {
+        const searchString = `${userData.name} ${userData.lastName} ${userData.document} ${userData.username} ${userData.email}`;
+        return searchString.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+      if (filterColumn.type === "Propietario") {
+        if (filterColumn.order) {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (a.name < b.name) {
+              return 1;
+            }
+            if (a.name > b.name) {
+              return -1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        } else {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        }
+      }
+      if (filterColumn.type === "Estado") {
+        if (filterColumn.order) {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (String(a.state) < String(b.state)) {
+              return 1;
+            }
+            if (String(a.state) > String(b.state)) {
+              return -1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        } else {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (String(a.state) < String(b.state)) {
+              return -1;
+            }
+            if (String(a.state) > String(b.state)) {
+              return 1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        }
+      }
 
-  // useEffect(() => {
-  //   const cargaUserDataUpdated = async () => {
-  //     console.log(`${data} state`);
-  //   };
-  //   cargaUserDataUpdated();
-  // }, [userDataUpdated]);
+      if (filterColumn.type === "Documento") {
+        if (filterColumn.order) {
+          filteredUsers.sort((a: IUser, b: IUser) => a.document - b.document);
+        } else {
+          filteredUsers.sort((a: IUser, b: IUser) => b.document - a.document);
+        }
+      }
+      if (filterColumn.type === "Ult. Login") {
+        if (filterColumn.order) {
+          filteredUsers.sort(
+            (a: IUser, b: IUser) =>
+              new Date(a.lastLogin).getTime() - new Date(b.lastLogin).getTime(),
+          );
+        } else {
+          filteredUsers.sort(
+            (a: IUser, b: IUser) =>
+              new Date(b.lastLogin).getTime() - new Date(a.lastLogin).getTime(),
+          );
+        }
+      }
+      if (filterColumn.type === "Rol") {
+        if (filterColumn.order) {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (a.rol < b.rol) {
+              return 1;
+            }
+            if (a.rol > b.rol) {
+              return -1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        } else {
+          filteredUsers.sort((a: IUser, b: IUser) => {
+            if (a.rol < b.rol) {
+              return -1;
+            }
+            if (a.rol > b.rol) {
+              return 1;
+            }
+            // a debe ser igual b
+            return 0;
+          });
+        }
+      }
+      setUsersFilter(filteredUsers);
+    };
+    checkToken();
+  }, [searchTerm, filterColumn, Users]);
 
-  // const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const { value, name } = event.target;
-  //   setData({ ...data, [name]: value });
-
-  //   setErrors(validateUpdate({ ...data, [name]: value }));
-  // };
   const dateTimeConvert = (dateTime: string) => {
     const date = new Date(dateTime);
 
@@ -126,189 +172,20 @@ const OwnersTable: React.FC = (): React.ReactElement => {
     return formattedDate + " \n " + formattedTime;
   };
 
-  // const openModalStatu = (user: IUser) => {
-  //   setUserDataState(user);
-  //   console.log(userDataState);
-  //   setIsModalOpenState(true);
-  // };
-
-  // const closeModalStatu = () => {
-  //   setIsModalOpenState(false);
-  // };
-  // const openModal = (user: IUser) => {
-  //   setUserDataUpdated(user);
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
-
-  // const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const newdata = updateDto(data);
-  //   const token = await localStorage.getItem("token");
-  //   console.log(newdata);
-  //   axios
-  //     .put(`${REGISTERUSER_URL}/users/update/${userDataUpdated?.id}`, newdata, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     })
-  //     .then(() => {
-  //       axios
-  //         .get(`${REGISTERUSER_URL}/users`, {
-  //           headers: { Authorization: `Bearer ${token}` },
-  //         })
-  //         .then(({ data }) => data)
-  //         .then((data) => {
-  //           const userInfo = data;
-  //           setUsers(userInfo);
-  //           localStorage.setItem("user", JSON.stringify(userInfo));
-  //         });
-  //     })
-  //     .then(() => {
-  //       Swal.fire({
-  //         position: "top-end",
-  //         icon: "success",
-  //         title: "Se han actualizado tus datos.",
-  //         showConfirmButton: true,
-  //       });
-  //       setIsModalOpen(false);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Lo sentimos, algo ha salido mal.",
-  //         text: error.response.data.message || error.message,
-  //         showConfirmButton: true,
-  //       });
-  //     });
-  // };
-
-  // const uploadImage = async () => {
-  //   const fileInput = document.getElementById("file") as HTMLInputElement;
-  //   const file = fileInput.files ? fileInput.files[0] : null;
-  //   console.log(file);
-  //   const token = await localStorage.getItem("token");
-  //   if (!file) {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "No has seleccionado un archivo.",
-  //       showConfirmButton: true,
-  //     });
-  //     return;
-  //   }
-  //   const maxSize = 200 * 1024;
-
-  //   if (file.size > maxSize) {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "El tamaño máximo del archivo es de 200KB.",
-  //       showConfirmButton: true,
-  //     });
-  //     fileInput.value = "";
-  //     return;
-  //   } else {
-  //     const formData = new FormData();
-  //     formData.append("file", file);
-  //     console.log(formData);
-  //     axios
-  //       .put(
-  //         `${REGISTERUSER_URL}/users/update/${userDataUpdated?.id}`,
-  //         formData,
-  //         {
-  //           headers: {
-  //             "Content-Type": "multipart/form-data",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         },
-  //       )
-  //       .then(() => {
-  //         axios
-  //           .get(`${REGISTERUSER_URL}/users`, {
-  //             headers: { Authorization: `Bearer ${token}` },
-  //           })
-  //           .then(({ data }) => data)
-  //           .then((data) => {
-  //             const userInfo = data;
-  //             setUsers(userInfo);
-  //             localStorage.setItem("user", JSON.stringify(userInfo));
-  //           });
-  //       })
-  //       .then(() => {
-  //         Swal.fire({
-  //           position: "top-end",
-  //           icon: "success",
-  //           title: "Imagen subida con exito.",
-  //           showConfirmButton: true,
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //         Swal.fire({
-  //           icon: "error",
-  //           title: "Lo sentimos, algo ha salido mal.",
-  //           showConfirmButton: true,
-  //         });
-  //       });
-  //   }
-  // };
-
-  // const handleState = async () => {
-  //   const newdata = { state: false };
-  //   const token = await localStorage.getItem("token");
-  //   console.log(userDataState);
-  //   console.log(newdata);
-  //   axios
-  //     .put(`${REGISTERUSER_URL}/users/update/${userDataState?.id}`, newdata, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then(() => {
-  //       axios
-  //         .get(`${REGISTERUSER_URL}/users`, {
-  //           headers: { Authorization: `Bearer ${token}` },
-  //         })
-  //         .then(({ data }) => data)
-  //         .then((data) => {
-  //           console.log(data);
-  //           const userInfo = data;
-  //           setUsers(userInfo);
-  //           localStorage.setItem("user", JSON.stringify(userInfo));
-  //         });
-  //     })
-  //     .then(() => {
-  //       Swal.fire({
-  //         position: "top-end",
-  //         icon: "success",
-  //         title: "Se han actualizado tus datos.",
-  //         showConfirmButton: true,
-  //       });
-  //       setIsModalOpenState(false);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Lo sentimos, algo ha salido mal.",
-  //         text: error.response.data.message || error.message,
-  //         showConfirmButton: true,
-  //       });
-  //       setIsModalOpenState(false);
-  //     });
-  // };
-
   // const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
   //   const searchBar = event.target.value;
   //   setSearch(searchBar);
   // };
 
-  const filteredUsers = [...Users].filter((userData) =>
-    userData.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  // const filteredUsers = [...Users].filter((userData) =>
+  //   userData.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  // );
 
+  // setUsersFilter(
+  //   [...Users].filter((userData) =>
+  //     userData.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  //   ),
+  // );
   const renderUserButton = (user: IUser) => {
     return (
       <tr key={user.id}>
@@ -321,7 +198,7 @@ const OwnersTable: React.FC = (): React.ReactElement => {
             />
             <div className="flex flex-col">
               <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                {user.name} {user.lastName}
+                {user.name} {user.lastName} | {user.username}
               </p>
               <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900 opacity-70">
                 {user.email}
@@ -351,25 +228,19 @@ const OwnersTable: React.FC = (): React.ReactElement => {
         </td>
         <td className="p-4 border-b border-blue-gray-50">
           <div className="w-max">
-            {
-              user?.state === true ? (
-                <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
-                  <span className="">Activo</span>
-                </div>
-              ) : user?.state === false ? (
-                <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-red-500/20">
-                  <span className="">Inactivo</span>
-                </div>
-              ) : (
-                <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-                  <span className="">No Estado</span>
-                </div>
-              )
-
-              // <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-              //   <span className="">No Estado</span>
-              // </div>
-            }
+            {user?.state === true ? (
+              <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
+                <span className="">Activo</span>
+              </div>
+            ) : user?.state === false ? (
+              <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-red-900 uppercase rounded-md select-none whitespace-nowrap bg-red-500/20">
+                <span className="">Inactivo</span>
+              </div>
+            ) : (
+              <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
+                <span className="">No Estado</span>
+              </div>
+            )}
           </div>
         </td>
         <td className="p-4 border-b border-blue-gray-50">
@@ -381,128 +252,20 @@ const OwnersTable: React.FC = (): React.ReactElement => {
       </tr>
     );
   };
+
+  const onClickName = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const target = event.target as HTMLButtonElement;
+    const innerText = target.innerText;
+
+    if (filterColumn.order) {
+      setFilterColumn({ type: innerText, order: false });
+    } else {
+      setFilterColumn({ type: innerText, order: true });
+    }
+  };
+  // !!
   return (
     <main>
-      {/* {isModalOpenState && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-8 rounded-lg">
-            <h2 className="text-xl mb-4 text-sih-blue text-center">
-              Desea dar de baja al Propietario?
-            </h2>
-            <button
-              onClick={handleState}
-              className="bg-sih-blue text-white py-2 px-4 rounded-[10px] hover:bg-sih-orange hover:text-sih-blue"
-            >
-              Si
-            </button>
-            <button
-              onClick={closeModalStatu}
-              className="bg-gray-500 text-white py-2 px-4 rounded-[10px] ml-2 hover:bg-sih-red"
-            >
-              Cancelar
-            </button>
-          </div>
-        </div>
-      )}
-      {isModalOpenUpdate && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-8 rounded-lg">
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col items-center"
-            >
-              <div className="flex flex-row items-center max-[1000px]:flex-col">
-                <div className="flex flex-col  items-center mt-[39px] max-md:flex-col">
-                  {userDataUpdated ? (
-                    <Image
-                      className="rounded-full border-8 border-white h-[260px] w-[260px] max-md:h-[173px] max-md:w-[173px] max-cellphone:h-[100px] max-cellphone:w-[100px]"
-                      src={userDataUpdated.image}
-                      height={260}
-                      width={260}
-                      alt="Imagen del usuario"
-                    ></Image>
-                  ) : (
-                    ""
-                  )}
-                  <div className="flex flex-col m-6 items-center">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      id="file"
-                      name="file"
-                      className="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    />
-                    <button
-                      type="button"
-                      onClick={uploadImage}
-                      className="bg-sih-blue h-[37px] w-[200px] rounded-[15px] text-base p-1 mt-[20px]"
-                    >
-                      Subir imagen
-                    </button>
-                  </div>
-                </div>
-                <div className="flex flex-col  items-center">
-                  <h2 className="text-[#384B59] text-xl  text-center px-8 max-md:text-[20px] m-3">
-                    Llena los espacios de los datos que desees actualizar.
-                  </h2>
-                  <div className="grid grid-cols-2 max-md:grid-cols-1">
-                    {formData.map(({ name, type, placeholder }) => {
-                      if (name !== "password" && name !== "confirmpassword") {
-                        return (
-                          <div
-                            className="flex flex-col items-center mx-5 my-1"
-                            key={name}
-                          >
-                            <label className="w-[256px] text-[#384B59] ">
-                              {placeholder}:
-                            </label>
-                            <input
-                              className="text-black h-[40px] w-[256px] rounded-[15px] px-2 outline-0 mx-5  border-black bg-white"
-                              type={type}
-                              id={name}
-                              name={name}
-                              value={data[name as keyof IRegister]}
-                              placeholder={placeholder}
-                              onChange={handleChange}
-                            />
-                            {errors[name as keyof IRegister] ? (
-                              <span className="text-red-500 block w-[256px] text-sm">
-                                {errors[name as keyof IRegister]}
-                              </span>
-                            ) : null}
-                          </div>
-                        );
-                      }
-                    })}
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-center ">
-                <button
-                  type="submit"
-                  // disabled={Object.keys(errors).some(
-                  //   (e) => errors[e as keyof IRegister],
-                  // )}
-                  className="bg-sih-blue text-white py-2 px-4 rounded-[10px] hover:bg-sih-orange hover:text-sih-blue"
-                >
-                  Actualizar datos
-                </button>
-                <button
-                  onClick={closeModal}
-                  className="bg-gray-500 text-white py-2 px-4 rounded-[10px] ml-2 hover:bg-sih-red"
-                >
-                  Cancelar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )} */}
-      <div className="flex flex-col items-center">
-        <div className="mb-5 text-gray-700 text-lg">
-          Propietarios ingresados en el periodo 2024
-        </div>
-      </div>
       <div className="m-auto my-2 relative flex flex-col w-4/5 h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
         <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white rounded-none bg-clip-border">
           <div className="flex flex-col justify-between gap-8 mb-4 md:flex-row md:items-center">
@@ -553,12 +316,18 @@ const OwnersTable: React.FC = (): React.ReactElement => {
           <table className="w-full mt-4 text-left table-auto min-w-max">
             <thead>
               <tr>
-                <th className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <th
+                  className="cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  onClick={onClickName}
+                >
                   <p className="block font-sans text-sm antialiased font-bold leading-none ">
                     Propietario
                   </p>
                 </th>
-                <th className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <th
+                  className="cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  onClick={onClickName}
+                >
                   <p className="block font-sans text-sm antialiased font-bold  leading-none ">
                     Rol
                   </p>
@@ -568,17 +337,26 @@ const OwnersTable: React.FC = (): React.ReactElement => {
                     Contactos
                   </p>
                 </th>
-                <th className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <th
+                  className="cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  onClick={onClickName}
+                >
                   <p className="block font-sans text-sm antialiased font-bold  leading-none ">
                     Documento
                   </p>
                 </th>
-                <th className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <th
+                  className="cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  onClick={onClickName}
+                >
                   <p className="block font-sans text-sm antialiased font-bold  leading-none">
                     Estado
                   </p>
                 </th>
-                <th className="  p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <th
+                  className="cursor-pointer  p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  onClick={onClickName}
+                >
                   <p className="block font-sans text-sm antialiased font-bold  leading-none">
                     Ult. Login
                   </p>
@@ -589,7 +367,7 @@ const OwnersTable: React.FC = (): React.ReactElement => {
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.map((userData) => renderUserButton(userData))}
+              {usersFilter.map((userData) => renderUserButton(userData))}
             </tbody>
           </table>
         </div>
@@ -671,4 +449,4 @@ const OwnersTable: React.FC = (): React.ReactElement => {
   );
 };
 
-export default OwnersTable;
+export default OwnerTable;
