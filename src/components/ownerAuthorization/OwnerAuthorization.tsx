@@ -300,7 +300,7 @@ const OwnerAuthorization: React.FC = (): React.ReactElement => {
                   ""
                 )}
                 {authorization.shipmentNumber ? (
-                  <span>
+                  <span className="text-center">
                     Referencia de envio: {authorization.shipmentNumber}
                   </span>
                 ) : (
