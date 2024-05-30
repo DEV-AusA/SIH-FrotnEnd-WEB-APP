@@ -72,23 +72,26 @@ const ExpensesOwner: React.FC = (): React.ReactElement => {
                 }
               >
                 {expense.dateGenerated ? (
-                  <span className="m-2">
+                  <span className="m-1">
                     Generado en: {expense.dateGenerated}
                   </span>
                 ) : (
                   ""
                 )}
-                <span className="m-2">Valor a pagar: {expense.amount}</span>
-                <span className="m-2">
+                <span className="m-1">Valor a pagar: {expense.amount}</span>
+                <span className="m-1 text-center">
+                  Descripción: {expense.description}
+                </span>
+                <span className="m-1">
                   {expense.state ? "Pagado" : "Pendiente"}
                 </span>
                 {expense.numberOperation && (
-                  <span className="m-2">
+                  <span className="m-1">
                     Confirmación de pago: {expense.numberOperation}
                   </span>
                 )}
                 {expense.datePaid && (
-                  <span className="m-2">Pagado en: {expense.datePaid}</span>
+                  <span className="m-1">Pagado en: {expense.datePaid}</span>
                 )}
                 {!expense.state && (
                   <button
