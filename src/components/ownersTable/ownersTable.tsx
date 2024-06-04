@@ -184,29 +184,47 @@ const OwnerTable: React.FC = (): React.ReactElement => {
   const renderUserButton = (user: IUser) => {
     return (
       <tr key={user.id}>
-        <td className="p-4 border-b border-blue-gray-50">
-          <div className="flex items-center gap-3">
+        <td className="p-4 border-b border-blue-gray-50 ">
+          <div className="flex items-center gap-3 ">
             <img
               src={user.image}
               alt={user.name || "user img"}
               className="relative inline-block h-9 w-9 !rounded-full object-cover object-center"
             />
-            <div className="flex flex-col">
-              <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+            <div className="flex flex-col w-[150px] sm:w-[250px]  lg:w-full">
+              <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900 overflow-hidden text-ellipsis">
                 {user.name} {user.lastName} | {user.username}
               </p>
-              <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900 opacity-70">
+              <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900 opacity-70  truncate">
                 {user.email}
               </p>
+              <dl className="sm:hidden">
+                <dt className="sr-only">Estado</dt>
+                <dd className="">
+                  {user?.state === true ? (
+                    <div className="ml-14 inline-block  text-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
+                      <span className="">Activo</span>
+                    </div>
+                  ) : user?.state === false ? (
+                    <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-red-900 uppercase rounded-md select-none whitespace-nowrap bg-red-500/20">
+                      <span className="">Inactivo</span>
+                    </div>
+                  ) : (
+                    <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
+                      <span className="">No Estado</span>
+                    </div>
+                  )}
+                </dd>
+              </dl>
             </div>
           </div>
         </td>
-        <td className="p-4 border-b border-blue-gray-50">
+        <td className="hidden lg:table-cell p-4 border-b border-blue-gray-50">
           <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
             {user.rol === "owner" ? "Usuario" : "Usuario Temp."}
           </p>
         </td>
-        <td className="p-4 border-b border-blue-gray-50">
+        <td className="hidden lg:table-cell p-4 border-b border-blue-gray-50">
           <div className="flex flex-col">
             <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
               {user.cellphone}
@@ -216,12 +234,12 @@ const OwnerTable: React.FC = (): React.ReactElement => {
             </p>
           </div>
         </td>
-        <td className="p-4 border-b border-blue-gray-50">
+        <td className="hidden lg:table-cell p-4 border-b border-blue-gray-50">
           <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
             {user.document}
           </p>
         </td>
-        <td className="p-4 border-b border-blue-gray-50">
+        <td className="hidden sm:table-cell p-4 border-b border-blue-gray-50">
           <div className="w-max">
             {user?.state === true ? (
               <div className="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
@@ -238,12 +256,14 @@ const OwnerTable: React.FC = (): React.ReactElement => {
             )}
           </div>
         </td>
-        <td className="p-4 border-b border-blue-gray-50">
-          <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+        <td className=" sm:table-cell   p-4 border-b border-blue-gray-50">
+          <p className="lg:w-auto w-[100px] block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
             {dateTimeConvert(user.lastLogin)}
           </p>
         </td>
-        <td className="p-4 border-b border-blue-gray-50"></td>
+        <td className="hidden lg:table-cell p-4 border-b border-blue-gray-50">
+          <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"></p>
+        </td>
       </tr>
     );
   };
@@ -261,7 +281,7 @@ const OwnerTable: React.FC = (): React.ReactElement => {
   // !!
   return (
     <main>
-      <div className="m-auto my-2 relative flex flex-col w-4/5 h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
+      <div className="xs:w-4/5 m-auto my-2 relative flex flex-col w-full h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
         <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white rounded-none bg-clip-border">
           <div className="flex flex-col justify-between gap-8 mb-4 md:flex-row md:items-center">
             {/* <div>
@@ -320,28 +340,28 @@ const OwnerTable: React.FC = (): React.ReactElement => {
                   </p>
                 </th>
                 <th
-                  className="cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  className=" hidden lg:table-cell  cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
                   onClick={onClickName}
                 >
-                  <p className="block font-sans text-sm antialiased font-bold  leading-none ">
+                  <p className=" font-sans text-sm antialiased font-bold  leading-none ">
                     Rol
                   </p>
                 </th>
-                <th className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
-                  <p className="block font-sans text-sm antialiased font-bold  leading-none ">
+                <th className="hidden lg:table-cell p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <p className=" font-sans text-sm antialiased font-bold  leading-none ">
                     Contactos
                   </p>
                 </th>
                 <th
-                  className="cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  className="hidden lg:table-cell cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
                   onClick={onClickName}
                 >
-                  <p className="block font-sans text-sm antialiased font-bold  leading-none ">
+                  <p className=" block font-sans text-sm antialiased font-bold  leading-none ">
                     Documento
                   </p>
                 </th>
                 <th
-                  className="cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  className="hidden sm:table-cell cursor-pointer p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
                   onClick={onClickName}
                 >
                   <p className="block font-sans text-sm antialiased font-bold  leading-none">
@@ -349,14 +369,14 @@ const OwnerTable: React.FC = (): React.ReactElement => {
                   </p>
                 </th>
                 <th
-                  className="cursor-pointer  p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
+                  className=" sm:table-cell cursor-pointer  p-4 border-y border-blue-gray-100 bg-blue-gray-50/50"
                   onClick={onClickName}
                 >
                   <p className="block font-sans text-sm antialiased font-bold  leading-none">
                     Ult. Login
                   </p>
                 </th>
-                <th className=" p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <th className="hidden lg:table-cell p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                   <p className="block font-sans text-sm antialiased font-bold  leading-none"></p>
                 </th>
               </tr>
