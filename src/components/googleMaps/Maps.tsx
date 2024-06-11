@@ -18,7 +18,7 @@ export function Maps() {
   return (
     <div className="flex flex-col justify-center items-center">
       <h2 className="text-[#384B59] text-4xl font-bold text-center max-[1400px]:text-2xl max-[800px]:text-xl mb-[50px]">
-        Ubicación del barrio
+        Ubicación del barrio de la comunidad
       </h2>
       <div className="h-[500px] w-[70%] border-4 border-white mb-[50px] rounded-[10px]">
         <iframe
